@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { Options, Vue } from 'vue-class-component';
+import HelloWorld from '@/components/HelloWorld.vue';
 
 @Options({
 	components: {
@@ -21,7 +21,7 @@ export default class Home extends Vue {
 
 	hello () {
 		if (this.test === 'hello world') {
-			console.log('test')
+			console.log('test');
 		}
 	}
 }
