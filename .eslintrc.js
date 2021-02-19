@@ -18,7 +18,7 @@ module.exports = {
 		"camelcase": 2,                                                // 驼峰模式
 		"quotes": ["error", "single"],                                 // 强制单引字符串
 		"eqeqeq": ["error", "always"],                                 // 强制全等比较
-		"semi": ["error", "always"],                                   // 强制语句结束分号
+		"semi": ["error", "always"],                                   // 强制语句分号结束
 		// 逗号
 		"comma-style": [2, "last"],                                    // 逗号出现行头还是行末 [first, last]
 		"comma-dangle": [2, "never"],                                  // 数组或对象不可带左后一个逗号 [never, always, always-multiline]
