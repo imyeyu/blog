@@ -1,0 +1,239 @@
+:root {
+	--random-icon: url(../img/icons.png?v=0) no-repeat;
+	--default: url("../img/default.png"), default;
+	--pointer: url("../img/link.png"), pointer;
+	--text: url("../img/input.png"), text;
+}
+
+/* 全局样式 */
+html {
+	height: 100%;
+	cursor: var(--default);
+	scroll-behavior: smooth;
+}
+
+a[href], button {
+	cursor: var(--pointer);
+}
+
+input, textarea {
+	cursor: var(--text);
+	resize: none;
+	outline: none;
+	display: block;
+	font-family: "Consolas", "PingFang SC";
+}
+
+body, div, span, iframe, p, pre, a, code, img, b, u, i, dl, dt, dd, ol, ul, li, form, label, table, tr, th, td {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	outline: 0;
+	background: transparent;
+	vertical-align: baseline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	outline: 0;
+	background: transparent;
+	vertical-align: baseline;
+}
+
+body {
+	display: flex;
+	overflow-y: scroll;
+	word-break: break-all;
+	background: url('../img/bg.png');
+	font-family: "Consolas", "PingFang SC";
+	justify-content: center;
+	background-size: 1920px 1152px;
+	background-position: right bottom;
+	background-attachment: fixed;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+a[href] {
+	color: #A67D7B;
+	text-decoration: none;
+}
+
+a[href]:hover {
+	text-decoration: underline;
+}
+
+button {
+	outline: none;
+	box-sizing: content-box;
+}
+
+img {
+	display: block;
+	pointer-events: none;
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+	background: #CFD2E0;
+}
+
+::-webkit-scrollbar-corner {
+	background: #CFD2E0;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #525870;
+}
+
+::selection {
+	color: #FFF;
+	background: #525870;
+}
+
+::-moz-selection {
+	color: #FFF;
+	background: #525870;
+}
+
+/* 字体相关 */
+.red {
+	color: #FF3030 !important;
+}
+
+.pink {
+	color: #FF7A9B !important;
+}
+
+.black {
+	color: #000 !important;
+}
+
+.blue {
+	color: blue !important;
+}
+
+.green {
+	color: green !important;
+}
+
+.orange {
+	color: #F3A557 !important;
+}
+
+.gray {
+	color: #666 !important;
+}
+
+.light-gray {
+	color: #999 !important;
+}
+
+.yellow {
+	color: #8F7B55 !important;
+}
+
+.purple {
+	color: purple !important;
+}
+
+.lightBlue {
+	color: #5656FF !important;
+}
+
+.bold {
+	font-weight: bold !important;
+}
+
+.italic {
+	font-style: italic !important;
+}
+
+.delete {
+	text-decoration: line-through !important;
+}
+
+.underline {
+	text-decoration: underline !important;
+}
+
+.right {
+	text-align: right;
+}
+
+.center {
+	text-align: center;
+	justify-content: center;
+}
+
+/* 可选类 */
+@font-face {
+	font-family: Zpix;
+	src: url(../font/zpix.woff2);
+}
+
+@keyframes flash {
+	from {
+		opacity: 0;
+	} to {
+		opacity: 1;
+	}
+}
+
+.zpix12 {
+	font-size: 12px !important;
+	line-height: 1.5;
+	font-weight: normal;
+	font-family: "Zpix", "sans-serif";
+	font-feature-settings: 'tnum';
+	-webkit-font-smoothing: none;
+}
+
+.zpix24 {
+	font-size: 24px !important;
+	line-height: 1.5;
+	font-weight: normal;
+	font-family: "Zpix", "sans-serif";
+	font-feature-settings: 'tnum';
+	-webkit-font-smoothing: none;
+}
+
+.icon {
+	background: var(--random-icon);
+}
+
+.flex {
+	display: flex;
+}
+
+.sticky {
+	top: 0;
+	position: sticky;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.v-top {
+	vertical-align: top;
+}
+
+.no-select {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
