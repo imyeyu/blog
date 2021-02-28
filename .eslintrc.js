@@ -24,10 +24,15 @@ module.exports = {
 		"comma-dangle": [2, "never"],                                  // 数组或对象不可带左后一个逗号 [never, always, always-multiline]
 		// 空格
 		"comma-spacing": [2, { "before": false, "after": true }],      // 控制逗号前后空格
-		"semi-spacing": ["error", { "before": false, "after": true }], // 强制分号后空格
+		"semi-spacing": ["error", { "before": false, "after": true }], // 控制分号后空格
 		"computed-property-spacing": [2, "never"],                     // 以方括号取对象属性时，[ 后面和 ] 前面是否需要空格, [never, always]
+		"space-before-function-paren": ["error", {                     // 函数括号前空格
+			"anonymous": "always",                                     // 针对匿名函数表达式，比如 function () {}
+			"named": "never",                                          // 针对命名的函数表达式，比如 function foo () {}
+			"asyncArrow": "always"                                     // 针对异步的箭头函数表达式，比如 async () => {}
+		}],
 		// 缩进
-		"no-mixed-spaces-and-tabs": "error",                           // 禁止混合缩进，除非需要对齐
+		"no-mixed-spaces-and-tabs": "error",                           // 禁止混合缩进
 		"no-tabs": ["error", { allowIndentationTabs: true }],          // 使用 Tab 缩进
 		"indent": ["error", "tab", {                                   // Tab 缩进相关
 			SwitchCase: 1                                              //     Switch Case 缩进级别
