@@ -1,15 +1,22 @@
 <template>
-	<article>
-		<h2 class="title zpix24">标题</h2>
-		<sections :data="data"></sections>
+	<article v-if="article">
+		<h2 class="title zpix24" v-text="article.title"></h2>
+		<div class="info">
+			<div v-text="article.label"></div>
+			<div v-text="getArticleDate(article.createdAt, article.updatedAt)"></div>
+		</div>
+		<sections :data="article.data"></sections>
 	</article>
-	<comment :aid="getId"></comment>
+	<comment :aid="article.id"></comment>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ArticleAPI from '@/api/ArticleAPI';
+import UnixTime from '@/helpers/UnixTime';
 import Sections from './components/Sections.vue';
 import Comment from './components/Comment.vue';
+
+import ArticleAPI from '@/api/ArticleAPI';
+import { Article } from '@/type/Article';
 
 export default defineComponent({
 	components: {
@@ -17,23 +24,54 @@ export default defineComponent({
 		Comment
 	},
 	data(): {
-		data: string;
+		article: Article;
 		} {
 		return {
-			data: ''
+			article: {
+				id: undefined,
+				title: '',
+				type: '',
+				clazz: '',
+				label: '',
+				data: '',
+				reads: 0,
+				likes: 0,
+			}
 		}
 	},
-	computed: {
-		getId(): number {
-			return this.$route.params.id as unknown as number;
+	methods: {
+		getArticleDate(unixCreated: number, unixUpdated: number) : string {
+			if (unixCreated && unixUpdated) {
+				if (unixUpdated) {
+					return '编辑于 ' + UnixTime.toDateTime(unixUpdated);
+				} else {
+					return '发布于 ' + UnixTime.toDateTime(unixCreated);
+				}
+			} else {
+				return '';
+			}
 		}
 	},
 	async mounted() {
-		const result = await ArticleAPI.getArticle(this.getId);
-		this.data = result.data as string;
+		this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
 	}
 });
 </script>
-<style>
+<style scoped>
+	.title {
+		/* sticky 会导致 Zpix 渲染模糊 */
+		/* top: 0; */
+		/* position: sticky; */
 
+		padding: 48px 0 12px 0;
+		text-align: center;
+		background: #F4F4F4;
+	}
+	.info {
+		color: #666;
+		padding: 4px;
+		font-size: 12px;
+		text-align: center;
+		margin-bottom: 32px;
+	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="root">
+	<div class="root" v-if="aid">
 		<div class="write">
 			<text-field
 				ref="comment-nick"
@@ -159,12 +159,12 @@
 				</div>
 			</div>
 		</div>
-		<loading
-			:isFinished="isLoadFinished"
-			:isError="isLoadError"
-			:finishText="'已加载所有评论 (◡ ᴗ ◡ ✿)'"
-		></loading>
 	</div>
+	<loading
+		:isFinished="isLoadFinished"
+		:isError="isLoadError"
+		:finishText="'已加载所有评论 (◡ ᴗ ◡ ✿)'"
+	></loading>
 </template>
 
 <script lang="ts">
@@ -230,7 +230,7 @@ export default defineComponent({
 		},
 		// 获取评论
 		async getComments() {
-			if (!this.isLoadFinished) {
+			if (!this.isLoadFinished && this.aid) {
 				const result = await CommentAPI.getComments(this.aid as number, this.comments.length);
 				if (result.length !== 0) {
 					this.comments = this.comments.concat(result.map((comment) => {

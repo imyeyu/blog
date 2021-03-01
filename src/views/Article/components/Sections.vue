@@ -1,5 +1,9 @@
 <template>
-	<div class="content" v-html="data"></div>
+	<div
+		class="content"
+		v-html="data"
+		@dblclick="toggleCodes"
+	></div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -9,6 +13,25 @@ export default defineComponent({
 		data: {
 			type: String,
 			requied: true
+		}
+	},
+	methods: {
+		// 双击代码区事件（旧结构）
+		toggleCodes(e: any) {
+			const els = e.path;
+			for (const el of els) {
+				if (el.className === 'codeContent') {
+					const height = el.style.maxHeight.replace("px", "");
+					if (height != "") {
+						if (400 < height) {
+							el.style.maxHeight = '400px';
+						} else {
+							el.style.maxHeight = el.getElementsByTagName("code").length * 18.5 + "px";
+						}
+					}
+					return;
+				}
+			}
 		}
 	}
 });
@@ -26,10 +49,6 @@ export default defineComponent({
 		padding-left: 8px;
 	}
 
-	.content >>> section {
-		padding-right: 12px;
-	}
-
 	.content >>> p {
 		padding: 0 4px;
 		line-height: 2;
@@ -40,14 +59,61 @@ export default defineComponent({
 		margin: 6px 2em;
 		text-indent: 0;
 	}
+
+	.content >>> ul {
+		list-style: disc;
+		padding-left: 4em;
+	}
+
+	.content >>> ol {
+		list-style: decimal;
+		padding-left: 4em;
+	}
+
+	.content >>> dt,
+	.content >>> dd,
+	.content >>> ul li,
+	.content >>> ol li {
+		line-height: 1.6em;
+	}
+
+	.content >>> dl,
+	.content >>> dd {
+		font-size: 15px;
+		padding-left: 2em;
+	}
+
+	.content >>> dl dt {
+		font-weight: bold;
+	}
+
+	.content >>> dd ol {
+		padding-left: 2em;
+	}
+
+	.content >>> iframe {
+		margin: 0 auto;
+		border: 1px solid #CFD2E0;
+		display: block;
+		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
+	}
+
+	.content >>> audio,
+	.content >>> video {
+		width: 90%;
+		margin: 16px 0;
+		border: 1px solid #CFD2E0;
+		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
+		border-radius: 4px;
+	}
+
 	/* 代码区 */
 	.content >>> .codeBox {
-		width: 700px;
 		margin: 20px auto;
-		border: 1px solid #525870;
+		border: 1px solid #CFD2E0;
 		font-size: 14px;
 		background: #F7F7F7;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
+		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
 		line-height: 1;
 	}
 
