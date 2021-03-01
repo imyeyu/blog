@@ -64,10 +64,10 @@
 		</div>
 		<div class="sticky">
 			<div class="item top">
-				<h2 class="title icon zpix24">周排行</h2>
+				<h2 class="title icon zpix24"></h2>
 			</div>
 			<div class="item friend">
-				<h2 class="title icon zpix24">友链</h2>
+				<h2 class="title icon zpix24"></h2>
 			</div>
 		</div>
 	</aside>
