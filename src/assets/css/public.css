@@ -9,7 +9,6 @@
 html {
 	height: 100%;
 	cursor: var(--default);
-	scroll-behavior: smooth;
 }
 
 a[href], button {
