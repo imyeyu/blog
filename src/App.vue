@@ -2,7 +2,7 @@
 	<div id="leafs" :style="`top: ${scrollTop}px`">
 		<div :ref="`leaf${i - 1}`" class="leaf icon" v-for="i in leafSize" :key="i"></div>
 	</div>
-	<div id="main">
+	<div id="main" @dblclick="test">
 		<side id="aside"></side>
 		<section id="content">
 			<router-view />
@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Side from '@/layout/Side.vue';
-import random from '@/helpers/Random.ts';
+import random from '@/helpers/Random';
 
 class Leaf {
 	x = 0;
@@ -21,18 +21,17 @@ class Leaf {
 }
 
 export default defineComponent({
-	name: 'HelloWorld',
 	components: {
 		Side,
 	},
     data(): {
-		docEl: HTMLElement,
-		scrollTop: number,
+		docEl: HTMLElement;
+		scrollTop: number;
 		// 叶子
-		leafs: Leaf[],
-		leafEls: HTMLElement[],
-		leafSize: number,
-		leafTimer?: number,
+		leafs: Leaf[];
+		leafEls: HTMLElement[];
+		leafSize: number;
+		leafTimer?: number;
         } {
         return {
 			docEl: document.documentElement,
@@ -130,6 +129,9 @@ export default defineComponent({
 		#main {
 			width: 1024px;
 		}
+		.codeBox {
+			width: 680px;
+		}
 	}
 	@media screen and (max-width: 1440px) {
 		#main {
@@ -140,6 +142,9 @@ export default defineComponent({
 		#main {
 			width: 820px;
 		}
+		.codeBox {
+			width: 560px;
+		}
 	}
 	@media screen and (max-width: 960px) {
 		#main {
@@ -148,6 +153,9 @@ export default defineComponent({
 			border: none;
 			opacity: .8;
 		}
+		.codeBox {
+			width: 600px;
+		}
 	}
 	@media screen and (max-width: 860px) {
 		#leafs {
@@ -155,6 +163,9 @@ export default defineComponent({
 		}
 		#aside {
 			display: none;
+		}
+		.codeBox {
+			width: 90%;
 		}
 	}
 </style>
