@@ -2,8 +2,8 @@
 	<div id="leafs" :style="`top: ${scrollTop}px`">
 		<div :ref="`leaf${i - 1}`" class="leaf icon" v-for="i in leafSize" :key="i"></div>
 	</div>
-	<div id="main" @dblclick="test">
-		<side id="aside"></side>
+	<div id="main">
+		<side id="aside" ref="aside"></side>
 		<section id="content">
 			<router-view />
 		</section>
@@ -73,10 +73,7 @@ export default defineComponent({
 				el.style.backgroundPosition = `0 -${random(0, 3) * 32}px`;
 			}
 		}, 100);
-		// 主页
-		this.$router.push(`/`);
-
-		// 滚动监听（ leafs 无法使用 fixed，需要 absolute 同步滚动）
+		// 滚动监听（leafs 无法使用 fixed，需要 absolute 同步滚动）
 		this.$store.state.scroller.add('App', this.onScroll);
 	}
 });

@@ -91,7 +91,7 @@ export default defineComponent({
 
 	.captcha {
 		display: flex;
-		justify-content: start;
+		justify-content: flex-start;
 	}
 
 	.run {

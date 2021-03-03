@@ -41,7 +41,7 @@ export default defineComponent({
 	},
 	methods: {
 		getArticleDate(unixCreated: number, unixUpdated: number) : string {
-			if (unixCreated && unixUpdated) {
+			if (unixCreated || unixUpdated) {
 				if (unixUpdated) {
 					return '编辑于 ' + UnixTime.toDateTime(unixUpdated);
 				} else {
@@ -72,6 +72,7 @@ export default defineComponent({
 		padding: 4px;
 		font-size: 12px;
 		text-align: center;
-		margin-bottom: 32px;
+		line-height: 1.6;
+		margin-bottom: 24px;
 	}
 </style>
