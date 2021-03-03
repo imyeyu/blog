@@ -2,8 +2,11 @@
 	<article>
 		<h2 class="title zpix24">关于我</h2>
 
-		<sections :data="data"></sections>
-
+		<sections :data="article.data"></sections>
+		<p class="right light-gray" style="padding-right: 4px">
+			<span>最后编辑时间：</span>
+			<span v-text="toDateTime(article.createdAt, article.updatedAt)"></span>
+		</p>
 		<div class="spec center">
 			<img class="inline-block" :src="require('@/assets/img/nagiasu.png')" alt="Nagiasu" />
 			<canvas ref="canvas" class="canvas" width="520" height="80" @click="toggleBGM"></canvas>
@@ -17,7 +20,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import UnixTime from '@/helpers/UnixTime';
 import ArticleAPI from '@/api/ArticleAPI';
+import { Article } from '@/type/Article';
 import Sections from './components/Sections.vue';
 import Comment from './components/Comment.vue';
 
@@ -27,20 +32,23 @@ export default defineComponent({
 		Comment
 	},
 	data(): {
-		data: string;
+		article: Article;
 		player?: HTMLAudioElement;
 		specRender?: number;
 		survivalTime: string;
 		survivalTimer?: number;
 		} {
 		return {
-			data: '',
+			article: {},
 			survivalTime: '网站已运行 0000 年 000 天 00 小时 00 分钟 00 秒',
 		}
 	},
 	methods: {
 		f(v : number) : number {
 			return Math.floor(v);
+		},
+		toDateTime(unixCreated: number, unixUpdated: number) : string {
+			return UnixTime.toDateTime(unixUpdated ? unixUpdated : unixCreated);
 		},
 		calSurvivalTime() {
 			const begin = new Date('2017/10/9 22:32:52');
@@ -118,8 +126,7 @@ export default defineComponent({
 		}
 	},
 	async mounted() {
-		const result = await ArticleAPI.getArticle(1);
-		this.data = result.data as string;
+		this.article = await ArticleAPI.getArticle(1);
 
 		// 计时
 		this.calSurvivalTime();
