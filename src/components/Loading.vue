@@ -1,13 +1,23 @@
 <template>
-	<div class="root zpix24 center">
-		<div class="flex center" v-show="!isFinished && !isError">
-			<div>加载中</div>
-			<div class="_"></div>
+	<div class="root center">
+		<div class="zpix24">
+			<div class="flex center" v-show="!isFinished && !isError">
+				<div>加载中</div>
+				<div class="_"></div>
+			</div>
+			<div v-show="isFinished && !isError" v-text="finishText"></div>
+			<div v-show="isError">
+				<span>加载失败 Σ(ﾟдﾟ;)，请尝试</span>
+				<a href="javascript:;" @click="refreshEvent">刷新</a>
+			</div>
 		</div>
-		<div v-show="isFinished && !isError" v-text="finishText"></div>
-		<div v-show="isError">
-			<span>加载失败 Σ(ﾟдﾟ;)，请尝试</span>
-			<a href="javascript:;" @click="refreshEvent">刷新</a>
+		<div class="copyright">
+			<p>朝朝频顾惜，夜夜不相忘</p>
+			<p>
+				<span>Copyright © 2017 - </span>
+				<span v-text="new Date().getFullYear()"></span>
+				<span> 夜雨 All Rights Reserved 版权所有</span>
+			</p>
 		</div>
 	</div>
 </template>
@@ -50,5 +60,11 @@ export default defineComponent({
 		animation: flash 100ms linear 0s infinite alternate;
 		font-weight: bold;
 		border-bottom: 2px solid #333;
+	}
+
+	.copyright {
+		color: #777;
+		font-size: 12px;
+		margin-top: 32px;
 	}
 </style>
