@@ -63,11 +63,23 @@
 			</div>
 		</div>
 		<div class="sticky">
-			<div class="item top">
-				<h2 class="title icon zpix24"></h2>
+			<div class="item hot">
+				<h2 class="title icon"></h2>
+				<ul class="links">
+					<li class="link" v-for="(item, i) in $store.state.articleHot" :key="item">
+						<router-link
+							class="href"
+							:data-i="`${i + 1}.`"
+							:to="`/article/public/aid${item.id}.html`"
+							v-text="item.title"
+						>
+						</router-link>
+						<span class="value" v-text="item.count"></span>
+					</li>
+				</ul>
 			</div>
 			<div class="item friend">
-				<h2 class="title icon zpix24"></h2>
+				<h2 class="title icon"></h2>
 			</div>
 		</div>
 	</aside>
@@ -81,7 +93,7 @@ export default defineComponent({
 			type: String,
 			default: 'Title',
 		},
-	},
+	}
 });
 </script>
 <style scoped>
@@ -316,8 +328,67 @@ export default defineComponent({
 		background: transparent;
 	}
 
-	.top .title {
+	.hot .title {
 		background-position: 6px -268px;
+	}
+
+	.hot .links {
+		width: 224px;
+		padding: 4px 0;
+	}
+
+	.hot .link {
+		color: #333;
+		width: 224px;
+		height: 24px;
+		border: 1px solid transparent;
+		z-index: 3;
+		overflow: hidden;
+		position: relative;
+		font-size: 14px;
+		transition: .2s;
+		line-height: 24px;
+		white-space: nowrap;
+	}
+
+	.hot .link:hover {
+		width: 420px;
+		border: 1px solid #525870;
+		overflow: inherit;
+		transition: .2s cubic-bezier(.19, .1, .22, 1);
+		background: #F4F4F4;
+		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
+	}
+
+	.hot .href {
+		color: #000;
+		width: 350px;
+		display: inline-block;
+		padding: 2px 0 4px 0;
+		overflow: hidden;
+		padding-left: 1.4rem;
+		text-overflow: ellipsis;
+	}
+	
+	.hot .href::before {
+		content: attr(data-i);
+		left: 4px;
+		position: absolute;
+	}
+
+	.hot .href:hover {
+		text-decoration: none;
+	}
+
+	.hot .value {
+		color: #BC9D9C;
+		right: 6px;
+		position: absolute;
+		visibility: hidden;
+	}
+
+	.hot .link:hover .value {
+		visibility: visible;
 	}
 
 	.friend .title {

@@ -12,3 +12,9 @@ export type Article = {
 	comments?: number;
 	isHide?: boolean;
 } & Model
+
+export type ArticleHot = {
+	title?: string;
+	count?: number;
+	recentAt?: number;
+} & Model

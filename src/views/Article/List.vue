@@ -76,9 +76,10 @@ export default defineComponent({
 			}
 		}
 	},
-	mounted() {
+	async mounted() {
 		this.getArticles();
 		this.$store.state.scroller.add('ArticleList', this.onScroll);
+		this.$store.state.articleHot = await ArticleAPI.getArticleHot();
 	}
 });
 </script>
@@ -99,7 +100,7 @@ export default defineComponent({
 	}
 
 	.header .title {
-		padding: 14px 12px 6px 36px;
+		padding: 14px 12px 8px 36px;
 		display: flex;
 		border-bottom: 2px solid #CDDEF0;
 		justify-content: space-between;
