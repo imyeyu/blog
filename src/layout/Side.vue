@@ -10,9 +10,9 @@
 				<h4 class="name zpix24">夜雨</h4>
 				<p class="href">
 					<router-link to="/">主页</router-link>
-					<router-link to="/">返回旧版</router-link>
+					<a href="http://old.imyeyu.net" target="_blank">返回旧版</a>
 					<router-link to="/about">关于我</router-link>
-					<router-link to="/about">GitHub</router-link>
+					<a href="https://github.com/imyeyu" target="_blank">GitHub</a>
 				</p>
 			</div>
 		</div>
