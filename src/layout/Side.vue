@@ -4,7 +4,12 @@
 			<div class="info">
 				<div class="pic">
 					<a href="../assets/img/pic.png" target="_blank">
-						<img :src="require('../assets/img/pic.jpg')" alt="头像" />
+						<img
+							width="100"
+							height="100"
+							alt="头像"
+							:src="require('../assets/img/picm.png')"
+						/>
 					</a>
 				</div>
 				<h4 class="name zpix24">夜雨</h4>
