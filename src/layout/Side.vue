@@ -10,7 +10,7 @@
 				<h4 class="name zpix24">夜雨</h4>
 				<p class="href">
 					<router-link to="/">主页</router-link>
-					<a href="http://old.imyeyu.net" target="_blank">返回旧版</a>
+					<a href="https://old.imyeyu.net" target="_blank">返回旧版</a>
 					<router-link to="/about">关于我</router-link>
 					<a href="https://github.com/imyeyu" target="_blank">GitHub</a>
 				</p>
@@ -28,7 +28,7 @@
 					<a href="javascript:;" @click="$store.state.dialogBus.warning('暂时不可用')">找回密码</a>
 				</div>
 				<div class="input-btn">
-					<img src="https://www.imyeyu.net/ajax/getCheckCode?from=login&width=76&height=22" alt="验证码" autocomplete="off" />
+					<img src="https://old.imyeyu.net/ajax/getCheckCode?from=login&width=76&height=22" alt="验证码" autocomplete="off" />
 					<input id="captcha" type="text" placeholder="验证码" spellcheck="false" />
 					<button id="login" class="icon" @click="$store.state.dialogBus.warning('暂时不可用')"></button>
 				</div>

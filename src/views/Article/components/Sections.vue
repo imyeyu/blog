@@ -70,6 +70,12 @@ export default defineComponent({
 		padding-left: 4em;
 	}
 
+	.content >>> img {
+		border: 1px solid #CFD2E0;
+		margin: 0 auto;
+		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
+	}
+
 	.content >>> dt,
 	.content >>> dd,
 	.content >>> ul li,
@@ -107,7 +113,7 @@ export default defineComponent({
 		border-radius: 4px;
 	}
 
-	/* 代码区 */
+	/* 代码区（兼容性保留） */
 	.content >>> .codeBox {
 		margin: 20px auto;
 		border: 1px solid #CFD2E0;

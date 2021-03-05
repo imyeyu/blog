@@ -27,7 +27,7 @@
 						placeholder="验证码"
 					></text-field>
 					<div>
-						<img src="https://www.imyeyu.net/ajax/getCheckCode?from=login&width=90&height=28" alt="验证码" />
+						<img src="https://old.imyeyu.net/ajax/getCheckCode?from=login&width=90&height=28" alt="验证码" />
 					</div>
 				</div>
 			</div>

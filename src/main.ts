@@ -4,8 +4,8 @@ import router from './router';
 import store from './store';
 import axios from 'axios';
 
-axios.defaults.timeout = 6E3;
-axios.defaults.baseURL = `http://localhost:8081`;
+axios.defaults.timeout = 8E3;
+axios.defaults.baseURL = process.env.VUE_APP_API_HOST;
 axios.interceptors.response.use((response) => response.data, (error) => {
 	throw error;
 });
