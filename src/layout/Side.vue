@@ -91,6 +91,9 @@
 			</div>
 			<div class="item friend">
 				<h2 class="title icon"></h2>
+				<div class="hrefs">
+					<a title="赵羿杰的博客" href="http://39.106.104.78:8080/blog/" target="_blank">赵羿杰</a>
+				</div>
 			</div>
 		</div>
 	</aside>
@@ -133,7 +136,6 @@ export default defineComponent({
 		height: 100px;
 		border: 2px solid #FBC7D4;
 		margin: 24px auto 2px auto;
-		padding: 5px;
 		background: #FFF;
 	}
 
@@ -404,5 +406,12 @@ export default defineComponent({
 
 	.friend .title {
 		background-position: 6px -312px;
+	}
+
+	.friend .hrefs {
+		width: 90%;
+		font-size: 13px;
+		text-align: left;
+		padding-top: 4px;
 	}
 </style>
