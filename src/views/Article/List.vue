@@ -2,7 +2,7 @@
 	<div class="root">
 		<section class="header">
 			<h4 class="title icon">
-				<span>最近更新（2020-09-25 00:31:05）</span>
+				<span v-text="`最近更新（${toDateTime(article[0]?.createdAt)}）`"></span>
 				<span class="light-gray">下午好，欢迎访问 imyeyu.net</span>
 			</h4>
 		</section>
@@ -61,6 +61,13 @@ export default defineComponent({
 	methods: {
 		toDate(unixCreated: number, unixUpdated: number) : string {
 			return UnixTime.toDate(unixUpdated ? unixUpdated : unixCreated);
+		},
+		toDateTime(unix: number) : string {
+			if (unix) {
+				return UnixTime.toDateTime(unix);
+			} else {
+				return '';
+			}
 		},
 		async getArticles() {
 			let result = await ArticleAPI.getArticles(this.article.length);
