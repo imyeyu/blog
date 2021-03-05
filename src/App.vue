@@ -118,6 +118,7 @@ export default defineComponent({
 	#aside {
 		width: 20rem;
 		height: 100%;
+		z-index: 1;
 	}
 
 	#content {

@@ -94,9 +94,9 @@ export default defineComponent({
 		display: flex;
 		position: absolute;
 		animation: dialog-open .3s cubic-bezier(.215, .61, .355, 1) 0s alternate forwards;
-		transform: translateY(-100px) rotateX(-25deg) rotateY(16deg) scale(.985);
+		transform: translateY(-100px) scale(.8);
 		background: #F6F6F6;
-		transition: .5s;
+		transition: .2s;
 		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
 		align-items: center;
 		flex-direction: column;
@@ -104,8 +104,8 @@ export default defineComponent({
 
 	.pane.show {
 		opacity: 1;
-		transform: translateY(-100px) rotateX(0) rotateY(0)  scale(1);
-		transition: .8s cubic-bezier(0.23, 1, 0.32, 1);
+		transform: translateY(-100px) scale(1);
+		transition: .3s cubic-bezier(0.23, 1, 0.32, 1);
 	}
 
 	.icon {
