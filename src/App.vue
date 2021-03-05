@@ -5,13 +5,15 @@
 	<div id="main">
 		<side id="aside" ref="aside"></side>
 		<section id="content">
-			<router-view />
+			<router-view :key="$route.path" />
 		</section>
 	</div>
+	<modal-dialog />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Side from '@/layout/Side.vue';
+import ModalDialog from '@/components/ModalDialog.vue';
 import random from '@/helpers/Random';
 
 class Leaf {
@@ -23,6 +25,7 @@ class Leaf {
 export default defineComponent({
 	components: {
 		Side,
+		ModalDialog
 	},
     data(): {
 		docEl: HTMLElement;

@@ -25,18 +25,18 @@
 				</div>
 				<div class="input-btn">
 					<input id="password" type="password" placeholder="密码" spellcheck="false" autocomplete="off" />
-					<router-link to="/user/register">找回密码</router-link>
+					<a href="javascript:;" @click="$store.state.dialogBus.warning('暂时不可用')">找回密码</a>
 				</div>
 				<div class="input-btn">
 					<img src="https://www.imyeyu.net/ajax/getCheckCode?from=login&width=76&height=22" alt="验证码" autocomplete="off" />
 					<input id="captcha" type="text" placeholder="验证码" spellcheck="false" />
-					<button id="login" class="icon"></button>
+					<button id="login" class="icon" @click="$store.state.dialogBus.warning('暂时不可用')"></button>
 				</div>
 			</div>
 		</div>
 		<div class="item clazz">
 			<h2 class="title icon zpix24">分类</h2>
-			<ul class="first">
+			<ul class="first" @click="$store.state.dialogBus.warning('暂时不可用')">
 				<li onclick="Router.to('/test')">HTML / CSS</li>
 				<li onclick="Router.to('/article')">Javascript</li>
 				<li>Java</li>
@@ -59,7 +59,13 @@
 		</div>
 		<div class="item search">
 			<div class="title icon">
-				<input class="zpix24" placeholder="搜索" spellcheck="false" autofocus />
+				<input
+					class="zpix24"
+					placeholder="搜索"
+					spellcheck="false"
+					autofocus
+					@keyup.enter="$store.state.dialogBus.warning('暂时不可用')"
+				/>
 			</div>
 		</div>
 		<div class="sticky">

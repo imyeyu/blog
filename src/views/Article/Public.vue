@@ -54,6 +54,7 @@ export default defineComponent({
 	},
 	async mounted() {
 		this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
+		this.$store.commit('refreshArticleHot');
 	}
 });
 </script>

@@ -36,13 +36,16 @@
 				</div>
 			</div>
 		</div>
-		<button class="run zpix24">注册</button>
+		<button
+			class="run zpix24"
+			@click="$store.state.dialogBus.warning('暂时不可用')"
+		>注册</button>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { User } from '@/type/User.ts';
+import { User } from '@/type/User';
 import TextField from '@/components/TextInput/TextField.vue';
 
 export default defineComponent({

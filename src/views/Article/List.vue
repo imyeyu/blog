@@ -79,7 +79,7 @@ export default defineComponent({
 	async mounted() {
 		this.getArticles();
 		this.$store.state.scroller.add('ArticleList', this.onScroll);
-		this.$store.state.articleHot = await ArticleAPI.getArticleHot();
+		this.$store.commit('refreshArticleHot');
 	}
 });
 </script>
