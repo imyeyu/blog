@@ -38,7 +38,7 @@
 				<div class="comment">
 					<div class="user">
 						<div class="face">
-							<img src="/img/user/pic.jpg" alt="头像" />
+							<img src="/img/user/pic.png" alt="头像" />
 						</div>
 						<p class="name" v-text="comment.nick"></p>
 					</div>
@@ -58,7 +58,7 @@
 							<div class="comment-sub" v-for="reply in comment.replies" :key="reply">
 								<div>
 									<div class="face-sub">
-										<img src="/img/user/pic.jpg" alt="头像" />
+										<img src="/img/user/pic.png" alt="头像" />
 									</div>
 								</div>
 								<div class="content-sub">
