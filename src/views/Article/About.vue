@@ -12,7 +12,7 @@
 			<div class="canvas" @click="toggleBGM">
 				<canvas ref="canvas" width="520" height="80"></canvas>
 			</div>
-			<audio ref="player" autoplay>
+			<audio ref="player">
 				<source :src="require('@/assets/media/fragile.mp3')" type="audio/mpeg" />
 			</audio>
 			<p class="survival-time light-gray" v-text="survivalTime"></p>
@@ -135,8 +135,8 @@ export default defineComponent({
 
 		// 频谱
 		this.player = this.$refs.player as HTMLAudioElement;
-		this.player.volume = .3;
-		// this.player.play();
+		this.player.volume = .1;
+		this.player.play();
 		this.drawSpectrum();
 	},
 	beforeUnmount() {
