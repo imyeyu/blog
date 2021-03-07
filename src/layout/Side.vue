@@ -3,7 +3,7 @@
 		<div class="me">
 			<div class="info">
 				<div class="pic">
-					<a href="../assets/img/pic.png" target="_blank">
+					<a :href="require('../assets/img/pic.png')" target="_blank">
 						<img
 							width="100"
 							height="100"
