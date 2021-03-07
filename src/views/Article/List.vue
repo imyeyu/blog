@@ -70,7 +70,8 @@ export default defineComponent({
 			}
 		},
 		async getArticles() {
-			let result = await ArticleAPI.getArticles(this.article.length);
+			const offset = this.article.length === 0 ? 0 : this.article.length + 1;
+			let result = await ArticleAPI.getArticles(offset);
 			result = result.filter(a => !a.isHide);
 			this.article = this.article.concat(result);
 			if (result.length === 0) {
