@@ -110,6 +110,7 @@ export default defineComponent({
 		width: 90%;
 		margin: 16px 0;
 		border: 1px solid #CFD2E0;
+		outline: none;
 		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
 		border-radius: 4px;
 	}
