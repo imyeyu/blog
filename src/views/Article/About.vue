@@ -3,17 +3,19 @@
 		<h2 class="title zpix24">关于我</h2>
 
 		<sections :data="article.data"></sections>
-		<p class="right light-gray" style="padding-right: 4px">
+		<p class="right light-gray" style="padding-right: 6px">
 			<span>最后编辑时间：</span>
 			<span v-text="toDateTime(article.createdAt, article.updatedAt)"></span>
 		</p>
 		<div class="spec center">
 			<img class="inline-block" :src="require('@/assets/img/nagiasu.png')" alt="Nagiasu" />
-			<canvas ref="canvas" class="canvas" width="520" height="80" @click="toggleBGM"></canvas>
-			<audio ref="player">
+			<div class="canvas" @click="toggleBGM">
+				<canvas ref="canvas" width="520" height="80"></canvas>
+			</div>
+			<audio ref="player" autoplay>
 				<source :src="require('@/assets/media/fragile.mp3')" type="audio/mpeg" />
 			</audio>
-			<p class="survival-time light-gray zpix12" v-text="survivalTime"></p>
+			<p class="survival-time light-gray" v-text="survivalTime"></p>
 		</div>
 	</article>
 	<comment :aid="1"></comment>
@@ -63,7 +65,7 @@ export default defineComponent({
 					rm = this.f((l - (ry * 365 + rd) * d - rh * h) / m),
 					rs = this.f((l - (ry * 365 + rd) * d - rh * h - rm * m) / s);
 
-				this.survivalTime = `网站已运行 ${ry} 年 ${rd} 天 ${rh} 小时 ${rm} 分钟 ${rs} 秒`;
+				this.survivalTime = `网站已运行 ${ry} 年 ${rd} 天 ${rh} 小时 ${UnixTime.paddingZero(rm)} 分钟 ${UnixTime.paddingZero(rs)} 秒`;
 			}, 1000);
 		},
 		drawSpectrum() {
@@ -182,11 +184,28 @@ export default defineComponent({
 		margin-left: -260px;
 	}
 
-	.canvas:hover {
-		opacity: .8;
+	.canvas::before {
+		content: '点击 播放/暂停';
+		left: 0;
+		color: #F30;
+		width: 100%;
+		bottom: 10px;
+		position: absolute;
+		font-size: 13px;
+		text-align: center;
+		visibility: hidden;
+	}
+
+	.canvas:hover canvas {
+		opacity: .5;
+	}
+
+	.canvas:hover::before {
+		visibility: visible;
 	}
 
 	.survival-time {
 		height: 16px;
+		font-size: 13px;
 	}
 </style>

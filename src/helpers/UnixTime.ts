@@ -38,6 +38,7 @@ function toDateTime(unix: number) : string {
 }
 
 export default {
+	paddingZero,
 	toDate,
 	toTime,
 	toDateTime
