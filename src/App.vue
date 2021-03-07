@@ -109,7 +109,7 @@ export default defineComponent({
 
 	#main {
 		border: 3px solid #CDDEF0;
-		margin: 32px 16px 128px 16px;
+		margin: 64px 16px 128px 16px;
 		display: flex;
 		background: #F4F4F4;
 		box-shadow: 4px 4px 0 rgba(0, 0, 0, .6);
