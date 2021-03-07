@@ -141,7 +141,7 @@ export default defineComponent({
 	}
 	@media screen and (max-width: 1200px) {
 		#main {
-			width: 820px;
+			width: 860px;
 		}
 		.codeBox {
 			width: 560px;
