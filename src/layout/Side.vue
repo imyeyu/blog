@@ -107,6 +107,9 @@ export default defineComponent({
 			type: String,
 			default: 'Title',
 		},
+	},
+	mounted() {
+		this.$store.commit('refreshArticleHot');
 	}
 });
 </script>
