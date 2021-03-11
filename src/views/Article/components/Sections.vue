@@ -45,7 +45,7 @@ export default defineComponent({
 
 	.content >>> h3 {
 		margin: 6px 0;
-		background: linear-gradient(to right, #CDDEF0 50%, #F4F4F4 100%);
+		background: linear-gradient(to right, #CDDEF0 50%, transparent 100%);
 		padding-left: 8px;
 	}
 

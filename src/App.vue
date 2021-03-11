@@ -144,6 +144,7 @@ export default defineComponent({
 			width: 100%;
 			margin: 0;
 			border: none;
+			min-height: 100vh;
 			background: rgba(255, 255, 255, .7);
 		}
 		.codeBox {

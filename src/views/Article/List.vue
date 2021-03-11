@@ -104,7 +104,7 @@ export default defineComponent({
 		top: 0;
 		position: sticky;
 		font-size: 12px;
-		background: #F4F4F4;
+		background: rgba(255, 255, 255, .9);
 	}
 
 	.header .title {
@@ -117,7 +117,6 @@ export default defineComponent({
 
 	.article {
 		display: flex;
-		background: #F4F4F4;
 		min-height: 150px;
 		flex-direction: column;
 		justify-content: space-between;
@@ -126,7 +125,7 @@ export default defineComponent({
 	.content .title {
 		padding: 4px 0 4px 6px;
 		font-size: 16px;
-		background: linear-gradient(to right, #CDDEF0 50%, #F4F4F4 100%);
+		background: linear-gradient(to right, #CDDEF0 50%, transparent 100%);
 	}
 
 	.content .title a {
