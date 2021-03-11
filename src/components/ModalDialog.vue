@@ -1,8 +1,9 @@
 <template>
-	<div :class="`root${$store.state.dialogBus.show ? ' show' : ''}`">
+	<div :class="`dialog${$store.state.dialogBus.show ? ' show' : ''}`">
 		<section :class="`pane${!$store.state.dialogBus.close ? ' show' : ''}`">
 			<div :class="`icon ${$store.state.dialogBus.option.icon.toLowerCase()}`"></div>
 			<h2 class="title" v-text="$store.state.dialogBus.option.title"></h2>
+			<p class="title-sub" v-text="$store.state.dialogBus.option.titleSub"></p>
 			<p class="content">
 				<span v-text="content"></span>
 				<span class="_"></span>
@@ -73,7 +74,7 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-	.root {
+	.dialog {
 		width: 100%;
 		height: 100%;
 		display: flex;
@@ -82,7 +83,7 @@ export default defineComponent({
 		align-items: center;
 		justify-content: center;
 	}
-	.root.show {
+	.dialog.show {
 		visibility: visible;
 	}
 
@@ -134,6 +135,10 @@ export default defineComponent({
 	.title {
 		font-weight: normal;
 		margin-bottom: 16px;
+	}
+
+	.title-sub {
+		margin-bottom: 6px;
 	}
 
 	.content {

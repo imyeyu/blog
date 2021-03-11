@@ -15,7 +15,7 @@ import { Dialog } from '@/type/Dialog';
 export default class DialogBus {
 
 	public show = false;  // 显示根容器
-	public close = false; // 关闭窗体
+	public close = true; // 关闭窗体
 
 	public option: Dialog;
 
@@ -37,10 +37,10 @@ export default class DialogBus {
 	 * 
 	 * @param content 内容
 	 */
-	public async success(content: string) {
+	public async success(content: string, title: string = '成功') {
 		return this.display({
 			icon: 'SUCCESS',
-			title: '成功',
+			title,
 			content
 		});
 	}
@@ -50,10 +50,10 @@ export default class DialogBus {
 	 * 
 	 * @param content 内容
 	 */
-	public async warning(content: string) {
+	public async warning(content: string, title: string = '警告') {
 		return this.display({
 			icon: 'WARNING',
-			title: '警告',
+			title,
 			content
 		});
 	}
@@ -63,10 +63,10 @@ export default class DialogBus {
 	 * 
 	 * @param content 内容
 	 */
-	public async error(content: string) {
+	public async error(content: string, title: string = '错误') {
 		return this.display({
 			icon: 'ERROR',
-			title: '错误',
+			title,
 			content
 		});
 	}
@@ -112,6 +112,7 @@ export default class DialogBus {
 		const option = {
 			icon: 'INFO',
 			title: '提示',
+			titleSub: '',
 			content: '会话内容',
 		
 			textOK: '好',
