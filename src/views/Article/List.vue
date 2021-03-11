@@ -104,7 +104,7 @@ export default defineComponent({
 		top: 0;
 		position: sticky;
 		font-size: 12px;
-		background: rgba(255, 255, 255, .9);
+		background: rgba(244, 244, 244, .9);
 	}
 
 	.header .title {
