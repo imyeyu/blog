@@ -141,29 +141,22 @@ export default defineComponent({
 	}
 	@media screen and (max-width: 1200px) {
 		#main {
-			width: 860px;
-		}
-		.codeBox {
-			width: 560px;
-		}
-	}
-	@media screen and (max-width: 960px) {
-		#main {
 			width: 100%;
 			margin: 0;
 			border: none;
-			opacity: .8;
+			background: rgba(255, 255, 255, .7);
 		}
 		.codeBox {
-			width: 600px;
+			width: 620px;
+			background: rgba(255, 255, 255, .4) !important;
 		}
 	}
-	@media screen and (max-width: 860px) {
-		#leafs {
-			display: none;
-		}
+	@media screen and (max-width: 900px) {
 		#aside {
 			display: none;
+		}
+		#content {
+			border: none;
 		}
 		.codeBox {
 			width: 90%;

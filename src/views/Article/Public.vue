@@ -66,7 +66,6 @@ export default defineComponent({
 
 		padding: 48px 0 12px 0;
 		text-align: center;
-		background: #F4F4F4;
 	}
 	.info {
 		color: #666;
