@@ -220,6 +220,15 @@ export default defineComponent({
 			isLoadFinished: false
 		}
 	},
+	watch: {
+		aid() {
+			this.comment.articleId = this.aid;
+		}
+	},
+	async mounted() {
+		this.getComments();
+		this.$store.state.scroller.add('Comment', this.onScroll);
+	},
 	methods: {
 		toDateTime(unix: number) : string {
 			return UnixTime.toDateTime(unix);
@@ -263,7 +272,6 @@ export default defineComponent({
 		async changeReplyPage(comment: Comment, toPage: number) {
 			if (comment && comment.id) {
 				comment.repliesI = toPage;
-				console.log(`当前页 ${comment.repliesI}`);
 				const result = await CommentAPI.getCommentReplies(comment.id, toPage * 6);
 				if (result) {
 					comment.replies = result as any;
@@ -298,10 +306,6 @@ export default defineComponent({
 				this.getComments();
 			}
 		}
-	},
-	async mounted() {
-		this.getComments();
-		this.$store.state.scroller.add('Comment', this.onScroll);
 	}
 });
 </script>

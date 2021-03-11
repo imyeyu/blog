@@ -72,6 +72,11 @@ export default defineComponent({
 			text: this.value
 		}
 	},
+	watch: {
+		value() {
+			this.text = this.value;
+		}
+	},
 	mounted() {
 		this.text = this.value;
 	},
