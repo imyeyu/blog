@@ -153,7 +153,8 @@ export default defineComponent({
 		}
 	}
 	@media screen and (max-width: 900px) {
-		#aside {
+		#aside,
+		#main .list-update {
 			display: none;
 		}
 		#content {

@@ -2,7 +2,7 @@
 	<div class="root">
 		<section class="header">
 			<h4 class="title icon">
-				<span v-text="`最近更新（${toDateTime(article[0]?.createdAt)}）`"></span>
+				<span class="list-update" v-text="`最近更新（${toDateTime(article[0]?.createdAt)}）`"></span>
 				<span class="light-gray">下午好，欢迎访问 imyeyu.net</span>
 			</h4>
 		</section>
@@ -11,7 +11,7 @@
 				<div class="abstract">
 					<h3 class="title">
 						<router-link
-							:to="`/article/public/aid${item.id}.html`"
+							:to="`/article/${item.type}/aid${item.id}.html`"
 							v-text="item.title"
 						></router-link>
 					</h3>
