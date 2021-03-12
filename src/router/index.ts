@@ -13,6 +13,10 @@ const routes: Array<RouteRecordRaw> = [
 	},
 	{
 		path: '/article/public/aid:id.html',
+		alias: [ // 兼容性保留
+			'/article/software/aid:id.html',
+			'/article/music/aid:id.html',
+		],
 		name: 'Public Article',
 		component: ArticlePublic
 	},
