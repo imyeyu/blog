@@ -92,15 +92,19 @@ export default defineComponent({
 		scroll-behavior: smooth;
 	}
 
-	/* position: fixed 和 z-index: -1 同时使用会导致字体渲染模糊 */
+	/* position: fixed 和 z-index: -1 同时使用会导致字体渲染模糊（不只是 Zpix） */
 	#leafs {
 		width: 100%;
 		height: 100vh;
 		z-index: -1;
 		position: absolute; 
 		overflow: hidden;
+		background: url('~@/assets/img/bg.png');
+		background-size: 1920px 1152px;
+		background-position: right bottom;
+		background-attachment: fixed;
 	}
-	
+
 	#leafs .leaf {
 		width: 32px;
 		height: 32px;

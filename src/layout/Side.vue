@@ -12,7 +12,7 @@
 						/>
 					</a>
 				</div>
-				<h4 class="name zpix24">夜雨</h4>
+				<h4 class="name icon"></h4>
 				<p class="href">
 					<router-link to="/">主页</router-link>
 					<a href="https://old.imyeyu.net" target="_blank">返回旧版</a>
@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<div class="item user">
-			<h2 class="title icon zpix24">账号</h2>
+			<h2 class="title icon"></h2>
 			<div class="content">
 				<div class="input-btn">
 					<input id="username" type="text" placeholder="UID 或用户名" spellcheck="false" autocomplete="off" />
@@ -40,7 +40,7 @@
 			</div>
 		</div>
 		<div class="item clazz">
-			<h2 class="title icon zpix24">分类</h2>
+			<h2 class="title icon"></h2>
 			<ul class="first" @click="$store.state.dialogBus.warning('暂时不可用')">
 				<li onclick="Router.to('/test')">HTML / CSS</li>
 				<li onclick="Router.to('/article')">Javascript</li>
@@ -63,12 +63,12 @@
 			</ul>
 		</div>
 		<div class="item search">
-			<div class="title icon">
+			<div :class="`title${searchKey ? ' inputing' : ''}`">
 				<input
 					class="zpix24"
-					placeholder="搜索"
 					spellcheck="false"
 					autofocus
+					v-model="searchKey"
 					@keyup.enter="$store.state.dialogBus.warning('暂时不可用')"
 				/>
 			</div>
@@ -108,6 +108,13 @@ export default defineComponent({
 			default: 'Title',
 		},
 	},
+	data(): {
+		searchKey: string;
+		} {
+		return {
+			searchKey: ''
+		}
+	},
 	mounted() {
 		this.$store.commit('refreshArticleHot');
 	}
@@ -126,7 +133,7 @@ export default defineComponent({
 		height: 32px;
 		padding: 3px;
 		position: relative;
-		text-indent: 46px;
+		text-indent: 42px;
 		border-bottom: 2px solid #A67D7B;
 	}
 
@@ -140,6 +147,13 @@ export default defineComponent({
 		border: 2px solid #FBC7D4;
 		margin: 24px auto 2px auto;
 		background: #FFF;
+	}
+
+	.name {
+		width: 48px;
+		height: 24px;
+		margin: 8px auto 4px auto;
+		background-position: -102px 0;
 	}
 
 	.me .href {
@@ -250,6 +264,7 @@ export default defineComponent({
 		height: 26px;
 		position: relative;
 		font-size: 14px;
+		font-family: "Consolas";
 		line-height: 26px;
 		text-indent: 6px;
 	}
@@ -333,8 +348,21 @@ export default defineComponent({
 		visibility: visible;
 	}
 
-	.search .title {
+	.search .title::before {
+		content: "";
+		top: 0;
+		left: 0;
+		width: 100px;
+		height: 36px;
+		overflow: hidden;
+		position: absolute;
+		background: var(--random-icon);
+		pointer-events: none;
 		background-position: 6px -220px;
+	}
+
+	.search .title.inputing::before {
+		width: 36px;
 	}
 
 	.search input {

@@ -126,6 +126,7 @@ export default defineComponent({
 		padding: 4px 0 4px 6px;
 		font-size: 16px;
 		background: linear-gradient(to right, #CDDEF0 50%, transparent 100%);
+		letter-spacing: 2px;
 	}
 
 	.content .title a {
