@@ -86,7 +86,7 @@ export default defineComponent({
 		left: 0;
 		position: relative;
 		background: #EDEDED;
-		border-right: 2px solid #525870;
+		border-right: 2px solid #A6ADC7;
 		margin-right: 4px;
 	}
 
