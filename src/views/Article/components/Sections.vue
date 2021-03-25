@@ -1,12 +1,13 @@
 <template>
 	<div
-		class="content"
-		v-html="data"
-		@dblclick="toggleCodes"
+		class="content line-numbers"
+		v-html="dataHTML"
 	></div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import toHTML from '@/helpers/Markdown';
+import Prism from 'prismjs';
 
 export default defineComponent({
 	props: {
@@ -15,175 +16,118 @@ export default defineComponent({
 			requied: true
 		}
 	},
-	methods: {
-		// 双击代码区事件（旧结构）
-		toggleCodes(e: any) {
-			const els = e.path;
-			for (const el of els) {
-				if (el.className === 'codeContent') {
-					const height = el.style.maxHeight.replace("px", "");
-					if (height != "") {
-						if (400 < height) {
-							el.style.maxHeight = '400px';
-						} else {
-							el.style.maxHeight = el.getElementsByTagName("code").length * 18.5 + "px";
-						}
-					}
-					return;
-				}
-			}
+	data(): {
+		dataHTML: string;
+		} {
+		return {
+			dataHTML: ''
+		}
+	},
+	watch: {
+		data(newVlue) {
+			this.dataHTML = toHTML(newVlue);
+			this.$nextTick(() => {
+				Prism.highlightAll();
+			});
 		}
 	}
 });
 </script>
 <style scoped>
-	.content {
-		font-size: 15px;
-		line-height: 1.8;
-		word-spacing: 1px;
-	}
-
-	.content >>> h3 {
-		margin: 6px 0;
+	.content >>> h1,
+	.content >>> h2,
+	.content >>> h3,
+	.content >>> h4,
+	.content >>> h5,
+	.content >>> h6 {
+		margin: 12px 0 8px 0;
+		font-size: 24px !important;
 		background: linear-gradient(to right, #CDDEF0 50%, transparent 100%);
+		line-height: 1.5;
+		font-weight: normal;
+		font-family: var(--zpix-font);
 		padding-left: 8px;
+		font-feature-settings: "tnum";
+		-webkit-font-smoothing: none;
 	}
 
 	.content >>> p {
-		padding: 0 4px;
-		line-height: 2;
+		padding: 0 6px;
+		font-size: 15px;
+		line-height: 1.5;
 		text-indent: 2em;
 	}
 
-	.content >>> table {
-		margin: 6px 2em;
-		text-indent: 0;
-	}
-
-	.content >>> ul {
-		list-style: disc;
-		padding-left: 4em;
-	}
-
-	.content >>> ol {
-		list-style: decimal;
-		padding-left: 4em;
-	}
-
-	.content >>> img {
-		border: 1px solid #CFD2E0;
-		margin: 0 auto;
-		max-width: 90%;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
-	}
-
-	.content >>> dt,
-	.content >>> dd,
-	.content >>> ul li,
-	.content >>> ol li {
-		line-height: 1.6em;
-	}
-
-	.content >>> dl,
-	.content >>> dd {
-		font-size: 15px;
-		padding-left: 2em;
-	}
-
-	.content >>> dl dt {
-		font-weight: bold;
-	}
-
-	.content >>> dd ol {
-		padding-left: 2em;
-	}
-
-	.content >>> iframe {
-		margin: 0 auto;
-		border: 1px solid #CFD2E0;
-		display: block;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
-	}
-
-	.content >>> audio,
-	.content >>> video {
+	/* 代码容器 */
+	.content >>> pre {
 		width: 90%;
-		margin: 16px 0;
-		border: 1px solid #CFD2E0;
-		outline: none;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
-		border-radius: 4px;
-	}
-
-	/* 代码区（兼容性保留） */
-	.content >>> .codeBox {
 		margin: 20px auto;
-		border: 1px solid #CFD2E0;
+		border: 1px solid #B8BBC9;
+		padding: 0;
+		overflow: auto;
 		font-size: 14px;
+		max-height: 400px;
 		background: #F7F7F7;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
+		box-shadow: 2px 2px 0 rgba(0, 0, 0, .6);
+		transition: max-height .5s cubic-bezier(.215, .61, .355, 1);
 		line-height: 1;
+		border-radius: 0;
 	}
 
-	.content >>> .codeTitle {
-		border-bottom: 2px solid #6CE26C;
+	/* 盒子 */
+	.content >>> code {
+		color: #43475C;
+		display: flex;
+		text-shadow: none !important;
 	}
 
-	.content >>> .codeTitle span {
-		display: inline-block;
-		padding: 0 6px;
-		line-height: 25px;
+	/* 行号 */
+	.content >>> .line-numbers-rows {
+		left: 0;
+		position: relative;
+		background: #EDEDED;
+		border-right: 2px solid #525870;
+		margin-right: 4px;
 	}
 
-	.content >>> .codeTitle span:first-child {
+	.content >>> .line-numbers-rows > span::before {
+		padding-right: .5em;
+	}
+
+	/* 代码区 */
+	.content >>> .codes {
+		left: 3.6em;
+		width: calc(100% - 3.6em);
+		cursor: var(--text);
+		position: absolute;
+	}
+
+	/* 自定义着色 */
+	.content >>> .token.function {
+		color: #777;
+	}
+	.content >>> .token.class-name {
+		color: #FF461F;
+	}
+	.content >>> .token.generics .class-name {
+		color: #777;
 		font-weight: bold;
 	}
-
-	.content >>> .codeTitle span:last-child {
-		color: #777;
-		float: right;
-		font-size: 12px;
+	.content >>> .token.comment {
+		color: green;
 	}
-
-	.content >>> .codeContent {
-		overflow: auto;
-		transition: 800ms ease;
+	.content >>> .token.string {
+		color: #FF7A9B;
+		font-weight: bold;
 	}
-
-	.content >>> .lineNum {
-		color: #777;
-		width: 26px;
-		display: inline-block;
-		font-size: 14px;
-		text-align: right;
-		background: #EDEDED;
-		line-height: 18px;
-		margin-right: 4px;
-		border-right: 2px solid #6CE26C;
-		padding-right: 6px;
+	.content >>> .token.number {
+		color: #CA6924;
 	}
-
-	.content >>> .lineNum:before {
-		content: attr(data);
+	.content >>> .token.keyword,
+	.content >>> .token.boolean {
+		color: #177CB0;
 	}
-
-	.content >>> .codes {
-		cursor: var(--text);
-	}
-
-	.content >>> .codes code {
-		height: 18px;
-		display: block;
-		white-space: pre;
-		font-family: "Consolas", "sans-serif";
-	}
-
-	.content >>> .codes code:hover {
-		background: #FBF2DB;
-	}
-
-	.content >>> .codes code:last-child,
-	.content >>> .codes code:last-child span {
-		height: 22px;
+	.content >>> .token.punctuation {
+		color: purple;
 	}
 </style>

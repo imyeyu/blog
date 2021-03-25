@@ -14,7 +14,7 @@
 import { defineComponent } from 'vue';
 import Side from '@/layout/Side.vue';
 import ModalDialog from '@/components/ModalDialog.vue';
-import random from '@/helpers/Random';
+import { random } from '@/helpers/Toolkit';
 
 class Leaf {
 	x = 0;
@@ -78,6 +78,12 @@ export default defineComponent({
 		}, 100);
 		// 滚动监听（leafs 无法使用 fixed，需要 absolute 同步滚动）
 		this.$store.state.scroller.add('App', this.onScroll);
+
+		// 缩放监听（Zpix 渲染兼容性问题）! 暂时废除，偏移非整数能解决 Zpix 渲染问题，但会导致图像渲染模糊
+		// this.offset = window.innerWidth % 2 === 0 ? 0 : -1.5;
+		// window.addEventListener('resize', (e) => {
+		// 	this.offset = window.innerWidth % 2 === 0 ? 0 : -1;
+		// });
 	}
 });
 </script>
@@ -85,6 +91,7 @@ export default defineComponent({
 	@import url(assets/css/public.css);
 
 	#app {
+  		color: #343749;
 		width: 100%;
 		display: flex;
 		position: relative;
@@ -134,9 +141,6 @@ export default defineComponent({
 		#main {
 			width: 1024px;
 		}
-		.codeBox {
-			width: 680px;
-		}
 	}
 	@media screen and (max-width: 1440px) {
 		#main {
@@ -151,10 +155,6 @@ export default defineComponent({
 			min-height: 100vh;
 			background: rgba(255, 255, 255, .7);
 		}
-		.codeBox {
-			width: 620px;
-			background: rgba(255, 255, 255, .4) !important;
-		}
 	}
 	@media screen and (max-width: 900px) {
 		#aside,
@@ -163,9 +163,6 @@ export default defineComponent({
 		}
 		#content {
 			border: none;
-		}
-		.codeBox {
-			width: 90%;
 		}
 	}
 </style>
