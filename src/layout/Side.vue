@@ -12,7 +12,7 @@
 						/>
 					</a>
 				</div>
-				<h4 class="name icon"></h4>
+				<div class="name icon"></div>
 				<p class="href">
 					<router-link to="/">主页</router-link>
 					<a href="https://old.imyeyu.net" target="_blank">返回旧版</a>
@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<div class="item user">
-			<h2 class="title icon"></h2>
+			<div class="title icon"></div>
 			<div class="content">
 				<div class="input-btn">
 					<input id="username" type="text" placeholder="UID 或用户名" spellcheck="false" autocomplete="off" />
@@ -40,7 +40,7 @@
 			</div>
 		</div>
 		<div class="item clazz">
-			<h2 class="title icon"></h2>
+			<div class="title icon"></div>
 			<ul class="first" @click="$store.state.dialogBus.warning('暂时不可用')">
 				<li onclick="Router.to('/test')">HTML / CSS</li>
 				<li onclick="Router.to('/article')">Javascript</li>
@@ -75,7 +75,7 @@
 		</div>
 		<div class="sticky">
 			<div class="item hot">
-				<h2 class="title icon"></h2>
+				<div class="title icon"></div>
 				<ul class="links">
 					<li class="link" v-for="(item, i) in $store.state.articleHot" :key="item">
 						<router-link
@@ -90,7 +90,7 @@
 				</ul>
 			</div>
 			<div class="item friend">
-				<h2 class="title icon"></h2>
+				<div class="title icon"></div>
 				<div class="hrefs">
 					<a title="赵羿杰的博客" href="http://39.106.104.78:8080/blog/" target="_blank">赵羿杰</a>
 				</div>

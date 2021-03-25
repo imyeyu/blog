@@ -83,7 +83,7 @@ export default class Events {
 class Observer {
 
 	private callback: Function = () => {}; // 回调函数
-	private name: any = null;           // 上下文
+	private name: any = null;
 
 	constructor(callback: Function, name: any) {
 		this.callback = callback;

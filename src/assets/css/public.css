@@ -1,6 +1,7 @@
 :root {
 	--random-icon: url(../img/icons.png?v=0) no-repeat;
-	--public-font: "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
+	--public-font: "Consolas", "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
+	--zpix-font: "Zpix", "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
 	--default: url("../img/default.png"), default;
 	--pointer: url("../img/link.png"), pointer;
 	--text: url("../img/input.png"), text;
@@ -34,9 +35,6 @@ body, div, span, iframe, p, pre, a, code, img, b, u, i, dl, dt, dd, ol, ul, li, 
 }
 
 h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	border: 0;
-	padding: 0;
 	outline: 0;
 	background: transparent;
 	vertical-align: baseline;
@@ -100,6 +98,13 @@ img {
 ::-moz-selection {
 	color: #FFF;
 	background: #525870;
+}
+	
+pre::selection,
+pre ::selection,
+code::selection,
+code ::selection {
+	background: #525870 !important;
 }
 
 /* 字体相关 */
