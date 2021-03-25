@@ -169,7 +169,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import UnixTime from '@/helpers/UnixTime';
+import { toDateTime } from '@/helpers/UnixTime';
 import CommentAPI from '@/api/CommentAPI';
 import { Comment, CommentReply } from '@/type/Comment';
 import TextField from '@/components/TextInput/TextField.vue';
@@ -231,7 +231,7 @@ export default defineComponent({
 	},
 	methods: {
 		toDateTime(unix: number) : string {
-			return UnixTime.toDateTime(unix);
+			return toDateTime(unix);
 		},
 		// 子评论页数
 		l(comment: Comment) : number {

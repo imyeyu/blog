@@ -22,7 +22,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import UnixTime from '@/helpers/UnixTime';
+import { paddingZero } from '@/helpers/Toolkit';
+import { toDateTime } from '@/helpers/UnixTime';
 import ArticleAPI from '@/api/ArticleAPI';
 import { Article } from '@/type/Article';
 import Sections from './components/Sections.vue';
@@ -50,7 +51,7 @@ export default defineComponent({
 			return Math.floor(v);
 		},
 		toDateTime(unixCreated: number, unixUpdated: number) : string {
-			return UnixTime.toDateTime(unixUpdated ? unixUpdated : unixCreated);
+			return toDateTime(unixUpdated ? unixUpdated : unixCreated);
 		},
 		calSurvivalTime() {
 			const begin = new Date('2017/10/9 22:32:52');
@@ -65,7 +66,7 @@ export default defineComponent({
 					rm = this.f((l - (ry * 365 + rd) * d - rh * h) / m),
 					rs = this.f((l - (ry * 365 + rd) * d - rh * h - rm * m) / s);
 
-				this.survivalTime = `网站已运行 ${ry} 年 ${rd} 天 ${rh} 小时 ${UnixTime.paddingZero(rm)} 分钟 ${UnixTime.paddingZero(rs)} 秒`;
+				this.survivalTime = `网站已运行 ${ry} 年 ${rd} 天 ${rh} 小时 ${paddingZero(rm)} 分钟 ${paddingZero(rs)} 秒`;
 			}, 1000);
 		},
 		drawSpectrum() {

@@ -1,5 +1,5 @@
 import Events from '@/helpers/Events'
-import sleep from '@/helpers/Sleep';
+import { sleep } from '@/helpers/Toolkit';
 import { Dialog } from '@/type/Dialog';
 
 /**

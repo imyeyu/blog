@@ -11,7 +11,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import UnixTime from '@/helpers/UnixTime';
+import { toDateTime } from '@/helpers/UnixTime';
 import Sections from './components/Sections.vue';
 import Comment from './components/Comment.vue';
 
@@ -43,19 +43,19 @@ export default defineComponent({
 		getArticleDate(unixCreated: number, unixUpdated: number) : string {
 			if (unixCreated || unixUpdated) {
 				if (unixUpdated) {
-					return '编辑于 ' + UnixTime.toDateTime(unixUpdated);
+					return '编辑于 ' + toDateTime(unixUpdated);
 				} else {
-					return '发布于 ' + UnixTime.toDateTime(unixCreated);
+					return '发布于 ' + toDateTime(unixCreated);
 				}
 			} else {
 				return '';
 			}
-		}
+		},
 	},
 	async mounted() {
 		this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
 		this.$store.commit('refreshArticleHot');
-	}
+	},
 });
 </script>
 <style scoped>

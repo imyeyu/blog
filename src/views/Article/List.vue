@@ -2,7 +2,7 @@
 	<div class="root">
 		<section class="header">
 			<h4 class="title icon">
-				<span class="list-update" v-text="`最近更新（${toDateTime(article[0]?.createdAt)}）`"></span>
+				<span class="list-update" v-text="`最近更新（${toDateTime(updateTime)}）`"></span>
 				<span class="light-gray">下午好，欢迎访问 imyeyu.net</span>
 			</h4>
 		</section>
@@ -36,7 +36,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import UnixTime from '@/helpers/UnixTime';
+import { toDate, toDateTime } from '@/helpers/UnixTime';
 import ArticleAPI from '@/api/ArticleAPI';
 import { Article } from '@/type/Article';
 import Loading from '@/components/Loading.vue';
@@ -47,24 +47,25 @@ export default defineComponent({
 	},
 	data(): {
 		article: Article[];
+		updateTime?: string;
 
 		isLoadError: boolean;
 		isLoadFinished: boolean;
 		} {
 		return {
 			article: [],
-			
+
 			isLoadError: false,
 			isLoadFinished: false
 		}
 	},
 	methods: {
 		toDate(unixCreated: number, unixUpdated: number) : string {
-			return UnixTime.toDate(unixUpdated ? unixUpdated : unixCreated);
+			return toDate(unixUpdated ? unixUpdated : unixCreated);
 		},
 		toDateTime(unix: number) : string {
 			if (unix) {
-				return UnixTime.toDateTime(unix);
+				return toDateTime(unix);
 			} else {
 				return '';
 			}
@@ -74,6 +75,7 @@ export default defineComponent({
 			let result = await ArticleAPI.getArticles(offset);
 			result = result.filter(a => !a.isHide);
 			this.article = this.article.concat(result);
+			this.updateTime = toDateTime(this.article[0].createdAt);
 			if (result.length === 0) {
 				this.isLoadFinished = true;
 			}
@@ -108,6 +110,7 @@ export default defineComponent({
 	}
 
 	.header .title {
+		margin: 0;
 		padding: 14px 12px 8px 36px;
 		display: flex;
 		border-bottom: 2px solid #CDDEF0;
@@ -123,6 +126,7 @@ export default defineComponent({
 	}
 
 	.content .title {
+		margin: 0;
 		padding: 4px 0 4px 6px;
 		font-size: 16px;
 		background: linear-gradient(to right, #CDDEF0 50%, transparent 100%);

@@ -88,7 +88,7 @@ export default defineComponent({
 	}
 
 	.pane {
-		width: 400px;
+		width: 440px;
 		border: 2px solid #CCC;
 		opacity: 0;
 		padding: 0 8px 8px;
@@ -112,7 +112,7 @@ export default defineComponent({
 	.icon {
 		width: 66px;
 		height: 64px;
-		margin: 24px 0 16px 0;
+		margin: 24px 0 6px 0;
 		transform: translateX(2px);
 	}
 
@@ -133,12 +133,14 @@ export default defineComponent({
 	}
 
 	.title {
+		margin: 8px 0;
 		font-weight: normal;
-		margin-bottom: 16px;
 	}
 
 	.title-sub {
-		margin-bottom: 6px;
+		color: #777;
+		font-size: 13px;
+		margin-bottom: 12px;
 	}
 
 	.content {
