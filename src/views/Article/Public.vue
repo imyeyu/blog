@@ -43,7 +43,7 @@ export default defineComponent({
 	},
 	computed: {
 		articleDate(): string {
-			if (this.isCreatedAt) {
+			if (this.isCreatedAt || !this.article.updatedAt) {
 				return '发布于 ' + toDateTime(this.article.createdAt);
 			} else {
 				return '编辑于 ' + toDateTime(this.article.updatedAt);
