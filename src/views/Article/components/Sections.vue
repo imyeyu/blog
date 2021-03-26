@@ -59,10 +59,24 @@ export default defineComponent({
 	}
 
 	.content >>> img,
-	.content >>> video {
+	.content >>> audio,
+	.content >>> video,
+	.content >>> iframe {
+		border: 1px solid #B8BBC9;
 		margin: 10px auto;
 		display: block;
 		max-width: 95%;
+		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
+	}
+
+	.content >>> audio {
+		height: 2.6em;
+		border: 1px solid #B8BBC9;
+		background: #F1F3F4;
+	}
+	
+	.content >>> video {
+		width: 95%;
 	}
 
 	.content >>> blockquote {

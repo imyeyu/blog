@@ -7,7 +7,20 @@ module.exports = {
 module.exports = {
 	plugins: [
 		['prismjs', {
-			languages: ['javascript', 'typescript', 'json', 'yaml', 'java', 'php', 'sql', 'html', 'css'],
+			languages: [
+				'ini',
+				'php',
+				'sql',
+				'css',
+				'html',
+				'json',
+				'yaml',
+				'java',
+				'bash',
+				'javascript',
+				'typescript',
+				'apacheconf',
+			],
 			plugins: ['line-numbers'],
 			showLineNumbers: true,
 			theme: 'okaidia',

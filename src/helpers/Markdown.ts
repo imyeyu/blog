@@ -21,6 +21,25 @@ Renderer.link = (url, title, text) => {
 		return `<span>${text}</span>`;
 	}
 }
+/**
+ * 图像渲染方式（添加兼容渲染媒体节点，仅支持 mp3 或 mp4）
+ * 渲染为视频：![](#/media/video.mp4)
+ * 渲染为音频：![](~/media/music.mp3)
+ * 渲染为图片：![](/image/photo.png)
+ */
+Renderer.image = (url, title, text) => {
+	text = title ? title : text;
+	if (url) {
+		switch (url[0]) {
+			case '~': // 音频
+				return `<audio controls><source type="audio/mp3" src="${url.substring(1)}"></source></audio>`;
+			case '#': // 视频
+				return `<video controls><source type="video/mp4" src="${url.substring(1)}"></source></video>`;
+		}
+		return `<img src="${url}" alt="${text}" />`; // 图片
+	}
+	throw `Renderer.image 无法解析（${url}, ${title}, ${text}）`;
+}
 marked.setOptions({
 	renderer: Renderer,
 	highlight: (code, lang) => {
