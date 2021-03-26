@@ -50,7 +50,7 @@ Renderer.codespan = (code) => {
 	if (clazz) {
 		return `<span class="${clazz}">${code.substring(code.indexOf(']') + 1)}</span>`
 	} else {
-		return `<span class="bold">${code}</span>`;
+		return `<span class="red">${code}</span>`;
 	}
 }
 marked.setOptions({
