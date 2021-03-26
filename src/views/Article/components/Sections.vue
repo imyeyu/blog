@@ -58,6 +58,11 @@ export default defineComponent({
 		text-indent: 2em;
 	}
 
+	.content >>> img {
+		margin: 10px auto;
+		max-width: 95%;
+	}
+
 	.content >>> blockquote {
 		color: #666;
 		padding: 6px 0;
