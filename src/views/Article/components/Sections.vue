@@ -58,8 +58,10 @@ export default defineComponent({
 		text-indent: 2em;
 	}
 
-	.content >>> img {
+	.content >>> img,
+	.content >>> video {
 		margin: 10px auto;
+		display: block;
 		max-width: 95%;
 	}
 

@@ -76,6 +76,11 @@ img {
 	pointer-events: none;
 }
 
+audio,
+video {
+	outline: none;
+}
+
 ::-webkit-scrollbar {
 	width: 12px;
 	height: 12px;

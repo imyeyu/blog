@@ -1,5 +1,5 @@
 <template>
-	<article v-if="article">
+	<article v-if="article.id">
 		<h2 class="title zpix24" v-text="article.title"></h2>
 		<div class="info">
 			<div v-text="article.label"></div>
