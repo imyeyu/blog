@@ -3,9 +3,27 @@ import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 import store from '@/store';
 
+// 渲染器
+const Renderer = new marked.Renderer();
+/**
+ * 超链渲染方式
+ * 1.链接前加 ~ 符号会被渲染为新标签打开。例：[text](~url)
+ * 2.没有 title 的链接将使用 text 作为 title
+ * 3.没有链接的会被渲染为 span 标签
+ */
+Renderer.link = (url, title, text) => {
+	title = title ? title : text;
+	if (url) {
+		const isNewTabOpen = url.startsWith('~');
+		url = isNewTabOpen ? url.substring(1) + '' : url;
+		return `<a href="${url}"${ isNewTabOpen ? ' target="_blank"' : ''} title="${title}">${text}</a>`;
+	} else {
+		return `<span>${text}</span>`;
+	}
+}
 marked.setOptions({
-	renderer: new marked.Renderer(),
-	highlight: function (code, lang) {
+	renderer: Renderer,
+	highlight: (code, lang) => {
 		if (Prism.languages[lang]) {
 			return Prism.highlight(code, Prism.languages[lang], lang);
 		} else {
