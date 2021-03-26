@@ -103,7 +103,7 @@ export default defineComponent({
 	}
 
 	/* 盒子 */
-	.content >>> code {
+	.content >>> pre code {
 		color: #43475C;
 		display: flex;
 		text-shadow: none !important;

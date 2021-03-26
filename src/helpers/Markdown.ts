@@ -40,6 +40,19 @@ Renderer.image = (url, title, text) => {
 	}
 	throw `Renderer.image 无法解析（${url}, ${title}, ${text}）`;
 }
+/**
+ * 重点内容
+ * 默认 `文本` 表现为加粗
+ * 使用 `[red bold]文本` 可以自定义类
+ */
+Renderer.codespan = (code) => {
+	const clazz = code.match(/(?<=\[).+?(?=\])/);
+	if (clazz) {
+		return `<span class="${clazz}">${code.substring(code.indexOf(']') + 1)}</span>`
+	} else {
+		return `<span class="bold">${code}</span>`;
+	}
+}
 marked.setOptions({
 	renderer: Renderer,
 	highlight: (code, lang) => {

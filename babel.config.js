@@ -20,6 +20,7 @@ module.exports = {
 				'javascript',
 				'typescript',
 				'apacheconf',
+				'properties',
 			],
 			plugins: ['line-numbers'],
 			showLineNumbers: true,
