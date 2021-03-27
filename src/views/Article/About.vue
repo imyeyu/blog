@@ -3,9 +3,11 @@
 		<h2 class="title zpix24">关于我</h2>
 
 		<sections :data="article.data"></sections>
-		<p class="right light-gray" style="padding-right: 6px">
-			<span>最后编辑时间：</span>
-			<span v-text="toDateTime(article.createdAt, article.updatedAt)"></span>
+		<p
+			class="right light-gray"
+			style="padding-right: 6px"
+			v-text="toDateTime(article.createdAt, article.updatedAt)"
+		>
 		</p>
 		<div class="spec center">
 			<img class="inline-block" :src="require('@/assets/img/nagiasu.png')" alt="Nagiasu" />
@@ -51,8 +53,13 @@ export default defineComponent({
 			return Math.floor(v);
 		},
 		toDateTime(unixCreated: number, unixUpdated: number) : string {
-			return toDateTime(unixUpdated ? unixUpdated : unixCreated);
+			if (unixCreated || unixUpdated) {
+				return '最后编辑时间：' + toDateTime(unixUpdated ? unixUpdated : unixCreated);
+			} else {
+				return '';
+			}
 		},
+		// 计时
 		calSurvivalTime() {
 			const begin = new Date('2017/10/9 22:32:52');
 			this.survivalTimer = setInterval(() => {
@@ -69,6 +76,7 @@ export default defineComponent({
 				this.survivalTime = `网站已运行 ${ry} 年 ${rd} 天 ${rh} 小时 ${paddingZero(rm)} 分钟 ${paddingZero(rs)} 秒`;
 			}, 1000);
 		},
+		// 绘制频谱
 		drawSpectrum() {
 			let	ctx : any = new AudioContext(),
 				canvas = this.$refs.canvas as HTMLCanvasElement;
@@ -85,16 +93,17 @@ export default defineComponent({
 				capHeight = 2,
 				meterNum = 2400 / 12,
 				capYPositionArray = [];
-			ctx = canvas.getContext("2d");
-				
+			ctx = canvas.getContext('2d');
+			// 渐变
 			let gradient = ctx.createLinearGradient(0, 0, 0, 100);
-			gradient.addColorStop(1, "#A67D7B");
-			gradient.addColorStop(0.5, "#A67D7B");
-			gradient.addColorStop(0, "#A67D7B");
+			gradient.addColorStop(1, '#A67D7B');
+			gradient.addColorStop(0.5, '#A67D7B');
+			gradient.addColorStop(0, '#A67D7B');
 
-			let capStyle = "#A67D7B";
+			let capStyle = '#A67D7B';
 			
 			const that = this;
+			// 动画
 			(function renderFrame() {
 				var array = new Uint8Array(analyser.frequencyBinCount);
 				analyser.getByteFrequencyData(array);
