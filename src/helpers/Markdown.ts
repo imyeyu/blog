@@ -85,18 +85,18 @@ export default function toHTML(mkData: string | undefined): string {
  * Linux 会话着色
  * 用户属性（如：[root@VM-0-7-centos src]）显示为注释颜色
  * 用户属性后的命令显示为红色
- * 支持 MySQL 会话，原理同上（前缀为关键字色，命令为红色）
+ * 支持 MySQL 会话，原理同上（前缀为关键字色，命令为数字色）
  */
 function linuxSession(code: string): string {
 	const REG_LINUX_COMMAND = /(?<=\]\#)(.*)/g,
 		  REG_LINUX_PREFIX = /\[(.*?)\](.)/g,
-		  REG_MYSQL_COMMAND = /(?<=(mysql\>))(.*)/g;
+		  REG_MYSQL_COMMAND = /(?<=(mysql&gt;))(.*)/g;
 
 	code = code.replaceAll(REG_LINUX_COMMAND, '#<span class="red">$1</span>');
 	code = code.replaceAll(REG_LINUX_PREFIX, '<span class="token comment">[$1]</span>');
 
-	code = code.replaceAll(REG_MYSQL_COMMAND, '<span class="red">$2</span>');
-	code = code.replaceAll('mysql>', '<span class="token keyword">mysql&gt;</span>');
+	code = code.replaceAll(REG_MYSQL_COMMAND, '<span class="token number">$2</span>');
+	code = code.replaceAll('mysql&gt;', '<span class="token keyword">mysql&gt;</span>');
 	return code;
 }
 
