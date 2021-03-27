@@ -42,7 +42,7 @@ Renderer.image = (url, title, text) => {
 }
 /**
  * 重点内容
- * 默认 `文本` 表现为加粗
+ * 默认 `文本` 表现为红色
  * 使用 `[red bold]文本` 可以自定义类
  */
 Renderer.codespan = (code) => {
@@ -81,11 +81,22 @@ export default function toHTML(mkData: string | undefined): string {
 	}
 }
 
+/**
+ * Linux 会话着色
+ * 用户属性（如：[root@VM-0-7-centos src]）显示为注释颜色
+ * 用户属性后的命令显示为红色
+ * 支持 MySQL 会话，原理同上（前缀为关键字色，命令为红色）
+ */
 function linuxSession(code: string): string {
-	const REG_COMMAND = /(?<=\]\#)(.*)/g;
-	code = code.replaceAll(REG_COMMAND, '#<span class="red">$1</span>');
-	const REG_PREFIX = /\[(.*?)\](.)/g;
-	code = code.replaceAll(REG_PREFIX, '<span class="token comment">[$1]</span>');
+	const REG_LINUX_COMMAND = /(?<=\]\#)(.*)/g,
+		  REG_LINUX_PREFIX = /\[(.*?)\](.)/g,
+		  REG_MYSQL_COMMAND = /(?<=(mysql\>))(.*)/g;
+
+	code = code.replaceAll(REG_LINUX_COMMAND, '#<span class="red">$1</span>');
+	code = code.replaceAll(REG_LINUX_PREFIX, '<span class="token comment">[$1]</span>');
+
+	code = code.replaceAll(REG_MYSQL_COMMAND, '<span class="red">$2</span>');
+	code = code.replaceAll('mysql>', '<span class="token keyword">mysql&gt;</span>');
 	return code;
 }
 
