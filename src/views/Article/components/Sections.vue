@@ -135,9 +135,10 @@ export default defineComponent({
 	/* 代码区 */
 	.content >>> .codes {
 		left: 3.6em;
-		width: calc(100% - 3.6em);
 		cursor: var(--text);
 		position: absolute;
+		min-width: calc(100% - 4.6em);
+		padding-right: 1em;
 	}
 
 	/* 自定义着色 */

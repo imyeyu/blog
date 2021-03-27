@@ -103,7 +103,7 @@ function linuxSession(code: string): string {
 			// 其他着色方案（不是最优解，暂时这个解决方法）
 			let elHTML = el.innerHTML;
 			switch (env.language) {
-				case 'linuxsession': elHTML = linuxSession(elHTML); break;
+				case 'linux-session': elHTML = linuxSession(elHTML); break;
 			}
 
 			el.innerHTML = `<span class="codes">${elHTML}</span>`;

@@ -1,5 +1,5 @@
 <template>
-	<div class="root" v-if="aid">
+	<div class="comment-root" v-if="aid">
 		<div class="write">
 			<text-field
 				ref="comment-nick"
@@ -310,6 +310,9 @@ export default defineComponent({
 });
 </script>
 <style scoped>
+	.comment-root {
+		margin-top: 4rem;
+	}
 	/* 表单 */
 	.write {
 		width: 523px;
