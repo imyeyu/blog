@@ -41,7 +41,7 @@
 		</div>
 		<div class="item clazz">
 			<div class="title icon"></div>
-			<ul class="first" @click="$store.state.dialogBus.warning('暂时不可用')">
+			<ul class="first none-style" @click="$store.state.dialogBus.warning('暂时不可用')">
 				<li onclick="Router.to('/test')">HTML / CSS</li>
 				<li onclick="Router.to('/article')">Javascript</li>
 				<li>Java</li>
@@ -53,7 +53,7 @@
 				<li>服务器</li>
 				<li class="icon">
 					<span>其他</span>
-					<ul class="second">
+					<ul class="second none-style">
 						<li>软件</li>
 						<li>游戏</li>
 						<li>音乐</li>
@@ -76,7 +76,7 @@
 		<div class="sticky">
 			<div class="item hot">
 				<div class="title icon"></div>
-				<ul class="links">
+				<ul class="links none-style">
 					<li class="link" v-for="(item, i) in $store.state.articleHot" :key="item">
 						<router-link
 							class="href"

@@ -48,10 +48,6 @@ body {
 	justify-content: center;
 }
 
-ol, ul {
-	list-style: none;
-}
-
 table {
 	border-spacing: 0;
 	border-collapse: collapse;
@@ -225,6 +221,10 @@ code ::selection {
 .sticky {
 	top: 0;
 	position: sticky;
+}
+
+.none-style {
+	list-style: none;
 }
 
 .inline-block {

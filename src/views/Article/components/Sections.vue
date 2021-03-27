@@ -51,11 +51,21 @@ export default defineComponent({
 		-webkit-font-smoothing: none;
 	}
 
+	.content >>> a {
+		color: #9B6D6C;
+	}
+
 	.content >>> p {
 		padding: 0 6px;
 		font-size: 15px;
 		line-height: 1.6;
 		text-indent: 2em;
+	}
+
+	.content >>> ul,
+	.content >>> ol {
+		margin-left: 2em;
+		padding-left: 2em;
 	}
 
 	.content >>> img,
@@ -89,7 +99,7 @@ export default defineComponent({
 	/* 代码容器 */
 	.content >>> pre {
 		width: 90%;
-		margin: 20px auto;
+		margin: 8px auto 20px auto;
 		border: 1px solid #B8BBC9;
 		padding: 0;
 		overflow: auto;
