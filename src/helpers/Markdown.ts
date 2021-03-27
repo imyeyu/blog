@@ -53,6 +53,8 @@ Renderer.codespan = (code) => {
 		return `<span class="red">${code}</span>`;
 	}
 }
+
+// Markdown 解析器配置
 marked.setOptions({
 	renderer: Renderer,
 	highlight: (code, lang) => {
@@ -79,17 +81,32 @@ export default function toHTML(mkData: string | undefined): string {
 	}
 }
 
-// 行号渲染调整
-(() => {
-	Prism.hooks.add('complete', (env) => {
-		if (!env.code) return;
+function linuxSession(code: string): string {
+	const REG_COMMAND = /(?<=\]\#)(.*)/g;
+	code = code.replaceAll(REG_COMMAND, '#<span class="red">$1</span>');
+	const REG_PREFIX = /\[(.*?)\](.)/g;
+	code = code.replaceAll(REG_PREFIX, '<span class="token comment">[$1]</span>');
+	return code;
+}
 
+(() => {
+	Prism.hooks.add('complete', env => {
+		if (!env.code) return;
+		
+		// 行号渲染调整
 		const el = env.element;
 		const lineNumber:any = el.querySelector('.line-numbers-rows');
 		if (lineNumber) {
 			const clone = lineNumber.cloneNode(true);
 			el.removeChild(lineNumber);
-			el.innerHTML = `<span class="codes">${el.innerHTML}</span>`;
+			
+			// 其他着色方案（不是最优解，暂时这个解决方法）
+			let elHTML = el.innerHTML;
+			switch (env.language) {
+				case 'linuxsession': elHTML = linuxSession(elHTML); break;
+			}
+
+			el.innerHTML = `<span class="codes">${elHTML}</span>`;
 			el.insertBefore(clone, el.firstChild);
 			
 			const parent = el.parentNode as HTMLElement;
@@ -127,7 +144,6 @@ export default function toHTML(mkData: string | undefined): string {
 					parent.addEventListener('scroll', event);
 				}
 			}
-			return;
 		}
 	});
 })();
