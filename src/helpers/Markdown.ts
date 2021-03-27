@@ -41,16 +41,21 @@ Renderer.image = (url, title, text) => {
 	throw `Renderer.image 无法解析（${url}, ${title}, ${text}）`;
 }
 /**
- * 重点内容
+ * 重点内容扩展
  * 默认 `文本` 表现为红色
  * 使用 `[red bold]文本` 可以自定义类
+ * 扩展 `---` 为渲染空行
  */
 Renderer.codespan = (code) => {
-	const clazz = code.match(/(?<=\[).+?(?=\])/);
-	if (clazz) {
-		return `<span class="${clazz}">${code.substring(code.indexOf(']') + 1)}</span>`
+	if (code === '---') {
+		return '&nbsp;';
 	} else {
-		return `<span class="red">${code}</span>`;
+		const clazz = code.match(/(?<=\[).+?(?=\])/);
+		if (clazz) {
+			return `<span class="${clazz}">${code.substring(code.indexOf(']') + 1)}</span>`
+		} else {
+			return `<span class="red">${code}</span>`;
+		}
 	}
 }
 
@@ -100,6 +105,46 @@ function linuxSession(code: string): string {
 	return code;
 }
 
+/**
+ * 双击代码区域显示全部或显示部分
+ * 
+ * @param el    codes 对象
+ * @param lines 行数
+ * @returns 
+ */
+function dblClickEvent(el: HTMLElement, lines: number) {
+	if (lines < 18) return;
+	el.addEventListener('dblclick', (e) => {
+		const isExpand = el.classList.contains('expand');
+		if (isExpand) {
+			el.style.maxHeight = '400px';
+			el.classList.remove('expand');
+		} else {
+			el.style.maxHeight = lines * 22 + 'px';
+			el.classList.add('expand');
+		}
+		const selection = window.getSelection();
+		if (selection) {
+			selection.removeAllRanges();
+		}
+	});
+	// 第一次滚动提示
+	if (store.state.config.get('codeTips')) {
+		const event = () => {
+			store.state.dialogBus.display({
+				icon: 'INFO',
+				title: '提示',
+				titleSub: '本提示只显示一次',
+				content: '双击代码区域显示全部或显示部分'
+			});
+			parent.removeEventListener('scroll', event);
+			store.state.config.set('codeTips', false);
+		};
+		parent.addEventListener('scroll', event);
+	}
+}
+
+// Prism 着色完成事件
 (() => {
 	Prism.hooks.add('complete', env => {
 		if (!env.code) return;
@@ -119,41 +164,9 @@ function linuxSession(code: string): string {
 
 			el.innerHTML = `<span class="codes">${elHTML}</span>`;
 			el.insertBefore(clone, el.firstChild);
-			
-			const parent = el.parentNode as HTMLElement;
-			if (parent) {
-				// 双击切换显示全部或显示部分
-				const l = clone.children.length;
-				parent.addEventListener('dblclick', (e) => {
-					if (18 < l) {
-						const isExpand = parent.classList.contains('expand');
-						if (isExpand) {
-							parent.style.maxHeight = '400px';
-							parent.classList.remove('expand');
-						} else {
-							parent.style.maxHeight = l * 22 + 'px';
-							parent.classList.add('expand');
-						}
-						const selection = window.getSelection();
-						if (selection) {
-							selection.removeAllRanges();
-						}
-					}
-				});
-				// 第一次滚动提示
-				if (store.state.config.get('codeTips')) {
-					const event = () => {
-						store.state.dialogBus.display({
-							icon: 'INFO',
-							title: '提示',
-							titleSub: '本提示只显示一次',
-							content: '双击代码区域显示全部或显示部分'
-						});
-						parent.removeEventListener('scroll', event);
-						store.state.config.set('codeTips', false);
-					};
-					parent.addEventListener('scroll', event);
-				}
+
+			if (el.parentNode) {
+				dblClickEvent(el.parentNode as HTMLElement, lineNumber.children.length)
 			}
 		}
 	});

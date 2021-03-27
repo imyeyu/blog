@@ -96,6 +96,10 @@ export default defineComponent({
 		border-left: 3px solid #525870;
 	}
 
+	.content >>> blockquote p {
+		text-indent: 0;
+	}
+
 	/* 代码容器 */
 	.content >>> pre {
 		width: 90%;
