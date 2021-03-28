@@ -1,6 +1,6 @@
 <template>
 	<div class="root">
-		<section class="header">
+		<section class="header" v-if="article.length !== 0">
 			<h4 class="title icon">
 				<span class="list-update" v-text="`最近更新（${toDateTime(updateTime)}）`"></span>
 				<span class="light-gray">下午好，欢迎访问 imyeyu.net</span>
