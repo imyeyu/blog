@@ -95,11 +95,16 @@
 					<a title="赵羿杰的博客" href="http://39.106.104.78:8080/blog/" target="_blank">赵羿杰</a>
 				</div>
 			</div>
+			<div class="ctrls">
+				<div class="ctrl to-top" @click="toTop"></div>
+				<div class="ctrl home" @click="home"></div>
+			</div>
 		</div>
 	</aside>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { sleep } from '@/helpers/Toolkit';
 
 export default defineComponent({
 	props: {
@@ -113,6 +118,18 @@ export default defineComponent({
 		} {
 		return {
 			searchKey: ''
+		}
+	},
+	methods: {
+		toTop() {
+			this.$store.state.scroller.toTop();
+		},
+		async home() {
+			this.toTop();
+			if (this.$route.name !== 'Home') {
+				await sleep(600);
+				this.$router.push('/');
+			}
 		}
 	},
 	mounted() {
@@ -445,4 +462,33 @@ export default defineComponent({
 		text-align: left;
 		padding-top: 4px;
 	}
+
+	.ctrls {
+		height: 64px;
+		display: flex;
+		margin-top: 3rem;
+		align-items: flex-end;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.ctrls .ctrl {
+		width: 42px;
+		height: 26px;
+		cursor: var(--pointer);
+		background: var(--random-icon);
+	}
+
+	.ctrls .ctrl:active {
+		width: 39px;
+	}
+
+	.ctrls .to-top {
+		background-position: 0 -896px;
+	}
+
+	.ctrls .home {
+		background-position: 0 -928px;
+	}
+
 </style>

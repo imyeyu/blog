@@ -10,6 +10,8 @@ export class ScrollEvent {
 
 export default class Scroller {
 
+	public top: number = 0;
+
 	events: ScrollEvent[];
 
 	constructor() {
@@ -17,17 +19,19 @@ export default class Scroller {
 
 		window.addEventListener('scroll', () => {
 			// 滚动距离
-			const top = document.body.scrollTop || window.pageYOffset || document.documentElement.scrollTop;
+			this.top = document.body.scrollTop || window.pageYOffset || document.documentElement.scrollTop;
 			// 可视高度
 			const wH = document.documentElement.clientHeight || document.body.clientHeight;
 			// 滚动高度
 			const sH = document.documentElement.scrollHeight || document.body.scrollHeight;
+			// 遍历事件
 			for (const e of this.events) {
-				e.event(top, (top + wH === sH));
+				e.event(this.top, (this.top + wH === sH));
 			}
 		}, true);
 	}
 
+	// 添加事件
 	add(name: string, event: Function) {
 		const e = this.events.find((se) => se.name === name);
 		if (e) {
@@ -37,8 +41,22 @@ export default class Scroller {
 		}
 	}
 
+	// 移除事件
 	remove(name: string) {
 		const e = this.events.findIndex(se => se.name === name);
 		delete this.events[e];
+	}
+
+	// 滚动至顶
+	toTop() {
+		const timer = setInterval(() => {
+			this.top -= this.top / 8;
+			if (this.top > 3) {
+				window.scrollTo(0, this.top);
+			} else {
+				window.scrollTo(0, 0);
+				clearInterval(timer);
+			}
+		}, 1000 / 90);
 	}
 }
