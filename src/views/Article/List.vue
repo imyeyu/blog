@@ -3,7 +3,7 @@
 		<section class="header" v-if="article.length !== 0">
 			<h4 class="title icon">
 				<span class="list-update" v-text="`最近更新（${toDateTime(updateTime)}）`"></span>
-				<span class="light-gray">下午好，欢迎访问 imyeyu.net</span>
+				<span class="light-gray" v-text="sayHello"></span>
 			</h4>
 		</section>
 		<article class="article" v-for="item in article" :key="item">
@@ -57,6 +57,18 @@ export default defineComponent({
 
 			isLoadError: false,
 			isLoadFinished: false
+		}
+	},
+	computed: {
+		sayHello(): string {
+			const hour = new Date().getHours();
+			const statiz = '，欢迎访问 imyeyu.net';
+			if (hour >= 0 && hour <= 5)   return '夜深了，注意休息' + statiz;
+			if (hour >= 6 && hour <= 10)  return '早上好' + statiz;
+			if (hour >= 11 && hour <= 13) return '中午好' + statiz;
+			if (hour >= 14 && hour <= 17) return '下午好' + statiz;
+			if (hour >= 18 && hour <= 19) return '傍晚好' + statiz;
+			return '晚上好' + statiz;
 		}
 	},
 	methods: {
