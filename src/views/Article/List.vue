@@ -87,7 +87,7 @@ export default defineComponent({
 			let result = await ArticleAPI.getArticles(offset);
 			result = result.filter(a => !a.isHide);
 			this.article = this.article.concat(result);
-			this.updateTime = toDateTime(this.article[0].createdAt);
+			this.updateTime = toDateTime(this.article[0].updatedAt || this.article[0].createdAt);
 			if (result.length === 0) {
 				this.isLoadFinished = true;
 			}
