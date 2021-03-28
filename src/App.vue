@@ -120,7 +120,7 @@ export default defineComponent({
 
 	#main {
 		border: 3px solid #CDDEF0;
-		margin: 64px 16px 128px 16px;
+		margin: 64px 48px 128px 0;
 		display: flex;
 		background: #F4F4F4;
 		box-shadow: 4px 4px 0 rgba(0, 0, 0, .6);
@@ -139,12 +139,12 @@ export default defineComponent({
 	/* 自适应 */
 	@media screen and (max-width: 3840px) {
 		#main {
-			width: 1024px;
+			width: 1100px;
 		}
 	}
 	@media screen and (max-width: 1440px) {
 		#main {
-			width: 1024px;
+			width: 1100px;
 		}
 	}
 	@media screen and (max-width: 1200px) {
