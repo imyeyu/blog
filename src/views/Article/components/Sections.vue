@@ -72,10 +72,15 @@ export default defineComponent({
 	.content >>> audio,
 	.content >>> video,
 	.content >>> iframe {
-		border: 1px solid #B8BBC9;
 		margin: 10px auto;
 		display: block;
 		max-width: 95%;
+	}
+
+	.content >>> audio,
+	.content >>> video,
+	.content >>> iframe {
+		border: 1px solid #B8BBC9;
 		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
 	}
 
@@ -87,6 +92,12 @@ export default defineComponent({
 	
 	.content >>> video {
 		width: 95%;
+	}
+
+	.content >>> iframe {
+		width: 780px;
+		max-width: 95%;
+		height: 520px;
 	}
 
 	.content >>> blockquote {
