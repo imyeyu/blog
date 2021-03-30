@@ -39,6 +39,29 @@
 				</div>
 			</div>
 		</div>
+		<div class="item clazz">
+			<div class="title icon"></div>
+			<ul class="first none-style" @click="$store.state.dialogBus.warning('暂时不可用')">
+				<li onclick="Router.to('/test')">HTML / CSS</li>
+				<li onclick="Router.to('/article')">Javascript</li>
+				<li>Java</li>
+				<li>Java Web</li>
+				<li>Flutter</li>
+				<li>Python</li>
+				<li>PHP</li>
+				<li>MySQL</li>
+				<li>服务器</li>
+				<li class="icon">
+					<span>其他</span>
+					<ul class="second none-style">
+						<li>软件</li>
+						<li>游戏</li>
+						<li>音乐</li>
+						<li>其他</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 		<div class="item search">
 			<div :class="`title${searchKey ? ' inputing' : ''}`">
 				<input
@@ -51,29 +74,6 @@
 			</div>
 		</div>
 		<div class="sticky">
-			<div class="item clazz">
-				<div class="title icon"></div>
-				<ul class="first none-style" @click="$store.state.dialogBus.warning('暂时不可用')">
-					<li onclick="Router.to('/test')">HTML / CSS</li>
-					<li onclick="Router.to('/article')">Javascript</li>
-					<li>Java</li>
-					<li>Java Web</li>
-					<li>Flutter</li>
-					<li>Python</li>
-					<li>PHP</li>
-					<li>MySQL</li>
-					<li>服务器</li>
-					<li class="icon">
-						<span>其他</span>
-						<ul class="second none-style">
-							<li>软件</li>
-							<li>游戏</li>
-							<li>音乐</li>
-							<li>其他</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
 			<div class="item hot">
 				<div class="title icon"></div>
 				<ul class="links none-style">
