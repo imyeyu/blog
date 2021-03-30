@@ -50,9 +50,9 @@ Renderer.codespan = (code) => {
 	if (code === '---') {
 		return '&nbsp;';
 	} else {
-		const clazz = code.match(/(?<=\[).+?(?=\])/);
+		const clazz = code.match(/\[(.*)\]/);
 		if (clazz) {
-			return `<span class="${clazz}">${code.substring(code.indexOf(']') + 1)}</span>`
+			return `<span class="${clazz[1]}">${code.substring(code.indexOf(']') + 1)}</span>`
 		} else {
 			return `<span class="red">${code}</span>`;
 		}
@@ -93,14 +93,14 @@ export default function toHTML(mkData: string | undefined): string {
  * 支持 MySQL 会话，原理同上（前缀为关键字色，命令为数字色）
  */
 function linuxSession(code: string): string {
-	const REG_LINUX_COMMAND = /(?<=\]\#)(.*)/g,
-		  REG_LINUX_PREFIX = /\[(.*?)\](.)/g,
-		  REG_MYSQL_COMMAND = /(?<=(mysql&gt;))(.*)/g;
+	const REG_LINUX_COMMAND = /\]\#(.*)/g,
+		  REG_LINUX_PREFIX = /\[(.*)\]/g,
+		  REG_MYSQL_COMMAND = /(mysql&gt;)(.*)/g;
 
-	code = code.replaceAll(REG_LINUX_COMMAND, '#<span class="red">$1</span>');
+	code = code.replaceAll(REG_LINUX_COMMAND, ']#<span class="red">$1</span>');
 	code = code.replaceAll(REG_LINUX_PREFIX, '<span class="token comment">[$1]</span>');
 
-	code = code.replaceAll(REG_MYSQL_COMMAND, '<span class="token number">$2</span>');
+	code = code.replaceAll(REG_MYSQL_COMMAND, 'mysql&gt;<span class="token number">$2</span>');
 	code = code.replaceAll('mysql&gt;', '<span class="token keyword">mysql&gt;</span>');
 	return code;
 }
