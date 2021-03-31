@@ -42,8 +42,8 @@
 		<div class="item clazz">
 			<div class="title icon"></div>
 			<ul class="first none-style" @click="$store.state.dialogBus.warning('暂时不可用')">
-				<li onclick="Router.to('/test')">HTML / CSS</li>
-				<li onclick="Router.to('/article')">Javascript</li>
+				<li>HTML / CSS</li>
+				<li>Javascript</li>
 				<li>Java</li>
 				<li>Java Web</li>
 				<li>Flutter</li>
@@ -394,13 +394,13 @@ export default defineComponent({
 	}
 
 	.hot .links {
-		width: 224px;
+		width: 229px;
 		padding: 4px 0;
 	}
 
 	.hot .link {
 		color: #333;
-		width: 224px;
+		width: 229px;
 		height: 24px;
 		border: 1px solid transparent;
 		z-index: 3;
@@ -425,16 +425,17 @@ export default defineComponent({
 		color: #000;
 		width: 350px;
 		display: inline-block;
-		padding: 2px 0 4px 0;
 		overflow: hidden;
-		padding-left: 1.4rem;
+		padding-left: 1.8rem;
 		text-overflow: ellipsis;
 	}
 	
 	.hot .href::before {
 		content: attr(data-i);
 		left: 4px;
+		width: 1.5rem;
 		position: absolute;
+		text-align: right;
 	}
 
 	.hot .href:hover {
