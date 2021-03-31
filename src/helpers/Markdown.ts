@@ -22,24 +22,30 @@ Renderer.link = (url, title, text) => {
 	}
 }
 /**
- * 图像渲染方式（添加兼容渲染媒体节点，仅支持 mp3 或 mp4）
+ * 媒体渲染方式（原为图像渲染方式）
+ * [] 内文本以 # 开始时，该组件带边框
+ * 
  * 渲染为网页：![]($/html/index.html)
  * 渲染为视频：![](#/media/video.mp4)
  * 渲染为音频：![](~/media/music.mp3)
  * 渲染为图片：![](/image/photo.png)
+ * 带边框图片：![#图片Alt](/image/photo.png)
  */
 Renderer.image = (url, title, text) => {
-	text = title ? title : text;
+	const hasBorder = text[0] === '#';
+	const borderClass = hasBorder ? ' class="border"' : '';
+	text = title ? title : (hasBorder ? text.substring(1) : text);
 	if (url) {
 		switch (url[0]) {
 			case '~': // 音频
-				return `<audio controls><source type="audio/mp3" src="${url.substring(1)}"></source></audio>`;
+				return `<audio${borderClass} controls><source type="audio/mp3" src="${url.substring(1)}"></source></audio>`;
 			case '#': // 视频
-				return `<video controls><source type="video/mp4" src="${url.substring(1)}"></source></video>`;
+				return `<video${borderClass} controls><source type="video/mp4" src="${url.substring(1)}"></source></video>`;
 			case '$': // 视频
-				return `<iframe src="${url.substring(1)}" frameborder="0" allowfullscreen></iframe>`;
+				return `<iframe${borderClass} src="${url.substring(1)}" frameborder="0" allowfullscreen></iframe>`;
 		}
-		return `<img src="${url}" alt="${text}" />`; // 图片
+		// 图片
+		return `<img${borderClass} src="${url}" alt="${text}" />`;
 	}
 	throw `Renderer.image 无法解析（${url}, ${title}, ${text}）`;
 }

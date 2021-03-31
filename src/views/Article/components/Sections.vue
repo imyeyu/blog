@@ -77,17 +77,13 @@ export default defineComponent({
 		max-width: 95%;
 	}
 
-	.content >>> audio,
-	.content >>> video,
-	.content >>> iframe {
-		border: 1px solid #B8BBC9;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
-	}
-
 	.content >>> audio {
 		height: 2.6em;
-		border: 1px solid #B8BBC9;
 		background: #F1F3F4;
+	}
+
+	.content >>> .border {
+		border: 1px solid #B8BBC9;
 	}
 	
 	.content >>> video {
@@ -96,8 +92,8 @@ export default defineComponent({
 
 	.content >>> iframe {
 		width: 780px;
-		max-width: 95%;
 		height: 520px;
+		max-width: 95%;
 	}
 
 	.content >>> blockquote {
@@ -121,7 +117,6 @@ export default defineComponent({
 		font-size: 14px;
 		max-height: 400px;
 		background: #F7F7F7;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .6);
 		transition: max-height .5s cubic-bezier(.215, .61, .355, 1);
 		line-height: 1;
 		border-radius: 0;
