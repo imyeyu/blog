@@ -56,10 +56,10 @@ export default defineComponent({
 	}
 
 	.content >>> p {
-		padding: 0 6px;
 		font-size: 15px;
 		line-height: 1.6;
 		text-indent: 2em;
+		padding-right: 6px;
 	}
 
 	.content >>> ul,

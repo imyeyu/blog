@@ -77,29 +77,21 @@ Renderer.codespan = code => {
  *         ### 六个字符缩进
  */
 Renderer.paragraph = text => {
-	// 空行
-	if (text === '--') {
-		return '<p>&nbsp;</p>';
-	}
-	// 缩进
-	if (text.startsWith('#')) {
-		// 清除缩进
-		if (text.startsWith('#-')) {
-			return `<p class="no-indent">${text.substring(2)}</p>`;
+	const flag = text.match(/\[(.*)\]/);
+	if (flag) {
+		switch (flag[1]) {
+			// 空行
+			case '--':  return '<p>&nbsp;</p>';
+			// 无缩进
+			case '#-':  return `<p class="no-indent">${text.substring(4)}</p>`;
+			// 默认缩进
+			case '#':   break;
+			// 4 个字符缩进
+			case '##':  return `<p class="indent4">${text.substring(4)}</p>`;
+			// 6 个字符缩进
+			case '###': return `<p class="indent6">${text.substring(5)}</p>`;
 		}
-		// 若干缩进
-		let count = 0;
-		for (let i = 0; i < text.length; i++) {
-			if (text[i] === '#') {
-				count++;
-			} else {
-				break;
-			}
-		}
-		count = 3 < count ? 3 : count;
-		return `<p class="indent${count * 2}">${text.substring(count)}</p>`;
 	}
-	// 默认
 	return `<p>${text}</p>`;
 }
 
