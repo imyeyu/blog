@@ -12,7 +12,9 @@ const Renderer = new marked.Renderer();
  * 3.没有链接的会被渲染为 span 标签
  */
 Renderer.link = (url, title, text) => {
-	title = title ? title : text;
+	if (!title && !text.startsWith('<img')) {
+		title = text;
+	}
 	if (url) {
 		const isNewTabOpen = url.startsWith('~');
 		url = isNewTabOpen ? url.substring(1) + '' : url;
@@ -53,19 +55,52 @@ Renderer.image = (url, title, text) => {
  * 重点内容扩展
  * 默认 `文本` 表现为红色
  * 使用 `[red bold]文本` 可以自定义类
- * 扩展 `---` 为渲染空行
  */
-Renderer.codespan = (code) => {
-	if (code === '---') {
-		return '&nbsp;';
+Renderer.codespan = code => {
+	const clazz = code.match(/\[(.*)\]/);
+	if (clazz) {
+		return `<span class="${clazz[1]}">${code.substring(code.indexOf(']') + 1)}</span>`
 	} else {
-		const clazz = code.match(/\[(.*)\]/);
-		if (clazz) {
-			return `<span class="${clazz[1]}">${code.substring(code.indexOf(']') + 1)}</span>`
-		} else {
-			return `<span class="red">${code}</span>`;
-		}
+		return `<span class="red">${code}</span>`;
 	}
+}
+
+/**
+ * 段落渲染
+ * 值为 -- 时渲染为空行
+ * 缩进：
+ *     默认有两个字符缩进
+ *     使用 #- 开始，表示本段落不缩进
+ *     使用 # 开始并且没有 -，表示有若干缩进，一个 # 表示两个字符缩进
+ *         #   两个字符缩进，和默认一样
+ *         ##  四个字符缩进
+ *         ### 六个字符缩进
+ */
+Renderer.paragraph = text => {
+	// 空行
+	if (text === '--') {
+		return '<p>&nbsp;</p>';
+	}
+	// 缩进
+	if (text.startsWith('#')) {
+		// 清除缩进
+		if (text.startsWith('#-')) {
+			return `<p class="no-indent">${text.substring(2)}</p>`;
+		}
+		// 若干缩进
+		let count = 0;
+		for (let i = 0; i < text.length; i++) {
+			if (text[i] === '#') {
+				count++;
+			} else {
+				break;
+			}
+		}
+		count = 3 < count ? 3 : count;
+		return `<p class="indent${count * 2}">${text.substring(count)}</p>`;
+	}
+	// 默认
+	return `<p>${text}</p>`;
 }
 
 // Markdown 解析器配置

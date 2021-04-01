@@ -169,6 +169,23 @@ code ::selection {
 	text-decoration: underline !important;
 }
 
+.no-indent {
+	text-indent: 0 !important;
+	padding-left: 6px;
+}
+
+.indent2 {
+	padding-left: calc(6px + 2em);
+}
+
+.indent4 {
+	padding-left: calc(6px + 4em);
+}
+
+.indent6 {
+	padding-left: calc(6px + 6em);
+}
+
 .right {
 	text-align: right;
 }

@@ -63,8 +63,8 @@ export default defineComponent({
 		sayHello(): string {
 			const hour = new Date().getHours();
 			const statiz = '，欢迎访问 imyeyu.net';
-			if (hour >= 0 && hour <= 5)   return '夜深了，注意休息' + statiz;
-			if (hour >= 6 && hour <= 10)  return '早上好' + statiz;
+			if (hour >= 0  && hour <= 5)  return '夜深了，注意休息' + statiz;
+			if (hour >= 6  && hour <= 10) return '早上好' + statiz;
 			if (hour >= 11 && hour <= 13) return '中午好' + statiz;
 			if (hour >= 14 && hour <= 17) return '下午好' + statiz;
 			if (hour >= 18 && hour <= 19) return '傍晚好' + statiz;
