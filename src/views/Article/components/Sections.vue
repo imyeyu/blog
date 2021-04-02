@@ -56,10 +56,10 @@ export default defineComponent({
 	}
 
 	.content >>> p {
+		padding: 0 6px;
 		font-size: 15px;
 		line-height: 1.6;
 		text-indent: 2em;
-		padding-right: 6px;
 	}
 
 	.content >>> ul,
@@ -101,10 +101,7 @@ export default defineComponent({
 		padding: 6px 0;
 		background: #EEE;
 		border-left: 3px solid #525870;
-	}
-
-	.content >>> blockquote p {
-		text-indent: 0;
+		padding-left: 6px;
 	}
 
 	/* 代码容器 */

@@ -174,16 +174,12 @@ code ::selection {
 	padding-left: 6px;
 }
 
-.indent2 {
-	padding-left: calc(6px + 2em);
-}
-
 .indent4 {
-	padding-left: calc(6px + 4em);
+	padding-left: calc(6px + 2em) !important;
 }
 
 .indent6 {
-	padding-left: calc(6px + 6em);
+	padding-left: calc(6px + 4em) !important;
 }
 
 .right {
