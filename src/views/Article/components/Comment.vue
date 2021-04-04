@@ -1,36 +1,39 @@
 <template>
 	<div class="comment-root" v-if="aid">
-		<div class="write">
-			<text-field
-				ref="comment-nick"
-				class="nick"
-				label="昵称"
-				:outlined="true"
-				:isEnableTips="false"
-				v-model:value="comment.nick"
-			></text-field>
-			<text-region
-				class="content"
-				label="评论"
-				:isEnableTips="false"
-				v-model:value="comment.data"
-			></text-region>
-			<div class="flex">
-				<div>
-					<div class="input-box">
-						<button class="comment-commit" @click="commit">提交</button>
-					</div>
-				</div>
-				<div class="captcha">
-					<text-field
-						v-model:value="captcha"
-						placeholder="验证码"
-					></text-field>
+		<div class="write-container">
+			<div class="write">
+				<text-field
+					ref="comment-nick"
+					class="nick"
+					label="昵称"
+					:outlined="true"
+					:isEnableTips="false"
+					v-model:value="comment.nick"
+				></text-field>
+				<text-region
+					class="content"
+					label="评论"
+					:isEnableTips="false"
+					v-model:value="comment.data"
+				></text-region>
+				<div class="flex">
 					<div>
-						<img src="https://old.imyeyu.net/ajax/getCheckCode?from=login&width=90&height=28" alt="验证码" />
+						<div class="input-box">
+							<button class="comment-commit" @click="commit">提交</button>
+						</div>
+					</div>
+					<div class="captcha">
+						<text-field
+							v-model:value="captcha"
+							placeholder="验证码"
+						></text-field>
+						<div>
+							<img src="https://old.imyeyu.net/ajax/getCheckCode?from=login&width=90&height=28" alt="验证码" />
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="right"></div>
 		</div>
 		<div class="comments">
 			<div v-for="comment in comments" :key="comment">
@@ -314,20 +317,32 @@ export default defineComponent({
 		margin-top: 4rem;
 	}
 	/* 表单 */
-	.write {
-		width: 523px;
-		height: 296px;
+	.write-container {
+		width: 76%;
 		margin: 12px auto 32px auto;
-		padding: 12px 40px;
-		background: url('~@/assets/img/comment.png');
+		display: flex;
+		align-items: stretch;
+	}
+	.write-container .write {
+		width: 100%;
+		height: 296px;
+		padding: 6px 0 18px 24px;
+		position: relative;
+		background: url('~@/assets/img/comment.png') no-repeat;
+	}
+
+	.write-container .right {
+		width: 24px;
+		min-width: 24px;
+		background: url('~@/assets/img/comment-1.png');
 	}
 
 	.nick {
-		width: 220px;
+		width: 50%;
 	}
 
 	.write .content {
-		width: 390px;
+		width: 100%;
 	}
 
 	.comment-commit {
@@ -491,5 +506,11 @@ export default defineComponent({
 
 	.reply-commit:hover {
 		background: #B9CFE5;
+	}
+
+	@media screen and (max-width: 900px) {
+		.write-container {
+			width: 90%;
+		}
 	}
 </style>

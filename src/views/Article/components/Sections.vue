@@ -72,9 +72,9 @@ export default defineComponent({
 	.content >>> audio,
 	.content >>> video,
 	.content >>> iframe {
-		margin: 10px auto;
+		margin: 4px auto 14px auto;
 		display: block;
-		max-width: 95%;
+		max-width: calc(100% - 4rem);
 	}
 
 	.content >>> audio {
@@ -87,13 +87,13 @@ export default defineComponent({
 	}
 	
 	.content >>> video {
-		width: 95%;
+		width: 100%;
 	}
 
 	.content >>> iframe {
-		width: 780px;
+		width: 100%;
 		height: 520px;
-		max-width: 95%;
+		max-width: calc(100% - 4rem);
 	}
 
 	.content >>> blockquote {
@@ -106,7 +106,7 @@ export default defineComponent({
 
 	/* 代码容器 */
 	.content >>> pre {
-		width: 90%;
+		width: calc(100% - 4rem - 12px);
 		margin: 8px auto 20px auto;
 		border: 1px solid #B8BBC9;
 		padding: 0;
@@ -175,5 +175,18 @@ export default defineComponent({
 	}
 	.content >>> .token.punctuation {
 		color: purple;
+	}
+	
+	@media screen and (max-width: 900px) {
+		.content >>> img,
+		.content >>> audio,
+		.content >>> video,
+		.content >>> iframe {
+			max-width: calc(100% - 1rem);
+		}
+
+		.content >>> pre {
+			width: calc(100% - 1rem - 12px);
+		}
 	}
 </style>

@@ -137,12 +137,12 @@ export default defineComponent({
 		border-left: 3px solid #CDDEF0;
 	}
 	/* 自适应 */
-	@media screen and (max-width: 3840px) {
+	@media screen and (max-width: 2560px) {
 		#main {
-			width: 1100px;
+			width: 1400px;
 		}
 	}
-	@media screen and (max-width: 1440px) {
+	@media screen and (max-width: 1920px) {
 		#main {
 			width: 1100px;
 		}
@@ -154,6 +154,7 @@ export default defineComponent({
 			border: none;
 			min-height: 100vh;
 			background: rgba(255, 255, 255, .7);
+			box-shadow: none;
 		}
 	}
 	@media screen and (max-width: 900px) {
