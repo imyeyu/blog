@@ -57,7 +57,7 @@ Renderer.image = (url, title, text) => {
  * 使用 `[red bold]文本` 可以自定义类
  */
 Renderer.codespan = code => {
-	const clazz = code.match(/\[(.*)\]/);
+	const clazz = code.match(/\[(.+?)\]/);
 	if (clazz) {
 		return `<span class="${clazz[1]}">${code.substring(code.indexOf(']') + 1)}</span>`
 	} else {
@@ -66,18 +66,16 @@ Renderer.codespan = code => {
 }
 
 /**
- * 段落渲染
- * 值为 -- 时渲染为空行
- * 缩进：
- *     默认有两个字符缩进
- *     使用 #- 开始，表示本段落不缩进
- *     使用 # 开始并且没有 -，表示有若干缩进，一个 # 表示两个字符缩进
- *         #   两个字符缩进，和默认一样
- *         ##  四个字符缩进
- *         ### 六个字符缩进
+ * 段落渲染，[参数]段落
+ * 参数为 -- 时渲染为空行
+ * 参数为：
+ *     #-  表示无缩进
+ *     #   为默认缩进（没有参数时也是默认缩进，2 个字符）
+ *     ##  为 4 个字符缩进
+ *     ### 为 6 个字符缩进
  */
 Renderer.paragraph = text => {
-	const flag = text.match(/\[(.*)\]/);
+	const flag = text.match(/\[(.+?)\]/);
 	if (flag) {
 		switch (flag[1]) {
 			// 空行
