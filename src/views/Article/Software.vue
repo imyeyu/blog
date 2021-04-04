@@ -1,6 +1,6 @@
 <template>
 	<article v-show="article.id">
-		<div class="header">
+		<div class="header" v-if="isSoftware">
 			<div class="logo">
 				<img :src="software.logo" alt="程序 Logo" />
 			</div>
@@ -51,11 +51,13 @@ export default defineComponent({
 	data(): {
 		article: Article;
 		software: Software;
+		isSoftware: boolean;
 		isCreatedAt: boolean; // 显示的日期
 		} {
 		return {
 			article: {},
 			software: {},
+			isSoftware: false,
 			isCreatedAt: true
 		}
 	},
@@ -85,9 +87,15 @@ export default defineComponent({
 	async mounted() {
 		const article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
 		if (article.data) {
-			const split = article.data.split('jsonend');
-			this.software = JSON.parse(split[0]) as Software;
-			article.data = split[1];
+			this.isSoftware = article.data.indexOf('jsonend') !== -1;
+			if (this.isSoftware) {
+				const split = article.data.split('jsonend');
+				this.software = JSON.parse(split[0]) as Software;
+				article.data = split[1];
+			} else {
+				await this.$store.state.dialogBus.warning('无法解析为软件类文章，将使用公共模板解析', '解析异常');
+				this.$router.push(`/article/public/aid${article.id}.html`);
+			}
 		}
 		this.article = article;
 		
@@ -168,5 +176,11 @@ export default defineComponent({
 
 	.download:active {
 		background: #FFAAC0;
+	}
+	
+	@media screen and (max-width: 900px) {
+		.logo {
+			display: none;
+		}
 	}
 </style>
