@@ -164,12 +164,24 @@ function lrc(code: string): string {
 		if (AXIS) {
 			result += line.replaceAll(`[${AXIS[0]}]`, `\n${LEFT}<span class="token number">${AXIS[0]}</span>${RIGHT}`)
 		} else {
-			const kv = line.substring(1, line.length - 1).split(':');
-			if (kv[0]) {
-				if (!kv[1]) {
-					kv[1] = '';
+			let args: any = line.match(REG_ARGS);
+			if (args) {
+				args = args[0].substring(1, args[0].length - 1);
+				if (line.indexOf(':') !== -1) {
+					const kv = args.split(':');
+					if (kv[0]) {
+						if (!kv[1]) {
+							kv[1] = '';
+						}
+						result += `\n${LEFT}<span class="token function">${kv[0]}:</span>${kv[1] + RIGHT}`;
+					} else {
+						result += `\n${LEFT}<span class="token function">${args}</span>${RIGHT}`;
+					}
+				} else {
+					result += `\n${LEFT}<span class="token function">${args}</span>${RIGHT}`;
 				}
-				result += `\n${LEFT}<span class="token function">${kv[0]}:</span>${kv[1] + RIGHT}`;
+			} else {
+				result += '\n' + line;
 			}
 		}
 	}
