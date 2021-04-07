@@ -98,10 +98,20 @@ export default defineComponent({
 
 	.content >>> blockquote {
 		color: #666;
+		margin: 1rem 2.4em;
 		padding: 6px 0;
 		background: #EEE;
 		border-left: 3px solid #525870;
 		padding-left: 6px;
+	}
+
+	.content >>> blockquote ul,
+	.content >>> blockquote ol {
+		margin-left: 0;
+	}
+
+	.content >>> li blockquote {
+		margin: 1rem 0;
 	}
 
 	/* 代码容器 */
