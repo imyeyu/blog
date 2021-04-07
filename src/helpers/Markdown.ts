@@ -140,6 +140,43 @@ function linuxSession(code: string): string {
 }
 
 /**
+ * 歌词着色
+ * 规范：
+ *     [键:值]
+ *     [00:00.00]文本
+ * 
+ * 符号为'注释色'
+ * 键为'函数色'
+ * 时轴为'数字色'
+ */
+function lrc(code: string): string {
+	const REG_LINE = /\r\n|[\r\n]/g,
+		  REG_ARGS = /\[(.*)\]/g,
+		  REG_AXIS = /[0-9][0-9]\:[0-5][0-9]\.[0-9][0-9]/g,
+
+		  LEFT = '<span class="token comment">[</span>',
+		  RIGHT = '<span class="token comment">]</span>';
+
+	let result = '';
+	const lines = code.split(REG_LINE);
+	for (const line of lines) {
+		const AXIS = line.match(REG_AXIS);
+		if (AXIS) {
+			result += line.replaceAll(`[${AXIS[0]}]`, `\n${LEFT}<span class="token number">${AXIS[0]}</span>${RIGHT}`)
+		} else {
+			const kv = line.substring(1, line.length - 1).split(':');
+			if (kv[0]) {
+				if (!kv[1]) {
+					kv[1] = '';
+				}
+				result += `\n${LEFT}<span class="token function">${kv[0]}:</span>${kv[1] + RIGHT}`;
+			}
+		}
+	}
+	return result.trim();
+}
+
+/**
  * 双击代码区域显示全部或显示部分
  * 
  * @param el    codes 对象
@@ -194,8 +231,10 @@ function dblClickEvent(el: HTMLElement, lines: number) {
 			let elHTML = el.innerHTML;
 			switch (env.language) {
 				case 'linux-session': elHTML = linuxSession(elHTML); break;
+				case 'lrc':           elHTML = lrc(elHTML); break;
 			}
 
+			// 加容器做滚动
 			el.innerHTML = `<span class="codes">${elHTML}</span>`;
 			el.insertBefore(clone, el.firstChild);
 
