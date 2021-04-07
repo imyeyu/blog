@@ -95,22 +95,22 @@ export default defineComponent({
 				capYPositionArray = [];
 			ctx = canvas.getContext('2d');
 			// 渐变
-			let gradient = ctx.createLinearGradient(0, 0, 0, 100);
+			const gradient = ctx.createLinearGradient(0, 0, 0, 100);
 			gradient.addColorStop(1, '#A67D7B');
 			gradient.addColorStop(0.5, '#A67D7B');
 			gradient.addColorStop(0, '#A67D7B');
 
-			let capStyle = '#A67D7B';
+			const capStyle = '#A67D7B';
 			
 			const that = this;
 			// 动画
 			(function renderFrame() {
-				var array = new Uint8Array(analyser.frequencyBinCount);
+				const array = new Uint8Array(analyser.frequencyBinCount);
 				analyser.getByteFrequencyData(array);
-				var step = Math.round(array.length / meterNum);
+				const step = Math.round(array.length / meterNum);
 				ctx.clearRect(0, 0, cWidth, cHeight);
-				for (var i = 0; i < meterNum; i++) {
-					var value = array[i * step];
+				for (let i = 0; i < meterNum; i++) {
+					const value = array[i * step];
 					if (capYPositionArray.length < Math.round(meterNum)) {
 						capYPositionArray.push(value);
 					}

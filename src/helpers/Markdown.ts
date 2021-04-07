@@ -7,19 +7,33 @@ import store from '@/store';
 const Renderer = new marked.Renderer();
 /**
  * 超链渲染方式
- * 1.链接前加 ~ 符号会被渲染为新标签打开。例：[text](~url)
- * 2.没有 title 的链接将使用 text 作为 title
- * 3.没有链接的会被渲染为 span 标签
+ * 1.链接前加 ~ 符号会被渲染为新标签打开。例：[文本](~链接)
+ * 2.文本前参数可以自定义类，例：[[dl]文本](!链接)
+ * 3.没有标题的链接将使用文本作为标题
+ * 4.没有链接的会被渲染为 span 标签
  */
 Renderer.link = (url, title, text) => {
 	if (!title && !text.startsWith('<img')) {
 		title = text;
 	}
+	let clazz: any = text.match(/\[(.+?)\]/);
+	let hasClazz = false;
+	if (clazz) {
+		clazz = clazz[1];
+		text = text.substring(text.indexOf(']') + 1);
+		hasClazz = true;
+	}
 	if (url) {
 		const isNewTabOpen = url.startsWith('~');
 		url = isNewTabOpen ? url.substring(1) + '' : url;
+		if (hasClazz) {
+			return `<a class="${clazz}" href="${url}"${ isNewTabOpen ? ' target="_blank"' : ''} title="${title}">${text}</a>`;
+		}
 		return `<a href="${url}"${ isNewTabOpen ? ' target="_blank"' : ''} title="${title}">${text}</a>`;
 	} else {
+		if (hasClazz) {
+			return `<span class="${clazz}">${text}</span>`;
+		}
 		return `<span>${text}</span>`;
 	}
 }

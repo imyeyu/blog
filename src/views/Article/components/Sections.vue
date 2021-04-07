@@ -46,7 +46,7 @@ export default defineComponent({
 		line-height: 1.5;
 		font-weight: normal;
 		font-family: var(--zpix-font);
-		padding-left: 8px;
+		padding-left: 7.5px;
 		font-feature-settings: "tnum";
 		-webkit-font-smoothing: none;
 	}
@@ -135,6 +135,19 @@ export default defineComponent({
 	/* 自定义类 */
 	.content >>> .border {
 		border: 1px solid #B8BBC9;
+	}
+
+	.content >>> .dl {
+		margin: .5em;
+		border: 1px solid #D6BE96;
+		display: inline-block;
+		padding: 2px 4px 0 22px;
+		background: var(--random-icon);
+		font-size: 13px;
+		font-family: var(--public-font);
+		font-weight: bold;
+		text-indent: 0;
+		background-position: 6px -955px;
 	}
 
 	/* 代码容器 */
