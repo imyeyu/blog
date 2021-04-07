@@ -82,8 +82,26 @@ export default defineComponent({
 		background: #F1F3F4;
 	}
 
-	.content >>> .border {
-		border: 1px solid #B8BBC9;
+	.content >>> table {
+		margin: 12px auto;
+		max-width: calc(100% - 4rem);
+	}
+	
+	.content >>> table tr:hover {
+		background: #E5E5E5;
+	}
+
+	.content >>> table tr th {
+		font-size: 17px;
+		background: #CDDEF0;
+		white-space: nowrap;
+	}
+
+	.content >>> table tr th,
+	.content >>> table tr td {
+		border: 1px solid #525870;
+		padding: 0 6px;
+		line-height: 25px;
 	}
 	
 	.content >>> video {
@@ -114,6 +132,11 @@ export default defineComponent({
 		margin: 1rem 0;
 	}
 
+	/* 自定义类 */
+	.content >>> .border {
+		border: 1px solid #B8BBC9;
+	}
+
 	/* 代码容器 */
 	.content >>> pre {
 		width: calc(100% - 4rem - 12px);
@@ -129,14 +152,14 @@ export default defineComponent({
 		border-radius: 0;
 	}
 
-	/* 盒子 */
+	/* 代码盒子 */
 	.content >>> pre code {
 		color: #43475C;
 		display: flex;
 		text-shadow: none !important;
 	}
 
-	/* 行号 */
+	/* 代码行号 */
 	.content >>> .line-numbers-rows {
 		left: 0;
 		position: relative;
@@ -158,7 +181,7 @@ export default defineComponent({
 		padding-right: 1em;
 	}
 
-	/* 自定义着色 */
+	/* 自定义代码着色 */
 	.content >>> .token.function {
 		color: #777;
 	}
@@ -191,6 +214,7 @@ export default defineComponent({
 		.content >>> img,
 		.content >>> audio,
 		.content >>> video,
+		.content >>> table,
 		.content >>> iframe {
 			max-width: calc(100% - 1rem);
 		}
