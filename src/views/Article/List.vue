@@ -6,27 +6,29 @@
 				<span class="light-gray" v-text="sayHello"></span>
 			</h4>
 		</section>
-		<article class="article" v-for="item in article" :key="item">
-			<div class="content">
-				<div class="abstract">
-					<h3 class="title">
-						<router-link
-							:to="`/article/${item.type}/aid${item.id}.html`"
-							v-text="item.title"
-						></router-link>
-					</h3>
-					<p class="digest" v-text="`${item.digest}..`"></p>
+		<template v-for="item in article" :key="item">
+			<article class="article" v-if="!item.isHide">
+				<div class="content">
+					<div class="abstract">
+						<h3 class="title">
+							<router-link
+								:to="`/article/${item.type}/aid${item.id}.html`"
+								v-text="item.title"
+							></router-link>
+						</h3>
+						<p class="digest" v-text="`${item.digest}..`"></p>
+					</div>
 				</div>
-			</div>
-			<footer class="footer">
-				<div>
-					<span class="icon reads" v-text="`阅读（${item.reads}）`"></span>
-					<span class="icon likes" v-text="`喜欢（${item.likes}）`"></span>
-					<span class="icon comments" v-text="`评论（${item.comments}）`"></span>
-				</div>
-				<span class="icon update-at" v-text="toDate(item.createdAt, item.updatedAt)"></span>
-			</footer>
-		</article>
+				<footer class="footer">
+					<div>
+						<span class="icon reads" v-text="`阅读（${item.reads}）`"></span>
+						<span class="icon likes" v-text="`喜欢（${item.likes}）`"></span>
+						<span class="icon comments" v-text="`评论（${item.comments}）`"></span>
+					</div>
+					<span class="icon update-at" v-text="toDate(item.createdAt, item.updatedAt)"></span>
+				</footer>
+			</article>
+		</template>
 		<loading
 			:isFinished="isLoadFinished"
 			:isError="isLoadError"
@@ -85,7 +87,6 @@ export default defineComponent({
 		async getArticles() {
 			const offset = this.article.length === 0 ? 0 : this.article.length + 1;
 			let result = await ArticleAPI.getArticles(offset);
-			result = result.filter(a => !a.isHide);
 			this.article = this.article.concat(result);
 			this.updateTime = toDateTime(this.article[0].updatedAt || this.article[0].createdAt);
 			if (result.length === 0) {
