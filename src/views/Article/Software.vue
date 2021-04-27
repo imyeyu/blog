@@ -21,7 +21,7 @@
 					<span class="digest" v-text="`运行环境：${software.runtime}`"></span>
 				</p>
 				<p class="digests">
-					<button class="download">下载</button>
+					<a class="download" :href="software.dlURL">下载</a>
 					<span class="digest" v-text="`大小：${size} MB`"></span>
 					<span class="digest" v-text="`解压密码：${software.password ? software.password : '无'}`"></span>
 				</p>
@@ -164,7 +164,7 @@ export default defineComponent({
 
 	.download {
 		border: 1px solid #FF7A9B;
-		padding: 1px 14px;
+		padding: 2px 14px 1px 14px;
 		background: transparent;
 		margin-right: 6px;
 	}
