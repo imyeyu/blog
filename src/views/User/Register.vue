@@ -32,7 +32,7 @@
 					v-model:value="captcha"
 				></text-field>
 				<div style="padding-top: 26px">
-					<img src="https://old.imyeyu.net/ajax/getCheckCode?from=login&width=90&height=28" alt="验证码" />
+					<img :src="require('@/assets/img/captcha.png')" alt="验证码" />
 				</div>
 			</div>
 		</div>

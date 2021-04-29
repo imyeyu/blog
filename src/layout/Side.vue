@@ -33,7 +33,7 @@
 					<a href="javascript:;" @click="$store.state.dialogBus.warning('暂时不可用')">找回密码</a>
 				</div>
 				<div class="input-btn">
-					<img src="https://old.imyeyu.net/ajax/getCheckCode?from=login&width=76&height=22" alt="验证码" autocomplete="off" />
+					<img :src="require('../assets/img/captcha.png')" alt="验证码" autocomplete="off" />
 					<input id="captcha" type="text" placeholder="验证码" spellcheck="false" />
 					<button id="login" class="icon" @click="$store.state.dialogBus.warning('暂时不可用')"></button>
 				</div>
