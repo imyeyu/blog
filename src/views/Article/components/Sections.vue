@@ -58,7 +58,7 @@ export default defineComponent({
 	.content >>> p {
 		padding: 0 6px;
 		font-size: 15px;
-		line-height: 1.6;
+		line-height: 1.8;
 		text-indent: 2em;
 	}
 
@@ -66,6 +66,10 @@ export default defineComponent({
 	.content >>> ol {
 		margin-left: 2em;
 		padding-left: 2em;
+	}
+
+	.content >>> li {
+		line-height: 1.8;
 	}
 
 	.content >>> img,
