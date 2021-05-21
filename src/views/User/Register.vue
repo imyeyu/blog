@@ -5,7 +5,7 @@
 			<text-field
 				label="用户名"
 				tips="支持中文、字母及数字组合，可用于登录"
-				v-model:value="user.userName"
+				v-model:value="user.name"
 			></text-field>
 			<text-field
 				label="密码"
@@ -24,43 +24,43 @@
 				label="邮箱（可选）"
 				type="email"
 				tips="用于找回密码和回复提醒"
-				v-model:value="user.userName"
+				v-model:value="user.email"
 			></text-field>
-			<div class="captcha">
+			<div class="captcha-box">
 				<text-field
 					label="验证码"
 					v-model:value="captcha"
 				></text-field>
 				<div style="padding-top: 26px">
-					<img :src="require('@/assets/img/captcha.png')" alt="验证码" />
+					<captcha :width="74" :height="24" from="REGISTER" />
 				</div>
 			</div>
 		</div>
-		<button
-			class="run zpix24"
-			@click="$store.state.dialogBus.warning('暂时不可用')"
-		>注册</button>
+		<button class="run zpix24" @click="register()">注册</button>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { User } from '@/type/User';
+import UserAPI from '@/api/UserAPI';
+import Captcha from '@/components/Captcha.vue';
 import TextField from '@/components/TextInput/TextField.vue';
 
 export default defineComponent({
 	components: {
-		TextField
+		TextField,
+		Captcha
 	},
 	data(): {
-		user?: User;
+		user: User;
 		title?: String;
 		captcha: String;
 		pwConfirm: String;
 		} {
 		return {
 			user: {
-				userName: '',
+				name: '',
 				password: '',
 				email: '',
 			},
@@ -68,6 +68,12 @@ export default defineComponent({
 			pwConfirm: ''
 		};
 	},
+	methods: {
+		async register() {
+			const user = await UserAPI.register(this.user);
+			console.log(user);
+		}
+	}
 });
 </script>
 <style scoped>
@@ -92,9 +98,9 @@ export default defineComponent({
 		margin: 0 auto;
 	}
 
-	.captcha {
+	.captcha-box {
+		width: 10rem;
 		display: flex;
-		justify-content: flex-start;
 	}
 
 	.run {

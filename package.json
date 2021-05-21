@@ -28,6 +28,7 @@
 		"@vue/cli-service": "~4.5.0",
 		"@vue/compiler-sfc": "^3.0.0",
 		"babel-plugin-prismjs": "^2.0.1",
-		"typescript": "~3.9.3"
+		"typescript": "~3.9.3",
+		"vue-loader": "^15.9.7"
 	}
 }

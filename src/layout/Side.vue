@@ -25,17 +25,17 @@
 			<div class="title icon"></div>
 			<div class="content">
 				<div class="input-btn">
-					<input id="username" type="text" placeholder="UID 或用户名" spellcheck="false" autocomplete="off" />
+					<input id="user" type="text" placeholder="UID、邮箱或用户名" spellcheck="false" autocomplete="off" v-model="userSignin.user" />
 					<router-link to="/user/register">注册</router-link>
 				</div>
 				<div class="input-btn">
-					<input id="password" type="password" placeholder="密码" spellcheck="false" autocomplete="off" />
+					<input id="password" type="password" placeholder="密码" spellcheck="false" autocomplete="off" v-model="userSignin.password" />
 					<a href="javascript:;" @click="$store.state.dialogBus.warning('暂时不可用')">找回密码</a>
 				</div>
 				<div class="input-btn">
-					<img :src="require('../assets/img/captcha.png')" alt="验证码" autocomplete="off" />
-					<input id="captcha" type="text" placeholder="验证码" spellcheck="false" />
-					<button id="login" class="icon" @click="$store.state.dialogBus.warning('暂时不可用')"></button>
+					<captcha :width="74" :height="24" from="SIGNIN" />
+					<input id="captcha" type="text" placeholder="验证码" spellcheck="false" autocomplete="off" v-model="userSignin.captcha" />
+					<button id="signin" class="icon" @click="signin()"></button>
 				</div>
 			</div>
 		</div>
@@ -105,8 +105,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { sleep } from '@/helpers/Toolkit';
+import { UserSignin } from '@/type/User';
+import UserAPI from '@/api/UserAPI';
+import Captcha from '@/components/Captcha.vue';
 
 export default defineComponent({
+	components: {
+		Captcha
+	},
 	props: {
 		title: {
 			type: String,
@@ -115,15 +121,27 @@ export default defineComponent({
 	},
 	data(): {
 		searchKey: string;
+		userSignin: UserSignin;
 		} {
 		return {
-			searchKey: ''
+			searchKey: '',
+			userSignin: {
+				user: '',
+				password: '',
+				captcha: ''
+			}
 		}
 	},
 	methods: {
+		// 登录
+		async signin() {
+			const isSuccessed = await UserAPI.signin(this.userSignin);
+		},
+		// 回滚至顶
 		toTop() {
 			this.$store.state.scroller.toTop();
 		},
+		// 主页
 		async home() {
 			this.toTop();
 			if (this.$route.name !== 'Home') {
@@ -230,7 +248,7 @@ export default defineComponent({
 		border-radius: 0;
 	}
 
-	#username,
+	#user,
 	#password {
 		width: 120px;
 	}
@@ -239,7 +257,7 @@ export default defineComponent({
 		width: 100%;
 	}
 
-	#login {
+	#signin {
 		width: 20%;
 		height: 100%;
 		border: none;
@@ -247,7 +265,7 @@ export default defineComponent({
 		background-position: 0 -382px;
 	}
 
-	#login:active {
+	#signin:active {
 		transform: translateX(4px);
 	}
 
