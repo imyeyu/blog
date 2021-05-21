@@ -8,7 +8,24 @@ import httpCodeMsg from '@/static/HttpCode';
 // 网络请求
 axios.defaults.timeout = 8E3;
 axios.defaults.baseURL = process.env.VUE_APP_API_HOST;
-axios.interceptors.response.use(response => response.data, error => {
+axios.defaults.withCredentials = true;
+axios.interceptors.response.use(response => {
+	// 服务端返回
+	const data = response.data;
+	if (data.code < 40000) { // 200 或 300 HTTP 状态段表成功
+		return data.data;
+	} else {
+		// 返回错误
+		store.state.dialogBus.display({
+			icon: 'ERROR',
+			title: `错误：${data.code}`,
+			titleSub: response.config.url,
+			content: data.msg
+		});
+	}
+	return null;
+}, error => {
+	// 请求错误
 	if (error) {
 		const url = `地址：${error.config.url}`;
 		if (error.response && error.response.status) {
