@@ -79,6 +79,6 @@ export function async(event: Function) {
  * @param min 最小值
  * @param max 最大值
  */
-export function random(min: number, max: number): number {
+export function random(max = 100, min = 0): number {
 	return Math.floor(Math.random() * (max + 1 - min)) + min;
 }
