@@ -12,7 +12,7 @@ axios.defaults.withCredentials = true;
 axios.interceptors.response.use(response => {
 	// 服务端返回
 	const data = response.data;
-	if (data.code < 40000) { // 200 或 300 HTTP 状态段表成功
+	if (data.code < 40000) { // 200 或 300 HTTP 状态段视为成功
 		return data.data;
 	} else {
 		// 返回错误
@@ -35,6 +35,7 @@ axios.interceptors.response.use(response => {
 				titleSub: url,
 				content: httpCodeMsg(error.response.status as number)
 			});
+			throw error;
 		}
 		if (error.request) {
 			if (error.message.startsWith('timeout')) {
