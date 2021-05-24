@@ -3,7 +3,7 @@
  * 
  * @param ms 延时毫秒
  */
- export async function sleep(ms: number): Promise<void> {
+export async function sleep(ms: number): Promise<void> {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -64,12 +64,12 @@ export function async(event: Function) {
 }
 
 /**
- * 补零
+ * 前置补零
  * 
  * @param v 数值
  * @param l 最终长度（默认 2）
  */
- export function paddingZero(v: number, l: number = 2) : string {
+export function paddingZero(v: number, l: number = 2) : string {
 	return (Array(l).join("0") + v).slice(-l);
 }
 
