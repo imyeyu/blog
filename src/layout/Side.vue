@@ -509,5 +509,4 @@ export default defineComponent({
 	.ctrls .home {
 		background-position: 0 -928px;
 	}
-
 </style>
