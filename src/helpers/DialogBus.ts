@@ -36,6 +36,8 @@ export default class DialogBus {
 	 * 成功会话
 	 * 
 	 * @param content 内容
+	 * @param title   标题
+	 * @returns 
 	 */
 	public async success(content: string, title: string = '成功') {
 		return this.display({
@@ -49,6 +51,8 @@ export default class DialogBus {
 	 * 警告会话
 	 * 
 	 * @param content 内容
+	 * @param title   标题
+	 * @returns 
 	 */
 	public async warning(content: string, title: string = '警告') {
 		return this.display({
@@ -62,6 +66,8 @@ export default class DialogBus {
 	 * 错误会话
 	 * 
 	 * @param content 内容
+	 * @param title   标题
+	 * @returns 
 	 */
 	public async error(content: string, title: string = '错误') {
 		return this.display({
@@ -74,10 +80,11 @@ export default class DialogBus {
 	/**
 	 * 询问会话
 	 * 
-	 * @param title   标题
 	 * @param content 内容
+	 * @param title   标题
+	 * @returns 
 	 */
-	public async confirm(title: string, content: string): Promise<boolean> {
+	public async confirm(content: string, title: string): Promise<boolean> {
 		return this.display({ title, content});
 	}
 
