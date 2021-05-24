@@ -32,7 +32,7 @@
 					v-model:value="captcha"
 				></text-field>
 				<div style="padding-top: 26px">
-					<captcha :width="74" :height="24" from="REGISTER" />
+					<captcha ref="captcha" :width="74" :height="24" from="REGISTER" />
 				</div>
 			</div>
 		</div>
@@ -54,9 +54,9 @@ export default defineComponent({
 	},
 	data(): {
 		user: User;
-		title?: String;
-		captcha: String;
-		pwConfirm: String;
+		title?: string;
+		captcha: string;
+		pwConfirm: string;
 		} {
 		return {
 			user: {
@@ -70,8 +70,12 @@ export default defineComponent({
 	},
 	methods: {
 		async register() {
-			const user = await UserAPI.register(this.user);
-			console.log(user);
+			const user = await UserAPI.register(this.user, this.captcha);
+			if (user) {
+				this.$store.state.dialogBus.success(`UID：${user.id}\n用户名${user.name}\n现在你可以登录了！`, '注册成功');
+			} else {
+				(this.$refs.captcha as any).update();
+			}
 		}
 	}
 });
