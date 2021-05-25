@@ -1,5 +1,5 @@
 <template>
-	<aside class="no-select">
+	<aside class="aside no-select">
 		<div class="me">
 			<div class="info">
 				<div class="pic">
@@ -21,80 +21,11 @@
 				</p>
 			</div>
 		</div>
-		<div class="item user">
-			<div class="title icon"></div>
-			<div class="content">
-				<div class="input-btn">
-					<input id="user" type="text" placeholder="UID、邮箱或用户名" spellcheck="false" autocomplete="off" v-model="userSignin.user" />
-					<router-link to="/user/register">注册</router-link>
-				</div>
-				<div class="input-btn">
-					<input id="password" type="password" placeholder="密码" spellcheck="false" autocomplete="off" v-model="userSignin.password" />
-					<a href="javascript:;" @click="$store.state.dialogBus.warning('暂时不可用')">找回密码</a>
-				</div>
-				<div class="input-btn">
-					<captcha :width="74" :height="24" from="SIGNIN" />
-					<input id="captcha" type="text" placeholder="验证码" spellcheck="false" autocomplete="off" v-model="userSignin.captcha" />
-					<button id="signin" class="icon" @click="signin()"></button>
-				</div>
-			</div>
-		</div>
-		<div class="item clazz">
-			<div class="title icon"></div>
-			<ul class="first none-style" @click="$store.state.dialogBus.warning('暂时不可用')">
-				<li>HTML / CSS</li>
-				<li>Javascript</li>
-				<li>Java</li>
-				<li>Java Web</li>
-				<li>Flutter</li>
-				<li>Python</li>
-				<li>PHP</li>
-				<li>MySQL</li>
-				<li>服务器</li>
-				<li class="icon">
-					<span>其他</span>
-					<ul class="second none-style">
-						<li>软件</li>
-						<li>游戏</li>
-						<li>音乐</li>
-						<li>其他</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-		<div class="item search">
-			<div :class="`title${searchKey ? ' inputing' : ''}`">
-				<input
-					class="zpix24"
-					spellcheck="false"
-					autofocus
-					v-model="searchKey"
-					@keyup.enter="$store.state.dialogBus.warning('暂时不可用')"
-				/>
-			</div>
-		</div>
+		<account />
+		<clazz />
 		<div class="sticky">
-			<div class="item hot">
-				<div class="title icon"></div>
-				<ul class="links none-style">
-					<li class="link" v-for="(item, i) in $store.state.articleHot" :key="item">
-						<router-link
-							class="href"
-							:data-i="`${i + 1}.`"
-							:to="`/article/public/aid${item.id}.html`"
-							v-text="item.title"
-						>
-						</router-link>
-						<span class="value" v-text="item.count"></span>
-					</li>
-				</ul>
-			</div>
-			<div class="item friend">
-				<div class="title icon"></div>
-				<div class="hrefs">
-					<a title="赵羿杰的博客" href="http://39.106.104.78:8080/blog/" target="_blank">赵羿杰</a>
-				</div>
-			</div>
+			<article-hot />
+			<friend />
 			<div class="ctrls">
 				<div class="ctrl to-top" @click="toTop"></div>
 				<div class="ctrl home" @click="home"></div>
@@ -107,11 +38,18 @@ import { defineComponent } from 'vue';
 import { sleep } from '@/helpers/Toolkit';
 import { UserSignin } from '@/type/User';
 import UserAPI from '@/api/UserAPI';
-import Captcha from '@/components/Captcha.vue';
+
+import Clazz from './Side/Clazz.vue';
+import Friend from './Side/Friend.vue';
+import Account from './Side/Account.vue';
+import ArticleHot from './Side/ArticleHot.vue';
 
 export default defineComponent({
 	components: {
-		Captcha
+		Clazz,
+		Friend,
+		Account,
+		ArticleHot
 	},
 	props: {
 		title: {
@@ -156,14 +94,14 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-	.item {
+	.aside >>> .item {
 		margin: 8px 0 4px 0;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
 	}
 
-	.title {
+	aside >>> .title {
 		width: 90%;
 		height: 32px;
 		padding: 3px;
@@ -213,273 +151,6 @@ export default defineComponent({
 		height: 12px;
 		position: absolute;
 		background: #666;
-	}
-
-	.user .title {
-		background-position: 6px -172px;
-	}
-
-	.user .content {
-		width: 80%;
-		padding: 8px 0 16px 0;
-	}
-
-	.input-btn {
-		width: 100%;
-		height: 32px;
-		display: flex;
-		font-size: 12px;
-		align-items: center;
-		border-bottom: 2px solid #EED7D7;
-		justify-content: space-between;
-	}
-
-	.input-btn:nth-child(n + 3) {
-		border-top: none;
-	}
-
-	.input-btn input {
-		height: 100%;
-		border: none;
-		padding: 0;
-		font-size: 12px;
-		background: transparent;
-		text-indent: .5em;
-		border-radius: 0;
-	}
-
-	#user,
-	#password {
-		width: 120px;
-	}
-
-	#captcha {
-		width: 100%;
-	}
-
-	#signin {
-		width: 20%;
-		height: 100%;
-		border: none;
-		box-sizing: content-box;
-		background-position: 0 -382px;
-	}
-
-	#signin:active {
-		transform: translateX(4px);
-	}
-
-	.clazz .title {
-		background-position: 6px -126px;
-	}
-
-	.clazz .first {
-		width: 80%;
-		padding: 8px 0;
-		display: flex;
-		flex-wrap: wrap;
-	}
-
-	.clazz .second {
-		left: 90%;
-		width: 100%;
-		bottom: -2px;
-		border: 2px solid #CCC;
-		padding: 6px 10px;
-		opacity: 0;
-		position: absolute;
-		visibility: hidden;
-		transition: 200ms;
-		background: #F4F4F4;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .7);
-	}
-
-	.clazz li {
-		border: 2px solid transparent;
-		height: 26px;
-		position: relative;
-		font-size: 14px;
-		font-family: "Consolas";
-		line-height: 26px;
-		text-indent: 6px;
-	}
-
-	.first > li {
-		width: calc(50% - 4px);
-	}
-
-	.second > li {
-		width: calc(100% - 4px);
-	}
-
-	.clazz li:before {
-		content: "";
-		top: 50%;
-		left: -3px;
-		width: calc(100% - 2px);
-		height: 12px;
-		position: absolute;
-		margin-top: -6px;
-		border-left: 4px solid transparent;
-		border-right: 4px solid transparent;
-	}
-
-	.clazz li:after {
-		content: "";
-		top: -3px;
-		left: 50%;
-		width: 78px;
-		height: calc(100% - 2px);
-		position: absolute;
-		border-top: 4px solid transparent;
-		margin-left: -39px;
-		border-bottom: 4px solid transparent;
-	}
-
-	.clazz li:hover {
-		border: 2px solid #CA9381;
-	}
-
-	.clazz li:hover:before {
-		border-left: 4px solid #F4F4F4;
-		border-right: 4px solid #F4F4F4;
-	}
-
-	.clazz li:hover:after {
-		border-top: 4px solid #F4F4F4;
-		border-bottom: 4px solid #F4F4F4;
-	}
-
-	.second > li:active,
-	.first > li:nth-last-child(n + 2):active {
-		height: 22px;
-		margin: 2px;
-		line-height: 22px;
-		text-indent: 4px;
-	}
-
-	.first > li:nth-last-child(n + 2):active {
-		width: calc(50% - 8px);
-	}
-
-	.second > li:active {
-		width: calc(100% - 8px);
-	}
-
-	.first > li:last-child {
-		transition: background 200ms;
-		background-position: 64px -361px;
-	}
-
-	.first > li:last-child:hover {
-		transition: background 200ms;
-		background-position: 70px -361px;
-	}
-
-	.first > li:last-child:hover .second {
-		left: calc(100% + 2px);
-		opacity: 1;
-		transition: 200ms;
-		visibility: visible;
-	}
-
-	.search .title::before {
-		content: "";
-		top: 0;
-		left: 0;
-		width: 100px;
-		height: 36px;
-		overflow: hidden;
-		position: absolute;
-		background: var(--random-icon);
-		pointer-events: none;
-		background-position: 6px -220px;
-	}
-
-	.search .title.inputing::before {
-		width: 36px;
-	}
-
-	.search input {
-		width: calc(100% - 46px);
-		border: none;
-		display: inline-block;
-		background: transparent;
-	}
-
-	.hot .title {
-		background-position: 6px -268px;
-	}
-
-	.hot .links {
-		width: 229px;
-		padding: 4px 0;
-	}
-
-	.hot .link {
-		color: #333;
-		width: 229px;
-		height: 24px;
-		border: 1px solid transparent;
-		z-index: 3;
-		overflow: hidden;
-		position: relative;
-		font-size: 14px;
-		transition: .2s;
-		line-height: 24px;
-		white-space: nowrap;
-	}
-
-	.hot .link:hover {
-		width: 420px;
-		border: 1px solid #525870;
-		overflow: inherit;
-		transition: .2s cubic-bezier(.19, .1, .22, 1);
-		background: #F4F4F4;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
-	}
-
-	.hot .href {
-		color: #000;
-		width: 350px;
-		display: inline-block;
-		overflow: hidden;
-		padding-left: 1.8rem;
-		text-overflow: ellipsis;
-	}
-	
-	.hot .href::before {
-		content: attr(data-i);
-		left: 4px;
-		width: 1.5rem;
-		position: absolute;
-		text-align: right;
-	}
-
-	.hot .href:hover {
-		text-decoration: none;
-	}
-
-	.hot .value {
-		color: #BC9D9C;
-		right: 6px;
-		position: absolute;
-		visibility: hidden;
-	}
-
-	.hot .link:hover .value {
-		visibility: visible;
-	}
-
-	.friend .title {
-		background-position: 6px -312px;
-	}
-
-	.friend .hrefs {
-		width: 90%;
-		font-size: 13px;
-		text-align: left;
-		padding-top: 4px;
 	}
 
 	.ctrls {
