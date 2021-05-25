@@ -33,7 +33,7 @@
 			:isFinished="isLoadFinished"
 			:isError="isLoadError"
 			:finishText="'已加载所有文章 (◡ ᴗ ◡ ✿)'"
-		></loading>
+		/>
 	</div>
 </template>
 <script lang="ts">

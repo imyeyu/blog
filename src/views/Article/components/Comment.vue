@@ -309,6 +309,11 @@ export default defineComponent({
 				this.getComments();
 			}
 		}
+	},
+	beforeUnmount() {
+		console.log('移除事件');
+		
+		this.$store.state.scroller.remove('Comment');
 	}
 });
 </script>
