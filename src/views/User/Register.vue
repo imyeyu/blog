@@ -38,6 +38,7 @@
 		</div>
 		<button class="run zpix24" @click="register()">注册</button>
 	</div>
+	<loading :isFinished="true" finishText="" />
 </template>
 
 <script lang="ts">
@@ -46,11 +47,13 @@ import { User } from '@/type/User';
 import UserAPI from '@/api/UserAPI';
 import Captcha from '@/components/Captcha.vue';
 import TextField from '@/components/TextInput/TextField.vue';
+import Loading from '@/components/Loading.vue';
 
 export default defineComponent({
 	components: {
-		TextField,
-		Captcha
+		Loading,
+		Captcha,
+		TextField
 	},
 	data(): {
 		user: User;
