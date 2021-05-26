@@ -36,7 +36,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { sleep } from '@/helpers/Toolkit';
-import { UserSignin } from '@/type/User';
 import UserAPI from '@/api/UserAPI';
 
 import Clazz from './Side/Clazz.vue';
@@ -57,24 +56,7 @@ export default defineComponent({
 			default: 'Title',
 		},
 	},
-	data(): {
-		searchKey: string;
-		userSignin: UserSignin;
-		} {
-		return {
-			searchKey: '',
-			userSignin: {
-				user: '',
-				password: '',
-				captcha: ''
-			}
-		}
-	},
 	methods: {
-		// 登录
-		async signin() {
-			const isSuccessed = await UserAPI.signin(this.userSignin);
-		},
 		// 回滚至顶
 		toTop() {
 			this.$store.state.scroller.toTop();

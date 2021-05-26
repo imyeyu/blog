@@ -13,7 +13,6 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { UserSignin } from '@/type/User';
 
 export default defineComponent({
 	data(): {
