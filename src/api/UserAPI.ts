@@ -1,8 +1,14 @@
 import axios from 'axios';
-import { User, UserSignin } from '@/type/User';
+import { User, UserSignIn, UserVO } from '@/type/User';
 
-async function signin(userSignin: UserSignin): Promise<Boolean> {
-	return axios.post('/user/signin', userSignin);
+async function signIn(userSignIn: UserSignIn): Promise<UserVO> {
+	return axios.post('/user/sign-in', userSignIn);
+}
+
+async function isSignedIn(id: number, token: string): Promise<Boolean> {
+	console.log(token);
+	
+	return axios.post('/user/sign-in/status', { uid: id, token });
 }
 
 async function register(user: User, captcha: string): Promise<User> {
@@ -10,6 +16,7 @@ async function register(user: User, captcha: string): Promise<User> {
 }
 
 export default {
-	signin,
+	signIn,
+	isSignedIn,
 	register
 }
