@@ -1,9 +1,9 @@
 /**
  * 浏览器本地配置
  */
-export default class Config {
+export default class Storage {
 
-	private config: any;
+	private storage: any;
 
 	constructor() {
 		this.load();
@@ -11,27 +11,27 @@ export default class Config {
 
 	/** 获取 */
 	public get(key: string) {
-		return this.config[key];
+		return this.storage[key];
 	}
 
 	/** 设置 */
 	public set(key: string, value: any) {
-		this.config[key] = value;
+		this.storage[key] = value;
 		this.write();
 	}
 
 	/** 写入所有配置 */
 	public write() {
-		localStorage.setItem('config', JSON.stringify(this.config));
+		localStorage.setItem('storage', JSON.stringify(this.storage));
 	}
 
 	/** 读取所有配置 */
 	public load() {
-		const item = localStorage.getItem('config');
+		const item = localStorage.getItem('storage');
 		if (item) {
-			this.config = JSON.parse(item);
+			this.storage = JSON.parse(item);
 		} else {
-			this.config = this.getDefault();
+			this.storage = this.getDefault();
 			this.write();
 		}
 	}

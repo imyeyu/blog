@@ -226,7 +226,7 @@ function dblClickEvent(el: HTMLElement, lines: number) {
 		}
 	});
 	// 第一次滚动提示
-	if (store.state.config.get('codeTips')) {
+	if (store.state.storage.get('codeTips')) {
 		const event = () => {
 			store.state.dialogBus.display({
 				icon: 'INFO',
@@ -235,7 +235,7 @@ function dblClickEvent(el: HTMLElement, lines: number) {
 				content: '双击代码区域显示全部或显示部分'
 			});
 			parent.removeEventListener('scroll', event);
-			store.state.config.set('codeTips', false);
+			store.state.storage.set('codeTips', false);
 		};
 		parent.addEventListener('scroll', event);
 	}
