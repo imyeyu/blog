@@ -4,10 +4,7 @@
 			<div :class="`icon ${$store.state.dialogBus.option.icon.toLowerCase()}`"></div>
 			<h2 class="title" v-text="$store.state.dialogBus.option.title"></h2>
 			<p class="title-sub" v-text="$store.state.dialogBus.option.titleSub"></p>
-			<p class="content">
-				<span v-text="content"></span>
-				<span class="_"></span>
-			</p>
+			<p class="content" v-text="content"></p>
 			<div class="btns">
 				<button
 					v-text="$store.state.dialogBus.option.textOK"
@@ -145,15 +142,6 @@ export default defineComponent({
 
 	.content {
 		color: #333;
-	}
-
-	._ {
-		width: 10px;
-		display: inline-block;
-		animation: flash 100ms linear 0s infinite alternate;
-		transform: translate(2px, 1px);
-		font-weight: bold;
-		border-bottom: 2px solid #333;
 	}
 
 	.btns {
