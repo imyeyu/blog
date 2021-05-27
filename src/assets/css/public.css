@@ -197,14 +197,6 @@ code ::selection {
 	src: url(../font/zpix.woff2);
 }
 
-@keyframes flash {
-	from {
-		opacity: 0;
-	} to {
-		opacity: 1;
-	}
-}
-
 .zpix12 {
 	font-size: 12px !important;
 	line-height: 1.5;

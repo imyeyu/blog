@@ -6,7 +6,7 @@ import axios from 'axios';
 import httpCodeMsg from '@/static/HttpCode';
 
 // 网络请求
-axios.defaults.timeout = 10E3;
+axios.defaults.timeout = 8E3;
 axios.defaults.baseURL = process.env.VUE_APP_API_HOST;
 axios.defaults.withCredentials = true;
 axios.interceptors.response.use(response => {

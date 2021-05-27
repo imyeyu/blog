@@ -46,6 +46,21 @@ export default defineComponent({
 });
 </script>
 <style scoped>
+	@keyframes flash {
+		0% {
+			visibility: hidden;
+		}
+		49% {
+			visibility: hidden;
+		}
+		50% {
+			visibility: visible;
+		}
+		100% {
+			visibility: visible;
+		}
+	}
+
 	.root {
 		width: 100%;
 		height: 160px;
@@ -57,7 +72,7 @@ export default defineComponent({
 	._ {
 		width: 12px;
 		height: 28px;
-		animation: flash 100ms linear 0s infinite alternate;
+		animation: flash 160ms linear 0s infinite alternate;
 		font-weight: bold;
 		border-bottom: 2px solid #333;
 	}
