@@ -1,13 +1,11 @@
 import axios from 'axios';
-import { User, UserSignIn, UserVO } from '@/type/User';
+import { User, UserSignIn, UserToken } from '@/type/User';
 
-async function signIn(userSignIn: UserSignIn): Promise<UserVO> {
+async function signIn(userSignIn: UserSignIn): Promise<UserToken> {
 	return axios.post('/user/sign-in', userSignIn);
 }
 
 async function isSignedIn(id: number, token: string): Promise<Boolean> {
-	console.log(token);
-	
 	return axios.post('/user/sign-in/status', { uid: id, token });
 }
 

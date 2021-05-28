@@ -14,11 +14,9 @@ export type UserSignIn = {
 	captcha: string;
 }
 
-// 已登录用户储存对象（Storage）
-export type UserVO = {
+// 已登录用户令牌对象（存于 Storage）
+export type UserToken = {
 	id?: number;
-	email?: string;
 	name?: string;
-	token?: string;     // 通信令牌
-	updatedAt?: number; // 最近获取状态时间
+	token?: string; // 通信令牌
 }

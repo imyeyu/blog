@@ -15,7 +15,7 @@
 					<a href="javascript:;" @click="$store.state.dialogBus.warning('暂时不可用')">找回密码</a>
 				</div>
 				<div class="input-btn">
-					<captcha :width="74" :height="24" from="SIGNIN" />
+					<captcha ref="captcha" :width="74" :height="24" from="SIGNIN" />
 					<input id="captcha" type="text" placeholder="验证码" spellcheck="false" autocomplete="off" v-model="userSignIn.captcha" />
 					<button id="sign-in" class="icon" @click="signIn()"></button>
 				</div>
@@ -25,10 +25,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { async } from '@/helpers/Toolkit';
-import { calcDifference } from '@/helpers/UnixTime';
 import Captcha from '@/components/Captcha.vue';
-import { UserVO, UserSignIn } from '@/type/User';
+import { UserToken, UserSignIn } from '@/type/User';
 import UserAPI from '@/api/UserAPI';
 
 export default defineComponent({
@@ -37,7 +35,7 @@ export default defineComponent({
 	},
 	data(): {
 		userSignIn: UserSignIn;
-		signedInUser?: UserVO;
+		signedInUser?: UserToken;
 		} {
 		return {
 			userSignIn: {
@@ -64,29 +62,7 @@ export default defineComponent({
 			if (user) {
 				this.signedInUser = user;
 			} else {
-				this.$store.state.dialogBus.error('登录失败');
-			}
-		}
-	},
-	mounted() {
-		let signedInUser = this.$store.state.storage.get('signedInUser');
-		if (signedInUser) {
-			const diff = calcDifference(new Date(signedInUser.updatedAt));
-			const day = 864 * 1E5;
-			if (day < diff.l) {
-				// 缓存登录用户超过一天，重新获取登录状态
-				async(() => {
-					if (UserAPI.isSignedIn(signedInUser.id, signedInUser.token)) {
-						// 后端还是登录状态
-						this.signedInUser.updatedAt = new Date().getTime();
-						this.$store.commit('signedInUser', signedInUser);
-					} else {
-						this.$store.commit('signedInUser', {});
-						delete this.signedInUser;
-					}
-				})
-			} else {
-				this.$store.commit('signedInUser', signedInUser);
+				(this.$refs.captcha as any).update();
 			}
 		}
 	}

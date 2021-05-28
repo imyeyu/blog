@@ -14,7 +14,9 @@
 import { defineComponent } from 'vue';
 import Side from '@/layout/Side.vue';
 import ModalDialog from '@/components/ModalDialog.vue';
-import { random } from '@/helpers/Toolkit';
+import UserAPI from '@/api/UserAPI';
+import { async, random } from '@/helpers/Toolkit';
+import { calcDifference } from '@/helpers/UnixTime';
 
 class Leaf {
 	x = 0;
@@ -84,6 +86,19 @@ export default defineComponent({
 		// window.addEventListener('resize', (e) => {
 		// 	this.offset = window.innerWidth % 2 === 0 ? 0 : -1;
 		// });
+
+		// 登录用户
+		async(async () => {
+			let signedInUser = this.$store.state.storage.get('signedInUser');
+			if (signedInUser && signedInUser.id) {
+				if (await UserAPI.isSignedIn(signedInUser.id, signedInUser.token)) {
+					// 令牌校验有效
+					this.$store.commit('signedInUser', signedInUser);
+				} else {
+					this.$store.commit('signedInUser', {});
+				}
+			}
+		})
 	}
 });
 </script>

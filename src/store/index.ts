@@ -3,7 +3,7 @@ import Storage from '@/helpers/Storage'
 import Scroller from '@/helpers/Scroller';
 import DialogBus from '@/helpers/DialogBus'
 import ArticleAPI from '@/api/ArticleAPI';
-import { UserVO } from '@/type/User';
+import { UserToken } from '@/type/User';
 
 export default createStore({
 	state: {
@@ -18,16 +18,12 @@ export default createStore({
 		async refreshArticleHot(state) {
 			state.articleHot = await ArticleAPI.getArticleHot() as any;
 		},
-		signedInUser(state, user: UserVO) {
-			console.log('update user', user);
-			
+		signedInUser(state, user: UserToken) {
 			state.signedInUser = user;
 			state.storage.set('signedInUser', {
 				id: user.id,
-				email: user.email,
 				name: user.name,
-				token: user.token,
-				updatedAt: new Date().getTime()
+				token: user.token
 			});
 		}
 	},
