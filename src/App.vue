@@ -12,11 +12,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Side from '@/layout/Side.vue';
+import Side from '@/layout/Side/Side.vue';
 import ModalDialog from '@/components/ModalDialog.vue';
 import UserAPI from '@/api/UserAPI';
 import { async, random } from '@/helpers/Toolkit';
-import { calcDifference } from '@/helpers/UnixTime';
 
 class Leaf {
 	x = 0;
@@ -29,7 +28,7 @@ export default defineComponent({
 		Side,
 		ModalDialog
 	},
-    data(): {
+	data(): {
 		docEl: HTMLElement;
 		scrollTop: number;
 		// 叶子
@@ -37,8 +36,8 @@ export default defineComponent({
 		leafEls: HTMLElement[];
 		leafSize: number;
 		leafTimer?: number;
-        } {
-        return {
+		} {
+		return {
 			docEl: document.documentElement,
 			scrollTop: 0,
 			// 叶子
@@ -46,14 +45,14 @@ export default defineComponent({
 			leafEls: [],
 			leafSize: 12,
 			leafTimer: undefined
-        };
-    },
+		};
+	},
 	methods: {
 		onScroll(top: number) {
 			this.scrollTop = top;
 		}
 	},
-    mounted() {
+	mounted() {
 		// 初始化叶子
 		for (let i = 0; i < this.leafSize; i++) {
 			this.leafEls.push(this.$refs[`leaf${i}`] as HTMLElement);
@@ -81,24 +80,19 @@ export default defineComponent({
 		// 滚动监听（leafs 无法使用 fixed，需要 absolute 同步滚动）
 		this.$store.state.scroller.add('App', this.onScroll);
 
-		// 缩放监听（Zpix 渲染兼容性问题）! 暂时废除，偏移非整数能解决 Zpix 渲染问题，但会导致图像渲染模糊
-		// this.offset = window.innerWidth % 2 === 0 ? 0 : -1.5;
-		// window.addEventListener('resize', (e) => {
-		// 	this.offset = window.innerWidth % 2 === 0 ? 0 : -1;
-		// });
-
 		// 登录用户
 		async(async () => {
 			let signedInUser = this.$store.state.storage.get('signedInUser');
 			if (signedInUser && signedInUser.id) {
 				if (await UserAPI.isSignedIn(signedInUser.id, signedInUser.token)) {
-					// 令牌校验有效
+					// 令牌校验有效，获取登录用户资料
+					signedInUser.data = await UserAPI.getData(signedInUser.id);
 					this.$store.commit('signedInUser', signedInUser);
 				} else {
 					this.$store.commit('signedInUser', {});
 				}
 			}
-		})
+		});
 	}
 });
 </script>
