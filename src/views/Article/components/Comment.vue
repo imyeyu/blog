@@ -28,7 +28,7 @@
 							placeholder="验证码"
 						></text-field>
 						<div>
-							<img :src="require('@/assets/img/captcha.png')" alt="验证码" />
+							<captcha ref="captcha" :width="74" :height="24" from="COMMENT" />
 						</div>
 					</div>
 				</div>
@@ -40,12 +40,14 @@
 				<!-- 主评论 -->
 				<div class="comment">
 					<div class="user">
+						<!-- 主评论头像 -->
 						<div class="face">
-							<img src="/img/user/pic.png" alt="头像" />
+							<img src="/img/user/avatar.png" alt="头像" />
 						</div>
 						<p class="name" v-text="comment.nick"></p>
 					</div>
 					<div class="content">
+						<!-- 主评论内容 -->
 						<p class="text" v-text="comment.data"></p>
 						<div class="light-gray right">
 							<a
@@ -59,18 +61,22 @@
 						<!-- 子评论 -->
 						<div class="comment-replies">
 							<div class="comment-sub" v-for="reply in comment.replies" :key="reply">
+								<!-- 子评论头像 -->
 								<div>
 									<div class="face-sub">
-										<img src="/img/user/pic.png" alt="头像" />
+										<img src="/img/user/avatar.png" alt="头像" />
 									</div>
 								</div>
+								<!-- 子评论内容 -->
 								<div class="content-sub">
 									<p>
+										<!-- 回复用户 -->
 										<a class="name-sub" href="#" v-text="reply.senderNick"></a>
 										<span
 											class="light-gray"
 											v-if="reply.receiverNick !== comment.nick"
 										> 回复 </span>
+										<!-- 被回复用户 -->
 										<a
 											class="receiver"
 											href="#"
@@ -79,6 +85,7 @@
 										></a>
 										<span class="text-sub" v-text="`: ${reply.data}`"></span>
 									</p>
+									<!-- 回复内容 -->
 									<div class="light-gray right">
 										<a
 											class="replies-sub-btn"
@@ -91,6 +98,11 @@
 							</div>
 						</div>
 						<!-- 子评论页面控制，comment.repliesI 表激活页数下标，从 0 开始 -->
+						<!-- 如有省略页，至少两页才触发，中间页最多 5 页，如果 5 页可以遍历完，后面不省略 -->
+						<!-- 1 2 3 4 5 .. 8 -->
+						<!-- 1 .. 4 5 6 7 8 .. 11 -->
+						<!-- 1 .. 5 6 7 8 9 10 -->
+						<!-- 1 .. 8 9 10 -->
 						<div class="page-ctrl" v-if="1 < l(comment)">
 							<!-- 上一页 -->
 							<a
@@ -101,20 +113,23 @@
 							>上一页</a>
 							<!-- 前补 -->
 							<template v-if="2 < comment.repliesI">
+								<!-- 第一页 -->
 								<a
 									href="javascript:;"
 									class="page"
 									@click="changeReplyPage(comment, 0)"
 								>1</a>
+								<!-- 如果激活页大于 3，省略中间页，效果：1 .. 4 5 6 -->
 								<span
 									class="light-gray"
 									v-show="3 < comment.repliesI"
 								>..</span>
 							</template>
-							<!-- 中间页数，页数小于 2 时扩充遍历 -->
-							<template v-for="i in (comment.repliesI < 2 ? 7 - comment.repliesI : 5)" :key="i">
-								<a
+							<!-- 中间页数，页数小于 2 时扩充遍历（已经看不懂了） -->
+							<template v-for="i in (comment.repliesI < 2 ? 7 - comment.repliesI : 5)">
+								<a 
 									href="javascript:;"
+									:key="i"
 									:class="`page${comment.repliesI === i + comment.repliesI - 3 ? ' active' : ''}`"
 									v-text="i + comment.repliesI - 2"
 									v-if="0 < i + comment.repliesI - 2 && i + comment.repliesI - 3 < l(comment)"
@@ -123,10 +138,12 @@
 							</template>
 							<!-- 后补 -->
 							<template v-if="5 < l(comment) && comment.repliesI < l(comment) - 3">
+								<!-- 如果激活页小于总页数 - 3，省略中间页，效果 1 2 3 4 .. 7 -->
 								<span
 									class="light-gray"
 									v-show="comment.repliesI < l(comment) - 4"
 								>..</span>
+								<!-- 最后一页 -->
 								<a
 									href="javascript:;"
 									class="page"
@@ -167,7 +184,7 @@
 		:isFinished="isLoadFinished"
 		:isError="isLoadError"
 		:finishText="'已加载所有评论 (◡ ᴗ ◡ ✿)'"
-	></loading>
+	/>
 </template>
 
 <script lang="ts">
@@ -178,12 +195,14 @@ import { Comment, CommentReply } from '@/type/Comment';
 import TextField from '@/components/TextInput/TextField.vue';
 import TextRegion from '@/components/TextInput/TextRegion.vue';
 import Loading from '@/components/Loading.vue';
+import Captcha from '@/components/Captcha.vue';
 
 export default defineComponent({
 	components: {
+		Loading,
+		Captcha,
 		TextField,
-		TextRegion,
-		Loading
+		TextRegion
 	},
 	props: {
 		aid: {
@@ -217,11 +236,11 @@ export default defineComponent({
 				receiverId: undefined,
 				senderNick: '',
 				receiverNick: '',
-				data: '',
+				data: ''
 			},
 			isLoadError: false,
 			isLoadFinished: false
-		}
+		};
 	},
 	watch: {
 		aid() {
@@ -263,13 +282,13 @@ export default defineComponent({
 			}
 		},
 		// 触发回复表单
-		replyTo(cid: number, receiverNick: string = '') {
+		replyTo(cid: number, receiverNick = '') {
 			this.activeReply = this.commentReply.commentId = cid;
 			this.commentReply.receiverNick = receiverNick;
 			this.commentReply.data = '';
 			this.$nextTick(() => {
 				(this.$refs.reply as HTMLTextAreaElement).focus();
-            });
+			});
 		},
 		// 翻页回复
 		async changeReplyPage(comment: Comment, toPage: number) {
@@ -311,8 +330,6 @@ export default defineComponent({
 		}
 	},
 	beforeUnmount() {
-		console.log('移除事件');
-		
 		this.$store.state.scroller.remove('Comment');
 	}
 });
@@ -355,7 +372,6 @@ export default defineComponent({
 		padding: 1px 22px;
 		font-size: 15px;
 		margin-right: 6px;
-		border-radius: 4px;
 	}
 
 	.comment-commit:hover {
