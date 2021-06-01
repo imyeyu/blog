@@ -9,6 +9,7 @@ import httpCodeMsg from '@/static/HttpCode';
 axios.defaults.timeout = 8E3;
 axios.defaults.baseURL = process.env.VUE_APP_API_HOST;
 axios.defaults.withCredentials = true;
+// 回调事件
 axios.interceptors.response.use(response => {
 	// 服务端返回
 	const data = response.data;

@@ -1,34 +1,34 @@
 import { createStore } from 'vuex';
-import Storage from '@/helpers/Storage'
+import Loader from '@/helpers/Loader';
+import Storage from '@/helpers/Storage';
 import Scroller from '@/helpers/Scroller';
-import DialogBus from '@/helpers/DialogBus'
+import DialogBus from '@/helpers/DialogBus';
 import ArticleAPI from '@/api/ArticleAPI';
-import { UserToken } from '@/type/User';
+import { UserSignedIn } from '@/type/User';
 
-export default createStore({
+const store = createStore({
 	state: {
+		loader: new Loader(),
 		storage: new Storage(),
 		scroller: new Scroller(),
 		dialogBus: new DialogBus(),
 		articleHot: [],
-		signedInUser: {},
+		signedInUser: {}
 	},
 	mutations: {
 		// 刷新热门文章
 		async refreshArticleHot(state) {
 			state.articleHot = await ArticleAPI.getArticleHot() as any;
 		},
-		signedInUser(state, user: UserToken) {
+		signedInUser(state, user: UserSignedIn) {
 			state.signedInUser = user;
 			state.storage.set('signedInUser', {
 				id: user.id,
 				name: user.name,
-				token: user.token
+				token: user.token,
+				data: user.data
 			});
 		}
-	},
-	actions: {
-	},
-	modules: {
 	}
 });
+export default store;

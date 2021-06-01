@@ -1,6 +1,6 @@
 <template>
 	<div class="content">
-		<h1 class="title icon zpix24">注册账号</h1>
+		<h1 class="title zpix24">注册账号</h1>
 		<div class="form">
 			<text-field
 				label="用户名"
@@ -23,7 +23,7 @@
 			<text-field
 				label="邮箱（可选）"
 				type="email"
-				tips="用于找回密码和回复提醒"
+				tips="用于登录、找回密码和回复提醒"
 				v-model:value="user.email"
 			></text-field>
 			<div class="captcha-box">
@@ -44,6 +44,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { User } from '@/type/User';
+import store from '@/store/index';
 import UserAPI from '@/api/UserAPI';
 import Captcha from '@/components/Captcha.vue';
 import TextField from '@/components/TextInput/TextField.vue';
@@ -62,23 +63,26 @@ export default defineComponent({
 		pwConfirm: string;
 		} {
 		return {
-			user: {
-				name: '',
-				password: '',
-				email: '',
-			},
+			user: {},
 			captcha: '',
 			pwConfirm: ''
 		};
 	},
 	methods: {
 		async register() {
-			const user = await UserAPI.register(this.user, this.captcha);
-			if (user) {
-				this.$store.state.dialogBus.success(`UID：${user.id}\n用户名${user.name}\n现在你可以登录了！`, '注册成功');
-			} else {
-				(this.$refs.captcha as any).update();
-			}
+			store.state.loader.run(async () => {
+				const signedInUser = await UserAPI.register(this.user, this.captcha);
+				if (signedInUser && signedInUser.id) {
+					// 自动登录
+					signedInUser.data = await UserAPI.getData(signedInUser.id);
+					this.$store.commit('signedInUser', signedInUser);
+					
+					await this.$store.state.dialogBus.success(`UID：${signedInUser.id}，已为你自动登录！`, `欢迎 ${signedInUser.name} ！`);
+					this.$router.push('/');
+				} else {
+					(this.$refs.captcha as any).update();
+				}
+			});
 		}
 	}
 });
@@ -94,10 +98,21 @@ export default defineComponent({
 
 	.title {
 		width: 100%;
-		padding-top: 30px;
+		position: relative;
+		padding-top: 32px;
 		margin-bottom: 12px;
 		border-bottom: 2px solid #BC9D9C;
-		background-position: right -640px;
+	}
+
+	.title::after {
+		content: "";
+		top: 0;
+		right: 0;
+		width: 64px;
+		height: 64px;
+		position: absolute;
+		background: var(--random-icon);
+		background-position: left -640px;
 	}
 
 	.form {
@@ -111,18 +126,16 @@ export default defineComponent({
 	}
 
 	.run {
+		color: #FFF;
 		width: 32%;
 		margin: 32px auto;
-		border: 2px solid #E1E1E1;
-		box-shadow: 2px 2px 0px rgba(102, 102, 102, .6);
+		border: none;
+		padding: 2px 24px;
+		font-size: 15px;
+		background: #53BD93;
 	}
 
 	.run:hover {
-		background: #E8E8E8;
-	}
-
-	.run:active {
-		transform: translate(2px, 2px);
-		box-shadow: none;
+		background: #5AC79B;
 	}
 </style>

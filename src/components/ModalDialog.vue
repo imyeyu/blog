@@ -1,11 +1,21 @@
 <template>
-	<div :class="`dialog${$store.state.dialogBus.show ? ' show' : ''}`">
-		<section :class="`pane${!$store.state.dialogBus.close ? ' show' : ''}`">
-			<div :class="`icon ${$store.state.dialogBus.option.icon.toLowerCase()}`"></div>
+	<div :class="`dialog${$store.state.dialogBus.isShow ? ' show' : ''}`">
+		<section :class="`pane${!$store.state.dialogBus.isClose ? ' show' : ''}`">
+			<div class="loading" v-if="$store.state.dialogBus.isLoading">
+				<div
+					:class="`line l${i} ${loadingI % 5 === i ? 'active' : ''}`"
+					v-for="i in 4"
+					:key="i"
+				></div>
+			</div>
+			<div
+				v-else
+				:class="`icon ${$store.state.dialogBus.option.icon.toLowerCase()}`"
+			></div>
 			<h2 class="title" v-text="$store.state.dialogBus.option.title"></h2>
 			<p class="title-sub" v-text="$store.state.dialogBus.option.titleSub"></p>
-			<p class="content" v-text="content"></p>
-			<div class="btns">
+			<p class="content" v-html="$store.state.dialogBus.option.content"></p>
+			<div class="btns" v-show="!$store.state.dialogBus.isLoading">
 				<button
 					v-text="$store.state.dialogBus.option.textOK"
 					@click="ok()"
@@ -30,32 +40,13 @@ import Events from '@/helpers/Events';
 
 export default defineComponent({
 	data(): {
-		content: string;
+		loadingI: number;
+		loadingTimer: any;
 		} {
 		return {
-			content: ''
-		}
-	},
-	computed: {
-		isShow() {
-			return this.$store.state.dialogBus.show;
-		}
-	},
-	watch: {
-		isShow(isShow) {
-			if (isShow) {
-				this.content = '';
-				const data = this.$store.state.dialogBus.option.content;
-				let i = 0;
-				// 显示文本
-				const timer = setInterval(() => {
-					this.content += data[i++];
-					if (i === data.length) {
-						clearInterval(timer);
-					}
-				}, 20);
-			}
-		}
+			loadingI: 0,
+			loadingTimer: undefined
+		};
 	},
 	methods: {
 		ok() {
@@ -67,14 +58,28 @@ export default defineComponent({
 		cancel() {
 			Events.emit('dialog-event', true);
 		}
+	},
+	mounted() {
+		clearInterval(this.loadingTimer);
+		let flag = false;
+		this.loadingTimer = setInterval(() => {
+			if (flag) {
+				this.loadingI--;
+				flag = 1 < this.loadingI;
+			} else {
+				this.loadingI++;
+				flag = this.loadingI === 4;
+			}
+		}, 120);
 	}
-})
+});
 </script>
 <style scoped>
 	.dialog {
 		width: 100%;
 		height: 100%;
 		display: flex;
+		z-index: 99;
 		position: fixed;
 		visibility: hidden;
 		align-items: center;
@@ -86,24 +91,60 @@ export default defineComponent({
 
 	.pane {
 		width: 440px;
-		border: 2px solid #CCC;
+		border: 1px solid #DDD;
 		opacity: 0;
 		padding: 0 8px 8px;
 		display: flex;
 		position: absolute;
 		animation: dialog-open .3s cubic-bezier(.215, .61, .355, 1) 0s alternate forwards;
 		transform: translateY(-100px) scale(.8);
-		background: #F6F6F6;
+		background: rgba(255, 255, 255, .8);
 		transition: .2s;
-		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
+		min-height: 260px;
+		box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
 		align-items: center;
 		flex-direction: column;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
 	}
 
 	.pane.show {
 		opacity: 1;
 		transform: translateY(-100px) scale(1);
 		transition: .3s cubic-bezier(0.23, 1, 0.32, 1);
+	}
+
+	.loading {
+		height: 64px;
+		margin: 24px 0 6px 0;
+		display: flex;
+		align-items: flex-end;
+	}
+
+	.loading .line {
+		width: 8px;
+		background: #BBB;
+		margin-right: 4px;
+	}
+
+	.loading .line.active {
+		background: #53BD93;
+	}
+
+	.loading .l1 {
+		height: 10px;
+	}
+
+	.loading .l2 {
+		height: 14px;
+	}
+
+	.loading .l3 {
+		height: 18px;
+	}
+
+	.loading .l4 {
+		height: 24px;
 	}
 
 	.icon {
@@ -150,20 +191,14 @@ export default defineComponent({
 
 	.btns button {
 		margin: 0 12px;
-		border: 1px solid #CCC;
+		border: 1px solid #EED7D7;
 		cursor: var(--default);
-		padding: 6px 24px;
+		padding: 2px 24px;
 		font-size: 15px;
-		box-shadow: 1px 1px 0px rgba(102, 102, 102, .3);
-		border-radius: 0;
+		background: #F4F4F4;
 	}
 
 	.btns button:hover {
-		background: #E5E5E5;
-	}
-
-	.btns button:active {
-		transform: translate(1px, 1px);
-		box-shadow: none;
+		background: #EED7D7;
 	}
 </style>

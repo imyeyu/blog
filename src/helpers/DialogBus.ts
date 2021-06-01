@@ -1,4 +1,4 @@
-import Events from '@/helpers/Events'
+import Events from '@/helpers/Events';
 import { sleep } from '@/helpers/Toolkit';
 import { Dialog } from '@/type/Dialog';
 
@@ -14,8 +14,9 @@ import { Dialog } from '@/type/Dialog';
  */
 export default class DialogBus {
 
-	public show = false;  // 显示根容器
-	public close = true; // 关闭窗体
+	public isShow = false;    // 显示根容器
+	public isClose = true;    // 关闭窗体，存在过渡动画
+	public isLoading = false; // 为 true 时显示加载中
 
 	public option: Dialog;
 
@@ -39,7 +40,7 @@ export default class DialogBus {
 	 * @param title   标题
 	 * @returns 
 	 */
-	public async success(content: string, title: string = '成功') {
+	public async success(content: string, title = '成功') {
 		return this.display({
 			icon: 'SUCCESS',
 			title,
@@ -54,7 +55,7 @@ export default class DialogBus {
 	 * @param title   标题
 	 * @returns 
 	 */
-	public async warning(content: string, title: string = '警告') {
+	public async warning(content: string, title = '警告') {
 		return this.display({
 			icon: 'WARNING',
 			title,
@@ -69,7 +70,7 @@ export default class DialogBus {
 	 * @param title   标题
 	 * @returns 
 	 */
-	public async error(content: string, title: string = '错误') {
+	public async error(content: string, title = '错误') {
 		return this.display({
 			icon: 'ERROR',
 			title,
@@ -96,18 +97,19 @@ export default class DialogBus {
 	public async display(option: Dialog): Promise<boolean> {
 		Object.assign(this.option, option);
 
-		this.show = true;
-		this.close = false;
+		this.isLoading = option.isLoading as boolean;
+		this.isShow = true;
+		this.isClose = false;
 
 		const confirm = await new Promise<boolean>((resolve) => {
-			Events.reset("dialog-event", (result: any) => {
+			Events.reset('dialog-event', (result: any) => {
 				resolve(result);
 			});
 		});
 		
-		this.close = true;
-		await sleep(320);  // 动画延时
-		this.show = false;
+		this.isClose = true;
+		await sleep(320); // 动画延时
+		this.isShow = false;
 
 		this.resetOption();
 
@@ -120,14 +122,16 @@ export default class DialogBus {
 			icon: 'INFO',
 			title: '提示',
 			titleSub: '',
-			content: '会话内容',
+			content: '',
 		
 			textOK: '好',
 			textNO: '否',
 			textCancel: '取消',
 		
 			useNo: false,
-			useCancel: false
+			useCancel: false,
+
+			isLoading: false
 		};
 		this.option = option;
 		return option;

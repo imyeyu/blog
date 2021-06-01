@@ -10,4 +10,6 @@ export type Dialog = {
 
 	useNo?: boolean;
 	useCancel?: boolean;
+
+	isLoading?: boolean;
 }
