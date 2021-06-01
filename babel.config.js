@@ -2,7 +2,7 @@ module.exports = {
 	presets: [
 		'@vue/cli-plugin-babel/preset'
 	]
-}
+};
 
 module.exports = {
 	plugins: [
@@ -20,7 +20,7 @@ module.exports = {
 				'javascript',
 				'typescript',
 				'apacheconf',
-				'properties',
+				'properties'
 			],
 			plugins: ['line-numbers'],
 			showLineNumbers: true,
@@ -28,4 +28,4 @@ module.exports = {
 			css: true
 		}]
 	]
-}
+};

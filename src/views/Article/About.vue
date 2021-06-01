@@ -45,8 +45,8 @@ export default defineComponent({
 		} {
 		return {
 			article: {},
-			survivalTime: '网站已运行 0000 年 000 天 00 小时 00 分钟 00 秒',
-		}
+			survivalTime: '网站已运行 0000 年 000 天 00 小时 00 分钟 00 秒'
+		};
 	},
 	methods: {
 		f(v : number) : number {
@@ -78,7 +78,7 @@ export default defineComponent({
 		},
 		// 绘制频谱
 		drawSpectrum() {
-			let	ctx : any = new AudioContext(),
+			let ctx : any = new AudioContext(),
 				canvas = this.$refs.canvas as HTMLCanvasElement;
 
 			ctx = new AudioContext();

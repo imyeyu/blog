@@ -20,7 +20,7 @@ export default class Events {
 	 * @param callback 回调函数
 	 */
 	public static register(name: string, callback: Function) {
-		let observers: Observer[] = Events.listeners[name];
+		const observers: Observer[] = Events.listeners[name];
 		if (!observers) {
 			Events.listeners[name] = [];
 		}
@@ -34,7 +34,7 @@ export default class Events {
 	 * @param callback 回调函数
 	 */
 	public static reset(name: string, callback: Function) {
-		Events.listeners[name] = [];;
+		Events.listeners[name] = [];
 		this.register(name, callback);
 	}
 
@@ -45,9 +45,9 @@ export default class Events {
 	 * @param callback 回调函数
 	 */
 	public static remove(name: string, callback: Function) {
-		let observers: Observer[] = Events.listeners[name];
+		const observers: Observer[] = Events.listeners[name];
 		if (!observers) {
-			return "remove";
+			return 'remove';
 		}
 		for (let i = 0, l = observers.length; i < l; i++) {
 			if (observers[i].compar(name)) {
@@ -56,7 +56,7 @@ export default class Events {
 				break;
 			}
 		}
-		if (observers.length == 0) {
+		if (observers.length === 0) {
 			delete Events.listeners[name];
 		}
 	}
@@ -68,9 +68,9 @@ export default class Events {
 	 * @param args 参数
 	 */
 	public static emit(name: string, ...args: any[]) {
-		let observers: Observer[] = Events.listeners[name];
+		const observers: Observer[] = Events.listeners[name];
 		if (!observers) {
-			return "emit";
+			return 'emit';
 		}
 		for (const observer of observers) {
 			// 通知
@@ -100,6 +100,6 @@ class Observer {
 	}
 
 	compar(name: any): boolean {
-		return name == this.name;
+		return name === this.name;
 	}
 }

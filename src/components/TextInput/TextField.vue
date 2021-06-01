@@ -74,7 +74,7 @@ export default defineComponent({
 		} {
 		return {
 			text: this.value
-		}
+		};
 	},
 	watch: {
 		value() {

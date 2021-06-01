@@ -36,7 +36,7 @@ Renderer.link = (url, title, text) => {
 		}
 		return `<span>${text}</span>`;
 	}
-}
+};
 /**
  * 媒体渲染方式（原为图像渲染方式）
  * [] 内文本以 # 开始时，该组件带边框
@@ -64,7 +64,7 @@ Renderer.image = (url, title, text) => {
 		return `<img${borderClass} src="${url}" alt="${text}" />`;
 	}
 	throw `Renderer.image 无法解析（${url}, ${title}, ${text}）`;
-}
+};
 /**
  * 重点内容扩展
  * 默认 `文本` 表现为红色
@@ -73,11 +73,11 @@ Renderer.image = (url, title, text) => {
 Renderer.codespan = code => {
 	const clazz = code.match(/\[(.+?)\]/);
 	if (clazz) {
-		return `<span class="${clazz[1]}">${code.substring(code.indexOf(']') + 1)}</span>`
+		return `<span class="${clazz[1]}">${code.substring(code.indexOf(']') + 1)}</span>`;
 	} else {
 		return `<span class="red">${code}</span>`;
 	}
-}
+};
 
 /**
  * 段落渲染，[参数]段落
@@ -105,7 +105,7 @@ Renderer.paragraph = text => {
 		}
 	}
 	return `<p>${text}</p>`;
-}
+};
 
 // Markdown 解析器配置
 marked.setOptions({
@@ -141,8 +141,8 @@ export default function toHTML(mkData: string | undefined): string {
  * 支持 MySQL 会话，原理同上（前缀为关键字色，命令为数字色）
  */
 function linuxSession(code: string): string {
-	const REG_LINUX_COMMAND = /\]\#(.*)/g,
-		  REG_LINUX_PREFIX = /\[(.*)\]/g,
+	const REG_LINUX_COMMAND = /\]#(.*)/g,
+		  REG_LINUX_PREFIX  = /\[(.*)\]/g,
 		  REG_MYSQL_COMMAND = /(mysql&gt;)(.*)/g;
 
 	code = code.replaceAll(REG_LINUX_COMMAND, ']#<span class="red">$1</span>');
@@ -166,9 +166,9 @@ function linuxSession(code: string): string {
 function lrc(code: string): string {
 	const REG_LINE = /\r\n|[\r\n]/g,
 		  REG_ARGS = /\[(.*)\]/g,
-		  REG_AXIS = /[0-9][0-9]\:[0-5][0-9]\.[0-9][0-9]/g,
+		  REG_AXIS = /[0-9][0-9]:[0-5][0-9]\.[0-9][0-9]/g,
 
-		  LEFT = '<span class="token comment">[</span>',
+		  LEFT  = '<span class="token comment">[</span>',
 		  RIGHT = '<span class="token comment">]</span>';
 
 	let result = '';
@@ -176,7 +176,7 @@ function lrc(code: string): string {
 	for (const line of lines) {
 		const AXIS = line.match(REG_AXIS);
 		if (AXIS) {
-			result += line.replaceAll(`[${AXIS[0]}]`, `\n${LEFT}<span class="token number">${AXIS[0]}</span>${RIGHT}`)
+			result += line.replaceAll(`[${AXIS[0]}]`, `\n${LEFT}<span class="token number">${AXIS[0]}</span>${RIGHT}`);
 		} else {
 			let args: any = line.match(REG_ARGS);
 			if (args) {
@@ -265,7 +265,7 @@ function dblClickEvent(el: HTMLElement, lines: number) {
 			el.insertBefore(clone, el.firstChild);
 
 			if (el.parentNode) {
-				dblClickEvent(el.parentNode as HTMLElement, lineNumber.children.length)
+				dblClickEvent(el.parentNode as HTMLElement, lineNumber.children.length);
 			}
 		}
 	});

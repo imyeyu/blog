@@ -36,10 +36,10 @@ export default defineComponent({
 				label: '',
 				data: '',
 				reads: 0,
-				likes: 0,
+				likes: 0
 			},
 			isCreatedAt: true
-		}
+		};
 	},
 	computed: {
 		articleDate(): string {
@@ -56,7 +56,7 @@ export default defineComponent({
 			this.isCreatedAt = false;
 		}
 		this.$store.commit('refreshArticleHot');
-	},
+	}
 });
 </script>
 <style scoped>

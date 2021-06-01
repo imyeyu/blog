@@ -59,7 +59,7 @@ export default defineComponent({
 			software: {},
 			isSoftware: false,
 			isCreatedAt: true
-		}
+		};
 	},
 	computed: {
 		articleDate(): string {
@@ -103,7 +103,7 @@ export default defineComponent({
 			this.isCreatedAt = false;
 		}
 		this.$store.commit('refreshArticleHot');
-	},
+	}
 });
 </script>
 <style scoped>
@@ -138,9 +138,9 @@ export default defineComponent({
 		color: #666;
 		height: 16px;
 		border: 1px solid #BC9D9C;
+		margin: 0 12px 6px 0;
 		padding: 1px 6px;
 		display: block;
-		margin: 0 12px 6px 0;
 	}
 
 	.digests {

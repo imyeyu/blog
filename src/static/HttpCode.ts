@@ -40,4 +40,4 @@ const codes = [
 		code: 503,
 		text: '服务器繁忙'
 	}
-]
+];

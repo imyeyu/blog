@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/article/public/aid:id.html',
 		alias: [ // 兼容性保留
-			'/article/music/aid:id.html',
+			'/article/music/aid:id.html'
 		],
 		name: 'Public Article',
 		component: ArticlePublic
@@ -34,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
 		path: '/user/register',
 		name: 'Register',
 		component: Register
-	},
+	}
 ];
 
 export default createRouter({

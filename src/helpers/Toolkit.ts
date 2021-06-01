@@ -40,7 +40,7 @@ export function getAttribute(el: Element, name: string): string | null {
  */
 export function toNumber(string: string, fallback: number | null) {
 	if (!string) return fallback;
-	var number = Number(string);
+	const number = Number(string);
 	return isFinite(number) ? number : fallback;
 }
 
@@ -51,7 +51,7 @@ export function toNumber(string: string, fallback: number | null) {
  * @returns DOM 节点
  */
 export function toDOM(string: string): HTMLDocument {
-	return new DOMParser().parseFromString(string, "text/xml");
+	return new DOMParser().parseFromString(string, 'text/xml');
 }
 
 /**
@@ -69,8 +69,8 @@ export function async(event: Function) {
  * @param v 数值
  * @param l 最终长度（默认 2）
  */
-export function paddingZero(v: number, l: number = 2) : string {
-	return (Array(l).join("0") + v).slice(-l);
+export function paddingZero(v: number, l = 2) : string {
+	return (Array(l).join('0') + v).slice(-l);
 }
 
 /**

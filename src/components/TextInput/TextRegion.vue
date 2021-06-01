@@ -26,7 +26,7 @@ import TextInput from './TextInput.vue';
 
 export default defineComponent({
 	components: {
-		TextInput,
+		TextInput
 	},
 	props: {
 		// 标签
@@ -70,7 +70,7 @@ export default defineComponent({
 		} {
 		return {
 			text: this.value
-		}
+		};
 	},
 	watch: {
 		value() {

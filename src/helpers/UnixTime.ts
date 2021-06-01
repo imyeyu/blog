@@ -19,19 +19,19 @@ function f(v : number) : number {
  *     ms: 毫秒
  * \}
  */
- export function calcDifference(begin: Date, end?: Date) : any {
+export function calcDifference(begin: Date, end?: Date) : any {
 	if (!end) {
 		end = new Date();
 	}
 
-	let cs = 1000, cm = 6E4, ch = 36E5, cd = 864E5, cy = 31536E6;
-	let l  = end.getTime() - begin.getTime();
-	let y  = f(l / cy),
-		d  = f((l / cd) - y * 365),
-		h  = f((l - (y * 365 + d) * cd) / ch),
-		m  = f((l - (y * 365 + d) * cd - h * ch) / cm),
-		s  = f((l - (y * 365 + d) * cd - h * ch - m * cm) / cs),
-		ms = f(((l - (y * 365 + d) * cd - h * ch - m * cm) / cs - s) * cs);
+	const cs = 1000, cm = 6E4, ch = 36E5, cd = 864E5, cy = 31536E6;
+	const l  = end.getTime() - begin.getTime();
+	const y  = f(l / cy),
+		  d  = f((l / cd) - y * 365),
+		  h  = f((l - (y * 365 + d) * cd) / ch),
+		  m  = f((l - (y * 365 + d) * cd - h * ch) / cm),
+		  s  = f((l - (y * 365 + d) * cd - h * ch - m * cm) / cs),
+		  ms = f(((l - (y * 365 + d) * cd - h * ch - m * cm) / cs - s) * cs);
 
 	return { l, y, d, h, m, s, ms };
 }
@@ -41,7 +41,7 @@ function f(v : number) : number {
  * 
  * @param unix 时间戳
  */
- export function toDate(unix?: number) : string {
+export function toDate(unix?: number) : string {
 	if (!unix) return '';
 	const d = new Date(unix);
 	return `${d.getFullYear()}-${paddingZero(d.getMonth() + 1)}-${paddingZero(d.getDate())}`;
@@ -52,7 +52,7 @@ function f(v : number) : number {
  * 
  * @param unix 时间戳
  */
- export function toTime(unix?: number) : string {
+export function toTime(unix?: number) : string {
 	if (!unix) return '';
 	const d = new Date(unix);
 	return `${paddingZero(d.getHours())}:${paddingZero(d.getMinutes())}:${paddingZero(d.getSeconds())}`;
@@ -63,7 +63,7 @@ function f(v : number) : number {
  * 
  * @param unix 时间戳
  */
- export function toDateTime(unix?: number) : string {
+export function toDateTime(unix?: number) : string {
 	if (!unix) return '';
 	return `${toDate(unix)} ${toTime(unix)}`;
 }

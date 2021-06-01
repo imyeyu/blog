@@ -28,11 +28,11 @@ export default defineComponent({
 		} {
 		return {
 			src: ''
-		}
+		};
 	},
 	methods: {
 		update() {
-			this.src = `${process.env.VUE_APP_API_HOST}/captcha?from=${this.from}&width=${this.width}&height=${this.height}&r=${random(999999)}`
+			this.src = `${process.env.VUE_APP_API_HOST}/captcha?from=${this.from}&width=${this.width}&height=${this.height}&r=${random(999999)}`;
 		}
 	},
 	mounted() {
