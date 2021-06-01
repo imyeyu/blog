@@ -2,13 +2,13 @@
 	<aside class="aside no-select">
 		<div class="me">
 			<div class="info">
-				<div class="pic">
-					<a :href="require('../assets/img/pic.png')" target="_blank">
+				<div class="avatar">
+					<a :href="require('@/assets/img/avatar.png')" target="_blank">
 						<img
 							width="100"
 							height="100"
 							alt="头像"
-							:src="require('../assets/img/picm.png')"
+							:src="require('@/assets/img/avatarm.png')"
 						/>
 					</a>
 				</div>
@@ -36,12 +36,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { sleep } from '@/helpers/Toolkit';
-import UserAPI from '@/api/UserAPI';
 
-import Clazz from './Side/Clazz.vue';
-import Friend from './Side/Friend.vue';
-import Account from './Side/Account.vue';
-import ArticleHot from './Side/ArticleHot.vue';
+import Clazz from './components/Clazz.vue';
+import Friend from './components/Friend.vue';
+import Account from './components/Account.vue';
+import ArticleHot from './components/ArticleHot.vue';
 
 export default defineComponent({
 	components: {
@@ -53,8 +52,8 @@ export default defineComponent({
 	props: {
 		title: {
 			type: String,
-			default: 'Title',
-		},
+			default: 'Title'
+		}
 	},
 	methods: {
 		// 回滚至顶
@@ -88,7 +87,6 @@ export default defineComponent({
 		height: 32px;
 		padding: 3px;
 		position: relative;
-		text-indent: 42px;
 		border-bottom: 2px solid #A67D7B;
 	}
 
@@ -96,7 +94,7 @@ export default defineComponent({
 		text-align: center;
 	}
 
-	.pic {
+	.avatar {
 		width: 100px;
 		height: 100px;
 		border: 2px solid #FBC7D4;
