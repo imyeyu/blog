@@ -6,29 +6,27 @@
 				<span class="light-gray" v-text="sayHello"></span>
 			</h4>
 		</section>
-		<template v-for="item in article" :key="item">
-			<article class="article" v-if="!item.isHide">
-				<div class="content">
-					<div class="abstract">
-						<h3 class="title">
-							<router-link
-								:to="`/article/${item.type}/aid${item.id}.html`"
-								v-text="item.title"
-							></router-link>
-						</h3>
-						<p class="digest" v-text="`${item.digest}..`"></p>
-					</div>
+		<article class="article" v-for="item in article" :key="item">
+			<div class="content">
+				<div class="abstract">
+					<h3 class="title">
+						<router-link
+							:to="`/article/${item.type}/aid${item.id}.html`"
+							v-text="item.title"
+						></router-link>
+					</h3>
+					<p class="digest" v-text="`${item.digest}..`"></p>
 				</div>
-				<footer class="footer">
-					<div>
-						<span class="icon reads" v-text="`阅读（${item.reads}）`"></span>
-						<span class="icon likes" v-text="`喜欢（${item.likes}）`"></span>
-						<span class="icon comments" v-text="`评论（${item.comments}）`"></span>
-					</div>
-					<span class="icon update-at" v-text="toDate(item.createdAt, item.updatedAt)"></span>
-				</footer>
-			</article>
-		</template>
+			</div>
+			<footer class="footer">
+				<div>
+					<span class="icon reads" v-text="`阅读（${item.reads}）`"></span>
+					<span class="icon likes" v-text="`喜欢（${item.likes}）`"></span>
+					<span class="icon comments" v-text="`评论（${item.comments}）`"></span>
+				</div>
+				<span class="icon update-at" v-text="toDate(item.createdAt, item.updatedAt)"></span>
+			</footer>
+		</article>
 		<loading
 			:isFinished="isLoadFinished"
 			:isError="isLoadError"
@@ -59,7 +57,7 @@ export default defineComponent({
 
 			isLoadError: false,
 			isLoadFinished: false
-		}
+		};
 	},
 	computed: {
 		sayHello(): string {
