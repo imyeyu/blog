@@ -39,7 +39,7 @@ export default class Storage {
 	/** 默认配置 */
 	public getDefault() {
 		return {
-			codeTips: true, // 代码区双击提示
-		}
+			codeTips: true // 代码区双击提示
+		};
 	}
 }
