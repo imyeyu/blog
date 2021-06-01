@@ -56,9 +56,9 @@ export default defineComponent({
 <style scoped>
 	.input-box {
 		width: 100%;
+		margin: 24px 0 16px 0;
 		display: flex;
 		position: relative;
-		margin: 24px 0 16px 0;
 		text-indent: .2em;
 		flex-direction: column;
 	}
@@ -74,14 +74,18 @@ export default defineComponent({
 		background: transparent;
 		text-indent: .2em;
 		font-family: "Consolas", "sans-serif", "Arial";
-		border-radius: 0;
-		border-bottom: 2px solid #EED7D7;
+		border-bottom: 1px solid #FAC7D4;
 		margin-bottom: 4px;
+		border-radius: 0;
 	}
 
 	.input.outlined {
-		border: 2px solid #EED7D7;
-		border-radius: 3px;
+		border: 1px solid #FAC7D4;
+		border-radius: 1px;
+	}
+
+	.input:focus {
+		border-color: #525870;
 	}
 
 	.label {
@@ -106,9 +110,10 @@ export default defineComponent({
 	}
 
 	.tips {
-		color: #AAA;
+		color: #BBB;
 		height: 16px;
 		display: block;
+		font-size: 13px;
 	}
 
 	.tips.warn {
