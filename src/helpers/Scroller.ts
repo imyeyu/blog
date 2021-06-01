@@ -10,7 +10,7 @@ export class ScrollEvent {
 
 export default class Scroller {
 
-	public top: number = 0;
+	public top = 0;
 
 	events: ScrollEvent[];
 
@@ -43,8 +43,7 @@ export default class Scroller {
 
 	// 移除事件
 	remove(name: string) {
-		const e = this.events.findIndex(se => se.name === name);
-		delete this.events[e];
+		this.events.splice(this.events.findIndex(se => se.name === name), 1);
 	}
 
 	// 滚动至顶
