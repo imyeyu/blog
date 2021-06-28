@@ -82,7 +82,7 @@ export default defineComponent({
 		flex-direction: column;
 	}
 
-	aside >>> .title {
+	.aside >>> .title {
 		width: 90%;
 		height: 32px;
 		padding: 3px;
@@ -90,8 +90,33 @@ export default defineComponent({
 		border-bottom: 2px solid #A67D7B;
 	}
 
+	.aside >>> .href {
+		display: flex;
+		font-size: 12px;
+		margin-top: 4px;
+		justify-content: center;
+	}
+
+	.aside >>> .href a {
+		margin: 0 6px;
+		display: block;
+		position: relative;
+		line-height: 1;
+	}
+
+	.aside >>> .href a:nth-child(n + 2):before {
+		content: "";
+		top: 0;
+		left: -6px;
+		width: 1px;
+		height: 12px;
+		position: absolute;
+		background: #666;
+	}
+
 	.info {
 		text-align: center;
+		margin-bottom: 24px;
 	}
 
 	.avatar {
@@ -107,30 +132,6 @@ export default defineComponent({
 		height: 24px;
 		margin: 8px auto 4px auto;
 		background-position: -102px 0;
-	}
-
-	.me .href {
-		display: flex;
-		font-size: 12px;
-		margin-top: 4px;
-		justify-content: center;
-	}
-
-	.me .href a {
-		margin: 0 6px;
-		display: block;
-		position: relative;
-		line-height: 1;
-	}
-
-	.me .href a:nth-child(n + 2):before {
-		content: "";
-		top: 0;
-		left: -6px;
-		width: 1px;
-		height: 12px;
-		position: absolute;
-		background: #666;
 	}
 
 	.ctrls {
