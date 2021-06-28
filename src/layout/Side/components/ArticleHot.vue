@@ -4,9 +4,9 @@
 		<ul class="links none-style">
 			<li class="link" v-for="(item, i) in $store.state.articleHot" :key="item">
 				<router-link
-					class="href"
+					class="link-href"
 					:data-i="`${i + 1}.`"
-					:to="`/article/public/aid${item.id}.html`"
+					:to="`/article/${item.type}/aid${item.id}.html`"
 					v-text="item.title"
 				>
 				</router-link>
@@ -57,7 +57,7 @@ export default defineComponent({
 		box-shadow: 2px 2px 0 rgba(0, 0, 0, .4);
 	}
 
-	.hot .href {
+	.hot .link-href {
 		color: #000;
 		width: 350px;
 		display: inline-block;
@@ -66,7 +66,7 @@ export default defineComponent({
 		text-overflow: ellipsis;
 	}
 	
-	.hot .href::before {
+	.hot .link-href::before {
 		content: attr(data-i);
 		left: 4px;
 		width: 1.5rem;
@@ -74,7 +74,7 @@ export default defineComponent({
 		text-align: right;
 	}
 
-	.hot .href:hover {
+	.hot .link-href:hover {
 		text-decoration: none;
 	}
 
