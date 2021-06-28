@@ -6,6 +6,8 @@ import ArticleList from '@/views/Article/List.vue';
 import ArticlePublic from '@/views/Article/Public.vue';
 import ArticleSoftware from '@/views/Article/Software.vue';
 
+import Space from '@/views/User/Space.vue';
+
 const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/',
@@ -34,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
 		path: '/user/register',
 		name: 'Register',
 		component: Register
+	},
+	{
+		path: '/user/space',
+		name: 'Space',
+		component: Space
 	}
 ];
 

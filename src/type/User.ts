@@ -10,8 +10,9 @@ export type User = {
 // 用户资料对象
 export type UserData = {
 	userId?: number;
-	exp?: number;
+	wrapper?: string;
 	avatar?: string;
+	exp?: number;
 	sex?: number;
 	birth?: number;
 	qq?: string;
