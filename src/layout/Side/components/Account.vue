@@ -1,20 +1,23 @@
 <template>
 	<div class="item user">
-		<div :class="`title${isSignedIn ? '': ' icon'}`">
+		<div :class="`title${isSignedIn ? '': ' icon'}`" :style="`height: ${isSignedIn ? 'auto' : ''}`">
 			<div class="signed-in-user" v-if="isSignedIn">
 				<img
+					class="avatar"
 					width="32"
 					height="32"
-					:src="`/img/user/${userSignedIn.data.avatar ? userSignedIn.data.avatar : 'avatar.png' }`"
+					:src="`/img/user/${userSignedIn.data && userSignedIn.data.avatar ? userSignedIn.data.avatar : 'avatar.png' }`"
 					:alt="`${userSignedIn.name} 头像`"
 				/>
-				<h1 class="name zpix24" v-text="userSignedIn.name"></h1>
+				<h3 class="name" v-text="userSignedIn.name"></h3>
 			</div>
 		</div>
 		<div class="content">
 			<template v-if="isSignedIn">
-				<p>欢迎登录，个人中心</p>
-				<a href="#" @click="signOut()">退出登录</a>
+				<div class="href">
+					<router-link to="/user/space">个人中心</router-link>
+					<a href="javascript:;" @click="signOut()">退出登录</a>
+				</div>
 			</template>
 			<template v-else>
 				<div class="input-btn">
@@ -104,8 +107,9 @@ export default defineComponent({
 	methods: {
 		async signIn() {
 			const user = await UserAPI.signIn(this.userSignIn);
-			if (user) {
+			if (user && user.id) {
 				this.userSignedIn = user;
+				this.userSignedIn.data = await UserAPI.getData(user.id);
 			} else {
 				(this.$refs.captcha as any).update();
 			}
@@ -129,10 +133,21 @@ export default defineComponent({
 
 	.user .signed-in-user {
 		display: flex;
+		align-items: center;
+	}
+
+	.user .avatar {
+		border: 1px solid #E2C5C4;
+		margin-left: 2px;
+		border-radius: 1px;
 	}
 
 	.user .name {
-		margin: 0;
+		width: 170px;
+		margin: 0 0 3px 6px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 
 	.user .content {
