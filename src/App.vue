@@ -74,7 +74,7 @@ export default defineComponent({
 				const el = this.leafEls[i];
 				el.style.top = `${leaf.y}px`;
 				el.style.left = `${leaf.x}px`;
-				el.style.backgroundPosition = `0 -${random(0, 3) * 32}px`;
+				el.style.backgroundPosition = `0 -${random(3, 0) * 32}px`;
 			}
 		}, 100);
 		// 滚动监听（leafs 无法使用 fixed，需要 absolute 同步滚动）
