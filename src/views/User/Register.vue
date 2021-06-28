@@ -72,6 +72,7 @@ export default defineComponent({
 		async register() {
 			store.state.loader.run(async () => {
 				const signedInUser = await UserAPI.register(this.user, this.captcha);
+				(this.$refs.captcha as any).update();
 				if (signedInUser && signedInUser.id) {
 					// 自动登录
 					signedInUser.data = await UserAPI.getData(signedInUser.id);
@@ -79,8 +80,6 @@ export default defineComponent({
 					
 					await this.$store.state.dialogBus.success(`UID：${signedInUser.id}，已为你自动登录！`, `欢迎 ${signedInUser.name} ！`);
 					this.$router.push('/');
-				} else {
-					(this.$refs.captcha as any).update();
 				}
 			});
 		}
