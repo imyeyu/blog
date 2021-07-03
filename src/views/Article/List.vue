@@ -111,6 +111,8 @@ export default defineComponent({
 		position: sticky;
 		font-size: 12px;
 		background: rgba(244, 244, 244, .9);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
 	}
 
 	.header .title {
