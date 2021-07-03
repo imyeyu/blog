@@ -98,6 +98,7 @@ export default defineComponent({
 			}
 		}
 		this.article = article;
+		this.$store.commit('webTitle', this.article.title);
 		
 		if (this.article.updatedAt) {
 			this.isCreatedAt = false;

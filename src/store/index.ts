@@ -21,6 +21,7 @@ const store = createStore({
 		async refreshArticleHot(state) {
 			state.articleHot = await ArticleAPI.getArticleHot() as any;
 		},
+		// 缓存登录用户
 		signedInUser(state, user: UserSignedIn) {
 			state.signedInUser = user;
 			state.storage.set('signedInUser', {
@@ -29,6 +30,14 @@ const store = createStore({
 				token: user.token,
 				data: user.data
 			});
+		},
+		// 修改标签标题（自动加后缀，当为空是无后缀）
+		webTitle(state, title: string) {
+			if (title) {
+				document.title = title + ' - 夜雨博客';
+			} else {
+				document.title = '夜雨博客';
+			}
 		}
 	}
 });

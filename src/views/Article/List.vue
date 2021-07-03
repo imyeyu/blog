@@ -82,6 +82,7 @@ export default defineComponent({
 			if (result.length === 0) {
 				this.isLoadFinished = true;
 			}
+			this.$store.commit('webTitle');
 		},
 		onScroll(top: number, wasBottom: boolean) {
 			if (wasBottom) {

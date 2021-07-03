@@ -139,6 +139,7 @@ export default defineComponent({
 	},
 	async mounted() {
 		this.article = await ArticleAPI.getArticle(1);
+		this.$store.commit('webTitle', this.article.title);
 
 		// 计时
 		this.calSurvivalTime();

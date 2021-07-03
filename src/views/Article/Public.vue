@@ -55,6 +55,7 @@ export default defineComponent({
 		if (this.article.updatedAt) {
 			this.isCreatedAt = false;
 		}
+		this.$store.commit('webTitle', this.article.title);
 		this.$store.commit('refreshArticleHot');
 	}
 });

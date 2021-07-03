@@ -83,6 +83,9 @@ export default defineComponent({
 				}
 			});
 		}
+	},
+	mounted() {
+		this.$store.commit('webTitle', '注册账号');
 	}
 });
 </script>
