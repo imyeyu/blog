@@ -163,11 +163,11 @@ export default defineComponent({
 	}
 	
 	.content ::v-deep .git-history td:nth-child(2) {
-		width: 120px;
+		width: 100px;
 	}
 	
 	.content ::v-deep .git-history td:nth-child(3) {
-		padding: 0 12px;
+		width: 20px;
 		position: relative;
 	}
 
@@ -187,7 +187,7 @@ export default defineComponent({
 		left: 50%;
 		width: 9px;
 		height: 9px;
-		margin: -5px 0 0 -6.5px;
+		margin: -6px 0 0 -6.5px;
 		border: 2px solid #F4F4F4;
 		position: absolute;
 		background: #3572B0;
