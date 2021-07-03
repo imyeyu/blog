@@ -27,11 +27,7 @@
 				<span class="icon update-at" v-text="toDate(item.createdAt, item.updatedAt)"></span>
 			</footer>
 		</article>
-		<loading
-			:isFinished="isLoadFinished"
-			:isError="isLoadError"
-			:finishText="'已加载所有文章 (◡ ᴗ ◡ ✿)'"
-		/>
+		<loading :isFinished="isLoadFinished" :finishText="'已加载所有文章 (◡ ᴗ ◡ ✿)'" :refreshEvent="getArticles" />
 	</div>
 </template>
 <script lang="ts">
@@ -48,14 +44,10 @@ export default defineComponent({
 	data(): {
 		article: Article[];
 		updateTime?: string;
-
-		isLoadError: boolean;
 		isLoadFinished: boolean;
 		} {
 		return {
 			article: [],
-
-			isLoadError: false,
 			isLoadFinished: false
 		};
 	},

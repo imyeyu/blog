@@ -180,11 +180,7 @@
 			</div>
 		</div>
 	</div>
-	<loading
-		:isFinished="isLoadFinished"
-		:isError="isLoadError"
-		:finishText="'已加载所有评论 (◡ ᴗ ◡ ✿)'"
-	/>
+	<loading :isFinished="isLoadFinished" :finishText="'已加载所有评论 (◡ ᴗ ◡ ✿)'" />
 </template>
 
 <script lang="ts">
@@ -217,8 +213,6 @@ export default defineComponent({
 		comment: Comment;
 		comments: Comment[];
 		commentReply: CommentReply;
-
-		isLoadError: boolean;
 		isLoadFinished: boolean;
 		} {
 		return {
@@ -238,7 +232,6 @@ export default defineComponent({
 				receiverNick: '',
 				data: ''
 			},
-			isLoadError: false,
 			isLoadFinished: false
 		};
 	},

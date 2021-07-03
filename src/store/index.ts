@@ -13,7 +13,8 @@ const store = createStore({
 		scroller: new Scroller(),
 		dialogBus: new DialogBus(),
 		articleHot: [],
-		signedInUser: {}
+		signedInUser: {},
+		isLoadingError: false
 	},
 	mutations: {
 		// 刷新热门文章

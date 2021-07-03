@@ -9,13 +9,24 @@ import httpCodeMsg from '@/static/HttpCode';
 axios.defaults.timeout = 8E3;
 axios.defaults.baseURL = process.env.VUE_APP_API_HOST;
 axios.defaults.withCredentials = true;
-// 回调事件
+// 全局请求事件
+axios.interceptors.request.use(config => {
+	store.state.isLoadingError = false;
+	if (store.state.signedInUser) {
+		config.headers = { 'TOKEN': (store.state.signedInUser as any).token };
+	}
+	return config;
+}, error => {
+	return Promise.reject(error);
+});
+// 全局返回事件
 axios.interceptors.response.use(response => {
 	// 服务端返回
 	const data = response.data;
 	if (data.code < 40000) { // 200 或 300 HTTP 状态段视为成功
 		return data.data;
 	} else {
+		store.state.isLoadingError = true;
 		// 返回错误
 		store.state.dialogBus.display({
 			icon: 'ERROR',
@@ -26,6 +37,7 @@ axios.interceptors.response.use(response => {
 	}
 	return null;
 }, error => {
+	store.state.isLoadingError = true;
 	// 请求错误
 	if (error) {
 		const url = `地址：${error.config.url}`;
