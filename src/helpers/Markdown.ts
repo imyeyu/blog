@@ -2,6 +2,9 @@ import marked from 'marked';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 import store from '@/store';
+import MainAPI from '@/api/MainAPI';
+import { GithubCommit } from '@/type/GithubCommit';
+import { toDateTime } from './UnixTime';
 
 // 渲染器
 const Renderer = new marked.Renderer();
@@ -38,13 +41,14 @@ Renderer.link = (url, title, text) => {
 	}
 };
 /**
- * 媒体渲染方式（原为图像渲染方式）
+ * 组件渲染方式（原为图像渲染方式）
  * [] 内文本以 # 开始时，该组件带边框
  * 
  * 渲染为网页：![]($/html/index.html)
  * 渲染为视频：![](#/media/video.mp4)
  * 渲染为音频：![](~/media/music.mp3)
  * 渲染为图片：![](/image/photo.png)
+ * 渲染为 Github 提交记录：![仓库名](%用户名)
  * 带边框图片：![#图片Alt](/image/photo.png)
  */
 Renderer.image = (url, title, text) => {
@@ -57,8 +61,10 @@ Renderer.image = (url, title, text) => {
 				return `<audio${borderClass} controls><source type="audio/mp3" src="${url.substring(1)}"></source></audio>`;
 			case '#': // 视频
 				return `<video${borderClass} controls><source type="video/mp4" src="${url.substring(1)}"></source></video>`;
-			case '$': // 视频
+			case '$': // 网页
 				return `<iframe${borderClass} src="${url.substring(1)}" frameborder="0" allowfullscreen></iframe>`;
+			case '%': // git 记录
+				return `<div class="git-history" data-isload="false" data-user="${url.substring(1)}" data-repos="${text}"></div>`;
 		}
 		// 图片
 		return `<img${borderClass} src="${url}" alt="${text}" />`;
@@ -126,11 +132,26 @@ marked.setOptions({
 	xhtml: false
 });
 
-export default function toHTML(mkData: string | undefined): string {
+export function toHTML(mkData: string | undefined): string {
 	if (mkData) {
 		return marked(mkData);
 	} else {
 		return '';
+	}
+}
+
+export async function parseGithubCommits(el: any): Promise<void> {
+	if (el.dataset.isload === 'false') {
+		const user = el.dataset.user,
+			  repos = el.dataset.repos;
+		let mdTable = '|时间|提交者||更新内容|\n|:---:|---:|---|---|';
+		const commits = await MainAPI.getGithubCommits(user, repos);
+		for (const commit of commits) {
+			const name = commit.committer.name;
+			const date = toDateTime(commit.committer.commitedAt);
+			mdTable += `\n|${date}|${name}||[${commit.msg}](~${commit.url})|`;
+		}
+		el.innerHTML = toHTML(mdTable);
 	}
 }
 
