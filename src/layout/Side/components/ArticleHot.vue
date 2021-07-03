@@ -25,7 +25,12 @@ export default defineComponent({
 });
 </script>
 <style scoped>
+	.hot {
+		font-family: var(--public-font-consolas);
+	}
+	
 	.hot .title {
+		text-indent: 2em;
 		background-position: 6px -268px;
 	}
 

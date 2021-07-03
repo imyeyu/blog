@@ -1,6 +1,6 @@
 <template>
 	<div class="content">
-		<h1 class="title zpix24">注册账号</h1>
+		<h1 class="title">注册账号</h1>
 		<div class="form">
 			<text-field
 				label="用户名"
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 		</div>
-		<button class="run zpix24" @click="register()">注册</button>
+		<button class="run" @click="register()">注册</button>
 	</div>
 	<loading :isFinished="true" finishText="" />
 </template>

@@ -2,7 +2,6 @@
 	<div class="item search">
 		<div :class="`title${searchKey ? ' inputing' : ''}`">
 			<input
-				class="zpix24"
 				spellcheck="false"
 				autofocus
 				v-model="searchKey"

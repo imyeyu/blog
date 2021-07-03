@@ -1,6 +1,6 @@
 <template>
 	<article>
-		<h2 class="title zpix24">关于我</h2>
+		<h2 class="title">关于我</h2>
 
 		<sections :data="article.data"></sections>
 		<p

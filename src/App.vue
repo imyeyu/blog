@@ -108,7 +108,6 @@ export default defineComponent({
 		scroll-behavior: smooth;
 	}
 
-	/* position: fixed 和 z-index: -1 同时使用会导致字体渲染模糊（不只是 Zpix） */
 	#leafs {
 		width: 100%;
 		height: 100vh;

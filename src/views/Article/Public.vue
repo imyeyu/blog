@@ -1,6 +1,6 @@
 <template>
 	<article v-show="article.id">
-		<h2 class="title zpix24" v-text="article.title"></h2>
+		<h2 class="title" v-text="article.title"></h2>
 		<div class="info">
 			<div v-text="article.label"></div>
 			<div v-text="articleDate" @click="isCreatedAt = !isCreatedAt"></div>
@@ -61,10 +61,6 @@ export default defineComponent({
 </script>
 <style scoped>
 	.title {
-		/* sticky 会导致 Zpix 渲染模糊 */
-		/* top: 0; */
-		/* position: sticky; */
-
 		padding: 48px 0 12px 0;
 		text-align: center;
 	}

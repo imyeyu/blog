@@ -5,7 +5,7 @@
 				<img :src="software.logo" alt="程序 Logo" />
 			</div>
 			<div class="info">
-				<h2 class="title zpix24" v-text="article.title"></h2>
+				<h2 class="title" v-text="article.title"></h2>
 				<div class="labels">
 					<span class="label" v-for="label in labels" :key="label" v-text="label"></span>
 				</div>

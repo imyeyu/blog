@@ -1,7 +1,7 @@
 :root {
 	--random-icon: url(../img/icons.png?v=0) no-repeat;
-	--public-font: "Consolas", "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
-	--zpix-font: "Zpix", "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
+	--public-font: "inherit", "PingFang SC", "PingHei", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
+	--public-font-consolas: "Consolas", "inherit", "PingFang SC", "PingHei", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
 	--default: url("../img/default.png"), default;
 	--pointer: url("../img/link.png"), pointer;
 	--text: url("../img/input.png"), text;
@@ -191,29 +191,6 @@ code ::selection {
 }
 
 /* 可选类 */
-@font-face {
-	font-family: Zpix;
-	src: url(../font/zpix.woff2);
-}
-
-.zpix12 {
-	font-size: 12px !important;
-	line-height: 1.5;
-	font-weight: normal;
-	font-family: "Zpix", "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
-	font-feature-settings: "tnum";
-	-webkit-font-smoothing: none;
-}
-
-.zpix24 {
-	font-size: 24px !important;
-	line-height: 1.5;
-	font-weight: normal;
-	font-family: "Zpix", "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
-	font-feature-settings: "tnum";
-	-webkit-font-smoothing: none;
-}
-
 .icon {
 	background: var(--random-icon);
 }
