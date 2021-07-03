@@ -24,8 +24,8 @@ export default defineComponent({
 		};
 	},
 	watch: {
-		data(newVlue) {
-			this.dataHTML = toHTML(newVlue);
+		data(newValue) {
+			this.dataHTML = toHTML(newValue);
 			this.$nextTick(async () => {
 				Prism.highlightAll();
 				const gits = document.querySelectorAll('.git-history');
