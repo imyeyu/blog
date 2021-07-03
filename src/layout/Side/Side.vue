@@ -75,14 +75,14 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-	.aside ::v-deep .item {
+	.aside :deep(.item) {
 		margin: 8px 0 4px 0;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
 	}
 
-	.aside ::v-deep .title {
+	.aside :deep(.title) {
 		width: 90%;
 		height: 32px;
 		padding: 3px;
@@ -90,21 +90,21 @@ export default defineComponent({
 		border-bottom: 2px solid #A67D7B;
 	}
 
-	.aside ::v-deep .href {
+	.aside :deep(.href) {
 		display: flex;
 		font-size: 12px;
 		margin-top: 4px;
 		justify-content: center;
 	}
 
-	.aside ::v-deep .href a {
+	.aside :deep(.href a) {
 		margin: 0 6px;
 		display: block;
 		position: relative;
 		line-height: 1;
 	}
 
-	.aside ::v-deep .href a:nth-child(n + 2):before {
+	.aside :deep(.href a:nth-child(n + 2):before) {
 		content: "";
 		top: 0;
 		left: -6px;

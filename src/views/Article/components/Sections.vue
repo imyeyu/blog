@@ -42,12 +42,12 @@ export default defineComponent({
 		font-family: var(--public-font-consolas);
 	}
 
-	.content ::v-deep h1,
-	.content ::v-deep h2,
-	.content ::v-deep h3,
-	.content ::v-deep h4,
-	.content ::v-deep h5,
-	.content ::v-deep h6 {
+	.content :deep(h1),
+	.content :deep(h2),
+	.content :deep(h3),
+	.content :deep(h4),
+	.content :deep(h5),
+	.content :deep(h6) {
 		margin: 12px 0 8px 0;
 		font-size: 20px;
 		background: linear-gradient(to right, #CDDEF0 50%, transparent 100%);
@@ -56,74 +56,74 @@ export default defineComponent({
 		padding-left: 8px;
 	}
 
-	.content ::v-deep a {
+	.content :deep(a) {
 		color: #9B6D6C;
 	}
 
-	.content ::v-deep p {
+	.content :deep(p) {
 		padding: 0 6px;
 		font-size: 15px;
 		line-height: 1.8;
 		text-indent: 2em;
 	}
 
-	.content ::v-deep ul,
-	.content ::v-deep ol {
+	.content :deep(ul),
+	.content :deep(ol) {
 		margin-left: 2em;
 		padding-left: 2em;
 	}
 
-	.content ::v-deep li {
+	.content :deep(li) {
 		line-height: 1.8;
 	}
 
-	.content ::v-deep img,
-	.content ::v-deep audio,
-	.content ::v-deep video,
-	.content ::v-deep iframe {
+	.content :deep(img),
+	.content :deep(audio),
+	.content :deep(video),
+	.content :deep(iframe) {
 		margin: 4px auto 14px auto;
 		display: block;
 		max-width: calc(100% - 4rem);
 	}
 
-	.content ::v-deep audio {
+	.content :deep(audio) {
 		height: 2.6em;
 		background: #F1F3F4;
 	}
 
-	.content ::v-deep table {
+	.content :deep(table) {
 		margin: 12px auto;
 		max-width: calc(100% - 4rem);
 	}
 	
-	.content ::v-deep table tr:nth-child(n + 1):hover {
+	.content :deep(table tr:nth-child(n + 1):hover) {
 		background: #E5E5E5;
 	}
 
-	.content ::v-deep table tr th {
+	.content :deep(table tr th) {
 		font-size: 17px;
 		background: #CDDEF0;
 		white-space: nowrap;
 	}
 
-	.content ::v-deep table tr th,
-	.content ::v-deep table tr td {
+	.content :deep(table tr th),
+	.content :deep(table tr td) {
 		border: 1px solid #525870;
 		padding: 0 6px;
 		line-height: 25px;
 	}
 	
-	.content ::v-deep video {
+	.content :deep(video) {
 		width: 100%;
 	}
 
-	.content ::v-deep iframe {
+	.content :deep(iframe) {
 		width: 100%;
 		height: 520px;
 		max-width: calc(100% - 4rem);
 	}
 
-	.content ::v-deep blockquote {
+	.content :deep(blockquote) {
 		color: #666;
 		margin: 1rem 2.4em;
 		padding: 6px 0;
@@ -132,27 +132,27 @@ export default defineComponent({
 		padding-left: 6px;
 	}
 
-	.content ::v-deep blockquote ul,
-	.content ::v-deep blockquote ol {
+	.content :deep(blockquote ul),
+	.content :deep(blockquote ol) {
 		margin-left: 0;
 	}
 
-	.content ::v-deep li blockquote {
+	.content :deep(li blockquote) {
 		margin: 1rem 0;
 	}
 
 	/* Github 提交历史 */
-	.content ::v-deep .git-history {
+	.content :deep(.git-history) {
 		overflow: auto;
 	}
 
-	.content ::v-deep .git-history table {
+	.content :deep(.git-history table) {
 		width: 100%;
 		min-width: 730px;
 	}
 
-	.content ::v-deep .git-history th,
-	.content ::v-deep .git-history td {
+	.content :deep(.git-history th),
+	.content :deep(.git-history td) {
 		border: none;
 		padding: 0 3px;
 		overflow: hidden;
@@ -161,25 +161,25 @@ export default defineComponent({
 		text-overflow: ellipsis;
 	}
 
-	.content ::v-deep .git-history th {
+	.content :deep(.git-history th) {
 		background: transparent;
 		border-bottom: 1px solid #3572B0;
 	}
 
-	.content ::v-deep .git-history td:nth-child(1) {
+	.content :deep(.git-history td:nth-child(1)) {
 		width: 150px;
 	}
 	
-	.content ::v-deep .git-history td:nth-child(2) {
+	.content :deep(.git-history td:nth-child(2)) {
 		width: 100px;
 	}
 	
-	.content ::v-deep .git-history td:nth-child(3) {
+	.content :deep(.git-history td:nth-child(3)) {
 		width: 20px;
 		position: relative;
 	}
 
-	.content ::v-deep .git-history td:nth-child(3)::before {
+	.content :deep(.git-history td:nth-child(3)::before) {
 		content: '';
 		left: 50%;
 		width: 3px;
@@ -189,7 +189,7 @@ export default defineComponent({
 		margin-left: -1.5px;
 	}
 
-	.content ::v-deep .git-history td:nth-child(3)::after {
+	.content :deep(.git-history td:nth-child(3)::after) {
 		content: '';
 		top: 50%;
 		left: 50%;
@@ -202,16 +202,16 @@ export default defineComponent({
 		border-radius: 50%;
 	}
 	
-	.content ::v-deep .git-history td:nth-child(4) {
+	.content :deep(.git-history td:nth-child(4)) {
 		max-width: 490px;
 	}
 
 	/* 自定义类 */
-	.content ::v-deep .border {
+	.content :deep(.border) {
 		border: 1px solid #B8BBC9;
 	}
 
-	.content ::v-deep .dl {
+	.content :deep(.dl) {
 		margin: .5em;
 		border: 1px solid #D6BE96;
 		display: inline-block;
@@ -225,7 +225,7 @@ export default defineComponent({
 	}
 
 	/* 代码容器 */
-	.content ::v-deep pre {
+	.content :deep(pre) {
 		width: calc(100% - 4rem - 12px);
 		margin: 8px auto 20px auto;
 		border: 1px solid #B8BBC9;
@@ -240,14 +240,14 @@ export default defineComponent({
 	}
 
 	/* 代码盒子 */
-	.content ::v-deep pre code {
+	.content :deep(pre code) {
 		color: #43475C;
 		display: flex;
 		text-shadow: none !important;
 	}
 
 	/* 代码行号 */
-	.content ::v-deep .line-numbers-rows {
+	.content :deep(.line-numbers-rows) {
 		left: 0;
 		position: relative;
 		background: #EDEDED;
@@ -255,12 +255,12 @@ export default defineComponent({
 		margin-right: 4px;
 	}
 
-	.content ::v-deep .line-numbers-rows > span::before {
+	.content :deep(.line-numbers-rows > span::before) {
 		padding-right: .5em;
 	}
 
 	/* 代码区 */
-	.content ::v-deep .codes {
+	.content :deep(.codes) {
 		left: 3.6em;
 		cursor: var(--text);
 		position: absolute;
@@ -269,44 +269,44 @@ export default defineComponent({
 	}
 
 	/* 自定义代码着色 */
-	.content ::v-deep .token.function {
+	.content :deep(.token.function) {
 		color: #777;
 	}
-	.content ::v-deep .token.class-name {
+	.content :deep(.token.class-name) {
 		color: #FF461F;
 	}
-	.content ::v-deep .token.generics .class-name {
+	.content :deep(.token.generics .class-name) {
 		color: #777;
 		font-weight: bold;
 	}
-	.content ::v-deep .token.comment {
+	.content :deep(.token.comment) {
 		color: green;
 	}
-	.content ::v-deep .token.string {
+	.content :deep(.token.string) {
 		color: #FF7A9B;
 		font-weight: bold;
 	}
-	.content ::v-deep .token.number {
+	.content :deep(.token.number) {
 		color: #CA6924;
 	}
-	.content ::v-deep .token.keyword,
-	.content ::v-deep .token.boolean {
+	.content :deep(.token.keyword),
+	.content :deep(.token.boolean) {
 		color: #177CB0;
 	}
-	.content ::v-deep .token.punctuation {
+	.content :deep(.token.punctuation) {
 		color: purple;
 	}
 	
 	@media screen and (max-width: 900px) {
-		.content ::v-deep img,
-		.content ::v-deep audio,
-		.content ::v-deep video,
-		.content ::v-deep table,
-		.content ::v-deep iframe {
+		.content :deep(img),
+		.content :deep(audio),
+		.content :deep(video),
+		.content :deep(table),
+		.content :deep(iframe) {
 			max-width: calc(100% - 1rem);
 		}
 
-		.content ::v-deep pre {
+		.content :deep(pre) {
 			width: calc(100% - 1rem - 12px);
 		}
 	}
