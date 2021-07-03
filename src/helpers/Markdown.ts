@@ -147,8 +147,8 @@ export async function parseGithubCommits(el: any): Promise<void> {
 		let mdTable = '|时间|提交者||更新内容|\n|:---:|---:|---|---|';
 		const commits = await MainAPI.getGithubCommits(user, repos);
 		for (const commit of commits) {
-			const name = commit.committer.name;
-			const date = toDateTime(commit.committer.commitedAt);
+			const name = commit.name;
+			const date = toDateTime(commit.commitedAt);
 			mdTable += `\n|${date}|${name}||[${commit.msg}](~${commit.url})|`;
 		}
 		el.innerHTML = toHTML(mdTable);
