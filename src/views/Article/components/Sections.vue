@@ -142,15 +142,23 @@ export default defineComponent({
 	}
 
 	/* Github 提交历史 */
+	.content ::v-deep .git-history {
+		overflow: auto;
+	}
+
 	.content ::v-deep .git-history table {
 		width: 100%;
+		min-width: 730px;
 	}
 
 	.content ::v-deep .git-history th,
 	.content ::v-deep .git-history td {
 		border: none;
 		padding: 0 3px;
+		overflow: hidden;
 		font-size: 13px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 
 	.content ::v-deep .git-history th {
@@ -192,6 +200,10 @@ export default defineComponent({
 		position: absolute;
 		background: #3572B0;
 		border-radius: 50%;
+	}
+	
+	.content ::v-deep .git-history td:nth-child(4) {
+		max-width: 490px;
 	}
 
 	/* 自定义类 */
