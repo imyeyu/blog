@@ -11,7 +11,7 @@
 				<div class="abstract">
 					<h3 class="title">
 						<router-link
-							:to="`/article/${item.type}/aid${item.id}.html`"
+							:to="`/article/${item.type.toLowerCase()}/aid${item.id}.html`"
 							v-text="item.title"
 						></router-link>
 					</h3>

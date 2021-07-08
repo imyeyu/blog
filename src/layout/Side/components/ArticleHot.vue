@@ -6,7 +6,7 @@
 				<router-link
 					class="link-href"
 					:data-i="`${i + 1}.`"
-					:to="`/article/${item.type}/aid${item.id}.html`"
+					:to="`/article/${item.type.toLowerCase()}/aid${item.id}.html`"
 					v-text="item.title"
 				>
 				</router-link>
