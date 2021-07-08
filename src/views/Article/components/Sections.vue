@@ -95,7 +95,7 @@ export default defineComponent({
 		margin: 12px auto;
 		max-width: calc(100% - 4rem);
 	}
-	
+
 	.content :deep(table tr:nth-child(n + 1):hover) {
 		background: #E5E5E5;
 	}
@@ -112,7 +112,7 @@ export default defineComponent({
 		padding: 0 6px;
 		line-height: 25px;
 	}
-	
+
 	.content :deep(video) {
 		width: 100%;
 	}
@@ -169,11 +169,11 @@ export default defineComponent({
 	.content :deep(.git-history td:nth-child(1)) {
 		width: 150px;
 	}
-	
+
 	.content :deep(.git-history td:nth-child(2)) {
 		width: 100px;
 	}
-	
+
 	.content :deep(.git-history td:nth-child(3)) {
 		width: 20px;
 		position: relative;
@@ -201,7 +201,7 @@ export default defineComponent({
 		background: #3572B0;
 		border-radius: 50%;
 	}
-	
+
 	.content :deep(.git-history td:nth-child(4)) {
 		max-width: 490px;
 	}
@@ -296,7 +296,7 @@ export default defineComponent({
 	.content :deep(.token.punctuation) {
 		color: purple;
 	}
-	
+
 	@media screen and (max-width: 900px) {
 		.content :deep(img),
 		.content :deep(audio),

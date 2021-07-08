@@ -6,8 +6,8 @@ function f(v : number) : number {
 
 /**
  * 计算时间差
- * 
- * @param begin 开始时间 
+ *
+ * @param begin 开始时间
  * @param end   结束时间（如果没有就是当前时间）
  * @returns \{
  *     l:  时间戳
@@ -38,7 +38,7 @@ export function calcDifference(begin: Date, end?: Date) : any {
 
 /**
  * Unix 时间戳转日期
- * 
+ *
  * @param unix 时间戳
  */
 export function toDate(unix?: number) : string {
@@ -49,7 +49,7 @@ export function toDate(unix?: number) : string {
 
 /**
  * Unix 时间戳转日常时间
- * 
+ *
  * @param unix 时间戳
  */
 export function toTime(unix?: number) : string {
@@ -60,7 +60,7 @@ export function toTime(unix?: number) : string {
 
 /**
  * Unix 时间戳转日期和时间
- * 
+ *
  * @param unix 时间戳
  */
 export function toDateTime(unix?: number) : string {

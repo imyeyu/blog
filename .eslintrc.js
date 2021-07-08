@@ -31,6 +31,7 @@ module.exports = {
 		"comma-style": [2, "last"],                                    // 逗号出现在行末 [first, last]
 		"comma-dangle": [2, "never"],                                  // 数组或对象不可带最后一个逗号 [never, always, always-multiline]
 		// 空格
+		"no-trailing-spaces": "error",                                 // 禁止行末存在空格
 		"comma-spacing": [2, { "before": false, "after": true }],      // 逗号后需要空格
 		"semi-spacing": ["error", { "before": false, "after": true }], // 分号后需要空格
 		"computed-property-spacing": [2, "never"],                     // 以方括号取对象属性时，[ 后面和 ] 前面需要空格, [never, always]

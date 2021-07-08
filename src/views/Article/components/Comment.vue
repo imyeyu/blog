@@ -127,7 +127,7 @@
 							</template>
 							<!-- 中间页数，页数小于 2 时扩充遍历（已经看不懂了） -->
 							<template v-for="i in (comment.repliesI < 2 ? 7 - comment.repliesI : 5)">
-								<a 
+								<a
 									href="javascript:;"
 									:key="i"
 									:class="`page${comment.repliesI === i + comment.repliesI - 3 ? ' active' : ''}`"
@@ -180,7 +180,7 @@
 			</div>
 		</div>
 	</div>
-	<loading :isFinished="isLoadFinished" :finishText="'已加载所有评论 (◡ ᴗ ◡ ✿)'" />
+	<loading :isFinished="isLoadFinished" :finishText="'已加载所有评论 (◡ ᴗ ◡ ✿)'" :refreshEvent="getComments" />
 </template>
 
 <script lang="ts">

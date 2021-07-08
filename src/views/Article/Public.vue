@@ -28,16 +28,7 @@ export default defineComponent({
 		isCreatedAt: boolean; // 显示的日期
 		} {
 		return {
-			article: {
-				id: undefined,
-				title: '',
-				type: '',
-				clazz: '',
-				label: '',
-				data: '',
-				reads: 0,
-				likes: 0
-			},
+			article: {},
 			isCreatedAt: true
 		};
 	},
@@ -65,6 +56,7 @@ export default defineComponent({
 		padding: 48px 0 12px 0;
 		text-align: center;
 	}
+
 	.info {
 		color: #666;
 		padding: 4px;

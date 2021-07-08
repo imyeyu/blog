@@ -1,10 +1,10 @@
 :root {
-	--random-icon: url("../img/icons.png?v=0") no-repeat;
-	--public-font: "inherit", "PingFang SC", "PingHei", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
-	--public-font-consolas: "Consolas", "inherit", "PingFang SC", "PingHei", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", "sans-serif";
-	--default: url("../img/default.png"), default;
-	--pointer: url("../img/link.png"), pointer;
-	--text: url("../img/input.png"), text;
+	--random-icon: url('../img/icons.png?v=0') no-repeat;
+	--public-font: 'inherit', 'PingFang SC', 'PingHei', 'Helvetica Neue', 'Work Sans', 'Hiragino Sans GB', 'Microsoft YaHei', 'SimSun', 'sans-serif';
+	--public-font-consolas: 'Consolas', 'inherit', 'PingFang SC', 'PingHei', 'Helvetica Neue', 'Work Sans', 'Hiragino Sans GB', 'Microsoft YaHei', 'SimSun', 'sans-serif';
+	--default: url('../img/default.png'), default;
+	--pointer: url('../img/link.png'), pointer;
+	--text: url('../img/input.png'), text;
 }
 
 /* 全局样式 */
