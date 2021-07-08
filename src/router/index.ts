@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Register from '@/views/User/Register.vue';
 import About from '@/views/Article/About.vue';
 import ArticleList from '@/views/Article/List.vue';
+import ArticleMusic from '@/views/Article/Music.vue';
 import ArticlePublic from '@/views/Article/Public.vue';
 import ArticleSoftware from '@/views/Article/Software.vue';
 
@@ -15,14 +16,19 @@ const routes: Array<RouteRecordRaw> = [
 		component: ArticleList
 	},
 	{
+		// 公版
 		path: '/article/public/aid:id.html',
-		alias: [ // 兼容性保留
-			'/article/music/aid:id.html'
-		],
 		name: 'Public Article',
 		component: ArticlePublic
 	},
 	{
+		// 音乐类型排版
+		path: '/article/music/aid:id.html',
+		name: 'Music Article',
+		component: ArticleMusic
+	},
+	{
+		// 软件类型排版
 		path: '/article/software/aid:id.html',
 		name: 'Software Article',
 		component: ArticleSoftware
