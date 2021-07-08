@@ -7,7 +7,7 @@
 			<div class="info">
 				<h2 class="title" v-text="article.title"></h2>
 				<div class="labels">
-					<span class="label" v-for="label in labels" :key="label" v-text="label"></span>
+					<span class="label" v-for="label in article.labels" :key="label" v-text="label"></span>
 				</div>
 				<p class="digests">
 					<span class="digest">
@@ -67,13 +67,6 @@ export default defineComponent({
 				return '发布于 ' + toDateTime(this.article.createdAt);
 			} else {
 				return '编辑于 ' + toDateTime(this.article.updatedAt);
-			}
-		},
-		labels(): string[] {
-			if (this.article.label) {
-				return this.article.label.split(' ').filter(label => label);
-			} else {
-				return [];
 			}
 		},
 		size(): string {
