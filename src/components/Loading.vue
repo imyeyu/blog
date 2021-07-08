@@ -32,7 +32,7 @@ export default defineComponent({
 		},
 		refreshEvent: {
 			type: Function,
-			default: () => console.log('do refresh')
+			required: true
 		},
 		finishText: {
 			type: String,
