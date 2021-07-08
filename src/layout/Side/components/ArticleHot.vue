@@ -28,7 +28,7 @@ export default defineComponent({
 	.hot {
 		font-family: var(--public-font-consolas);
 	}
-	
+
 	.hot .title {
 		text-indent: 2em;
 		background-position: 6px -268px;
@@ -70,7 +70,7 @@ export default defineComponent({
 		padding-left: 1.8rem;
 		text-overflow: ellipsis;
 	}
-	
+
 	.hot .link-href::before {
 		content: attr(data-i);
 		left: 4px;

@@ -101,7 +101,7 @@ export default defineComponent({
 			gradient.addColorStop(0, '#A67D7B');
 
 			const capStyle = '#A67D7B';
-			
+
 			const that = this;
 			// 动画
 			(function renderFrame() {

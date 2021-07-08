@@ -26,7 +26,7 @@ export default class DialogBus {
 
 	/**
 	 * 默认会话
-	 * 
+	 *
 	 * @param content 内容
 	 */
 	public async info(content: string) {
@@ -35,10 +35,10 @@ export default class DialogBus {
 
 	/**
 	 * 成功会话
-	 * 
+	 *
 	 * @param content 内容
 	 * @param title   标题
-	 * @returns 
+	 * @returns
 	 */
 	public async success(content: string, title = '成功') {
 		return this.display({
@@ -50,10 +50,10 @@ export default class DialogBus {
 
 	/**
 	 * 警告会话
-	 * 
+	 *
 	 * @param content 内容
 	 * @param title   标题
-	 * @returns 
+	 * @returns
 	 */
 	public async warning(content: string, title = '警告') {
 		return this.display({
@@ -65,10 +65,10 @@ export default class DialogBus {
 
 	/**
 	 * 错误会话
-	 * 
+	 *
 	 * @param content 内容
 	 * @param title   标题
-	 * @returns 
+	 * @returns
 	 */
 	public async error(content: string, title = '错误') {
 		return this.display({
@@ -80,10 +80,10 @@ export default class DialogBus {
 
 	/**
 	 * 询问会话
-	 * 
+	 *
 	 * @param content 内容
 	 * @param title   标题
-	 * @returns 
+	 * @returns
 	 */
 	public async confirm(content: string, title: string): Promise<boolean> {
 		return this.display({ title, content});
@@ -91,7 +91,7 @@ export default class DialogBus {
 
 	/**
 	 * 显示会话
-	 * 
+	 *
 	 * @param option 配置
 	 */
 	public async display(option: Dialog): Promise<boolean> {
@@ -106,7 +106,7 @@ export default class DialogBus {
 				resolve(result);
 			});
 		});
-		
+
 		this.isClose = true;
 		await sleep(320); // 动画延时
 		this.isShow = false;
@@ -123,11 +123,11 @@ export default class DialogBus {
 			title: '提示',
 			titleSub: '',
 			content: '',
-		
+
 			textOK: '好',
 			textNO: '否',
 			textCancel: '取消',
-		
+
 			useNo: false,
 			useCancel: false,
 

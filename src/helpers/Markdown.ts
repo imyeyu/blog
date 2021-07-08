@@ -43,7 +43,7 @@ Renderer.link = (url, title, text) => {
 /**
  * 组件渲染方式（原为图像渲染方式）
  * [] 内文本以 # 开始时，该组件带边框
- * 
+ *
  * 渲染为网页：![]($/html/index.html)
  * 渲染为视频：![](#/media/video.mp4)
  * 渲染为音频：![](~/media/music.mp3)
@@ -179,7 +179,7 @@ function linuxSession(code: string): string {
  * 规范：
  *     [键:值]
  *     [00:00.00]文本
- * 
+ *
  * 符号为'注释色'
  * 键为'函数色'
  * 时轴为'数字色'
@@ -225,10 +225,9 @@ function lrc(code: string): string {
 
 /**
  * 双击代码区域显示全部或显示部分
- * 
+ *
  * @param el    codes 对象
  * @param lines 行数
- * @returns 
  */
 function dblClickEvent(el: HTMLElement, lines: number) {
 	if (lines < 18) return;
@@ -266,14 +265,14 @@ function dblClickEvent(el: HTMLElement, lines: number) {
 (() => {
 	Prism.hooks.add('complete', env => {
 		if (!env.code) return;
-		
+
 		// 行号渲染调整
 		const el = env.element;
 		const lineNumber:any = el.querySelector('.line-numbers-rows');
 		if (lineNumber) {
 			const clone = lineNumber.cloneNode(true);
 			el.removeChild(lineNumber);
-			
+
 			// 其他着色方案（不是最优解，暂时这个解决方法）
 			let elHTML = el.innerHTML;
 			switch (env.language) {

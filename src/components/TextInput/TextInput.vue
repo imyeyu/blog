@@ -66,7 +66,7 @@ export default defineComponent({
 	.input-box.not-label {
 		margin-top: 0;
 	}
-	
+
 	.input {
 		border: none;
 		padding: 4px 0 2px 0;
@@ -97,7 +97,7 @@ export default defineComponent({
 		text-indent: .2em;
 		pointer-events: none;
 	}
-	
+
 	.input.outlined + .label {
 		left: 2px;
 	}

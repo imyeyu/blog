@@ -92,7 +92,7 @@ export default defineComponent({
 		}
 		this.article = article;
 		this.$store.commit('webTitle', this.article.title);
-		
+
 		if (this.article.updatedAt) {
 			this.isCreatedAt = false;
 		}
@@ -171,7 +171,7 @@ export default defineComponent({
 	.download:active {
 		background: #FFAAC0;
 	}
-	
+
 	@media screen and (max-width: 900px) {
 		.logo {
 			display: none;

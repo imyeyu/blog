@@ -77,7 +77,7 @@ export default defineComponent({
 					// 自动登录
 					signedInUser.data = await UserAPI.getData(signedInUser.id);
 					this.$store.commit('signedInUser', signedInUser);
-					
+
 					await this.$store.state.dialogBus.success(`UID：${signedInUser.id}，已为你自动登录！`, `欢迎 ${signedInUser.name} ！`);
 					this.$router.push('/');
 				}

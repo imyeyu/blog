@@ -3,10 +3,10 @@
  * Events.register("eventName", () => {
  *     // 触发执行
  * });
- * 
+ *
  * // 触发
  * Events.emit("eventName");
- * 
+ *
  */
 export default class Events {
 
@@ -15,7 +15,7 @@ export default class Events {
 
 	/**
 	 * 注册事件
-	 * 
+	 *
 	 * @param name     事件名称
 	 * @param callback 回调函数
 	 */
@@ -29,7 +29,7 @@ export default class Events {
 
 	/**
 	 * 重置并注册
-	 * 
+	 *
 	 * @param name     事件名称
 	 * @param callback 回调函数
 	 */
@@ -40,7 +40,7 @@ export default class Events {
 
 	/**
 	 * 移除事件
-	 * 
+	 *
 	 * @param name     事件名称
 	 * @param callback 回调函数
 	 */
@@ -63,7 +63,7 @@ export default class Events {
 
 	/**
 	 * 触发事件
-	 * 
+	 *
 	 * @param name 事件名称
 	 * @param args 参数
 	 */
@@ -92,7 +92,7 @@ class Observer {
 
 	/**
 	 * 发送通知
-	 * 
+	 *
 	 * @param args 不定参数
 	 */
 	notify(...args: any[]): void {
