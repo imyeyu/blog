@@ -69,8 +69,8 @@ export default defineComponent({
 
 	.content :deep(ul),
 	.content :deep(ol) {
+		padding: 0 6px 0 2em;
 		margin-left: 2em;
-		padding-left: 2em;
 	}
 
 	.content :deep(li) {
