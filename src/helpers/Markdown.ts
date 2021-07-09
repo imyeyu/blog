@@ -5,6 +5,7 @@ import store from '@/store';
 import MainAPI from '@/api/MainAPI';
 import { GithubCommit } from '@/type/GithubCommit';
 import { toDateTime } from './UnixTime';
+import { resURL } from '@/helpers/Toolkit';
 
 // 渲染器
 const Renderer = new marked.Renderer();
@@ -28,7 +29,7 @@ Renderer.link = (url, title, text) => {
 	}
 	if (url) {
 		const isNewTabOpen = url.startsWith('~');
-		url = isNewTabOpen ? url.substring(1) + '' : url;
+		url = resURL(isNewTabOpen ? url.substring(1) + '' : url);
 		if (hasClazz) {
 			return `<a class="${clazz}" href="${url}"${ isNewTabOpen ? ' target="_blank"' : ''} title="${title}">${text}</a>`;
 		}
@@ -56,18 +57,19 @@ Renderer.image = (url, title, text) => {
 	const borderClass = hasBorder ? ' class="border"' : '';
 	text = title ? title : (hasBorder ? text.substring(1) : text);
 	if (url) {
+		const urlOutStart = resURL(url.substring(1));
 		switch (url[0]) {
 			case '~': // 音频
-				return `<audio${borderClass} controls><source type="audio/mp3" src="${url.substring(1)}"></source></audio>`;
+				return `<audio${borderClass} controls><source type="audio/mp3" src="${urlOutStart}"></source></audio>`;
 			case '#': // 视频
-				return `<video${borderClass} controls><source type="video/mp4" src="${url.substring(1)}"></source></video>`;
+				return `<video${borderClass} controls><source type="video/mp4" src="${urlOutStart}"></source></video>`;
 			case '$': // 网页
-				return `<iframe${borderClass} src="${url.substring(1)}" frameborder="0" allowfullscreen></iframe>`;
+				return `<iframe${borderClass} src="${urlOutStart}" frameborder="0" allowfullscreen></iframe>`;
 			case '%': // git 记录
-				return `<div class="git-history" data-isload="false" data-user="${url.substring(1)}" data-repos="${text}"></div>`;
+				return `<div class="git-history" data-isload="false" data-user="${urlOutStart}" data-repos="${text}"></div>`;
 		}
 		// 图片
-		return `<img${borderClass} src="${url}" alt="${text}" />`;
+		return `<img${borderClass} src="${resURL(url)}" alt="${text}" />`;
 	}
 	throw `Renderer.image 无法解析（${url}, ${title}, ${text}）`;
 };
