@@ -86,15 +86,19 @@ export function random(max = 100, min = 0): number {
 /**
  * 资源地址
  * 如果是 res@article/2/1.png，将会补充资源站变为 https://res.imyeyu.net/article/2/1.png
+ * 如果是 dl@article/2/1.png，将会补充下载站变为 http://dl.imyeyu.net/7z/123.7z
  * 否则原样返回
  *
  * @param url 资源地址
  * @returns 转换结果
  */
 export function resURL(url: string): string {
-	if (url.startsWith('res@')) {
-		return 'https://res.imyeyu.net' + url.substring(url.indexOf('@') + 1);
-	} else {
-		return url;
+	const at = url.indexOf('@');
+	const start = url.substring(0, at);
+	const path = url.substring(at + 1);
+	switch (start) {
+		case 'res': return 'https://res.imyeyu.net' + path;
+		case 'dl':  return 'http://dl.imyeyu.net'   + path;
 	}
+	return url;
 }
