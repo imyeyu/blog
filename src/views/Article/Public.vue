@@ -7,21 +7,24 @@
 		</div>
 		<sections :data="article.data"></sections>
 	</article>
-	<comment :aid="article.id"></comment>
+	<comment v-if="loadFinish" :aid="article.id"></comment>
+	<loading v-if="!loadFinish" :isFinished="loadFinish" :refreshEvent="getArticle" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { toDateTime } from '@/helpers/UnixTime';
 import Sections from './components/Sections.vue';
 import Comment from './components/Comment.vue';
+import Loading from '@/components/Loading.vue';
 
 import ArticleAPI from '@/api/ArticleAPI';
 import { Article } from '@/type/Article';
 
 export default defineComponent({
 	components: {
-		Sections,
-		Comment
+		Comment,
+		Loading,
+		Sections
 	},
 	data(): {
 		article: Article;
@@ -33,6 +36,9 @@ export default defineComponent({
 		};
 	},
 	computed: {
+		loadFinish(): boolean {
+			return this.article.id !== undefined;
+		},
 		articleDate(): string {
 			if (this.isCreatedAt || !this.article.updatedAt) {
 				return '发布于 ' + toDateTime(this.article.createdAt);
@@ -41,13 +47,18 @@ export default defineComponent({
 			}
 		}
 	},
-	async mounted() {
-		this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
-		if (this.article.updatedAt) {
-			this.isCreatedAt = false;
+	methods: {
+		async getArticle() {
+			this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
+			if (this.article.updatedAt) {
+				this.isCreatedAt = false;
+			}
+			this.$store.commit('webTitle', this.article.title);
+			this.$store.commit('refreshArticleHot');
 		}
-		this.$store.commit('webTitle', this.article.title);
-		this.$store.commit('refreshArticleHot');
+	},
+	mounted() {
+		this.getArticle();
 	}
 });
 </script>

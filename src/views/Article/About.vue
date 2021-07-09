@@ -20,7 +20,8 @@
 			<p class="survival-time light-gray" v-text="survivalTime"></p>
 		</div>
 	</article>
-	<comment :aid="1"></comment>
+	<comment v-if="loadFinish" :aid="1"></comment>
+	<loading v-if="!loadFinish" :isFinished="loadFinish" :refreshEvent="getArticle" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -29,12 +30,14 @@ import { toDateTime } from '@/helpers/UnixTime';
 import ArticleAPI from '@/api/ArticleAPI';
 import { Article } from '@/type/Article';
 import Sections from './components/Sections.vue';
+import Loading from '@/components/Loading.vue';
 import Comment from './components/Comment.vue';
 
 export default defineComponent({
 	components: {
-		Sections,
-		Comment
+		Comment,
+		Loading,
+		Sections
 	},
 	data(): {
 		article: Article;
@@ -59,19 +62,22 @@ export default defineComponent({
 				return '';
 			}
 		},
+		loadFinish(): boolean {
+			return this.article.id !== undefined;
+		},
 		// 计时
 		calSurvivalTime() {
 			const begin = new Date('2017/10/9 22:32:52');
 			this.survivalTimer = setInterval(() => {
-				var now = new Date();
+				const now = new Date();
 
-				let s = 1000, m = 6e4, h = 36e5, d = 864e5, y = 31536e6;
-				let l = now.getTime() - begin.getTime();
-				let ry = this.f(l / y),
-					rd = this.f((l / d) - ry * 365),
-					rh = this.f((l - (ry * 365 + rd) * d) / h),
-					rm = this.f((l - (ry * 365 + rd) * d - rh * h) / m),
-					rs = this.f((l - (ry * 365 + rd) * d - rh * h - rm * m) / s);
+				const s = 1000, m = 6e4, h = 36e5, d = 864e5, y = 31536e6;
+				const l = now.getTime() - begin.getTime();
+				const ry = this.f(l / y),
+					  rd = this.f((l / d) - ry * 365),
+					  rh = this.f((l - (ry * 365 + rd) * d) / h),
+					  rm = this.f((l - (ry * 365 + rd) * d - rh * h) / m),
+					  rs = this.f((l - (ry * 365 + rd) * d - rh * h - rm * m) / s);
 
 				this.survivalTime = `网站已运行 ${ry} 年 ${rd} 天 ${rh} 小时 ${paddingZero(rm)} 分钟 ${paddingZero(rs)} 秒`;
 			}, 1000);
@@ -135,15 +141,16 @@ export default defineComponent({
 					this.player.pause();
 				}
 			}
+		},
+		async getArticle() {
+			this.article = await ArticleAPI.getArticle(1);
+			this.$store.commit('webTitle', this.article.title);
 		}
 	},
-	async mounted() {
-		this.article = await ArticleAPI.getArticle(1);
-		this.$store.commit('webTitle', this.article.title);
-
+	mounted() {
+		this.getArticle();
 		// 计时
 		this.calSurvivalTime();
-
 		// 频谱
 		this.player = this.$refs.player as HTMLAudioElement;
 		this.player.volume = .1;
