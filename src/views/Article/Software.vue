@@ -1,13 +1,13 @@
 <template>
 	<article v-show="article.id">
-		<div class="header" v-if="isSoftware">
+		<div class="header">
 			<div class="logo">
-				<img :src="software.logo" alt="程序 Logo" />
+				<img v-if="article.id" :src="resURL(software.logo)" alt="程序 Logo" />
 			</div>
 			<div class="info">
 				<h2 class="title" v-text="article.title"></h2>
 				<div class="labels">
-					<span class="label" v-for="label in article.labels" :key="label" v-text="label"></span>
+					<span class="label" v-for="label in article.labels" :key="label" v-text="label.name"></span>
 				</div>
 				<p class="digests">
 					<span class="digest">
@@ -26,18 +26,19 @@
 					<span class="digest" v-text="`解压密码：${software.password ? software.password : '无'}`"></span>
 				</p>
 			</div>
-			<!-- <div v-text="article.label"></div> -->
-			<!-- <div v-text="articleDate" @click="isCreatedAt = !isCreatedAt"></div> -->
 		</div>
 		<sections :data="article.data"></sections>
 	</article>
-	<comment :aid="article.id"></comment>
+	<comment v-if="loadFinish" :aid="article.id"></comment>
+	<loading v-if="!loadFinish" :isFinished="loadFinish" :refreshEvent="getArticle" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { toDateTime } from '@/helpers/UnixTime';
 import Sections from './components/Sections.vue';
 import Comment from './components/Comment.vue';
+import Loading from '@/components/Loading.vue';
+import { resURL } from '@/helpers/Toolkit';
 
 import ArticleAPI from '@/api/ArticleAPI';
 import { Article } from '@/type/Article';
@@ -45,23 +46,25 @@ import { Software } from '@/type/Software';
 
 export default defineComponent({
 	components: {
-		Sections,
-		Comment
+		Comment,
+		Loading,
+		Sections
 	},
 	data(): {
 		article: Article;
 		software: Software;
-		isSoftware: boolean;
 		isCreatedAt: boolean; // 显示的日期
 		} {
 		return {
 			article: {},
 			software: {},
-			isSoftware: false,
 			isCreatedAt: true
 		};
 	},
 	computed: {
+		loadFinish(): boolean {
+			return this.article.id !== undefined;
+		},
 		articleDate(): string {
 			if (this.isCreatedAt || !this.article.updatedAt) {
 				return '发布于 ' + toDateTime(this.article.createdAt);
@@ -77,26 +80,27 @@ export default defineComponent({
 			}
 		}
 	},
-	async mounted() {
-		const article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
-		if (article.data) {
-			this.isSoftware = article.data.indexOf('jsonend') !== -1;
-			if (this.isSoftware) {
-				const split = article.data.split('jsonend');
-				this.software = JSON.parse(split[0]) as Software;
-				article.data = split[1];
+	methods: {
+		resURL(url: string): string {
+			return resURL(url);
+		},
+		async getArticle() {
+			this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
+			if (this.article.extendData) {
+				this.software = this.article.extendData as Software;
 			} else {
 				await this.$store.state.dialogBus.warning('无法解析为软件类文章，将使用公共模板解析', '解析异常');
-				this.$router.push(`/article/public/aid${article.id}.html`);
+				this.$router.push(`/article/public/aid${this.article.id}.html`);
 			}
+			this.$store.commit('webTitle', this.article.title);
+			if (this.article.updatedAt) {
+				this.isCreatedAt = false;
+			}
+			this.$store.commit('refreshArticleHot');
 		}
-		this.article = article;
-		this.$store.commit('webTitle', this.article.title);
-
-		if (this.article.updatedAt) {
-			this.isCreatedAt = false;
-		}
-		this.$store.commit('refreshArticleHot');
+	},
+	mounted() {
+		this.getArticle();
 	}
 });
 </script>
@@ -158,7 +162,7 @@ export default defineComponent({
 
 	.download {
 		border: 1px solid #FF7A9B;
-		padding: 2px 14px 1px 14px;
+		padding: 1px 14px;
 		background: transparent;
 		margin-right: 6px;
 	}
