@@ -35,7 +35,8 @@
 			</ul>
 		</div>
 	</article>
-	<comment :aid="article.id"></comment>
+	<comment v-if="loadFinish" :aid="article.id"></comment>
+	<loading v-if="!loadFinish" :isFinished="loadFinish" :refreshEvent="getArticle" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -43,14 +44,16 @@ import { toDateTime } from '@/helpers/UnixTime';
 import Sections from './components/Sections.vue';
 import Comment from './components/Comment.vue';
 import { resURL } from '@/helpers/Toolkit';
+import Loading from '@/components/Loading.vue';
 
 import ArticleAPI from '@/api/ArticleAPI';
 import { Article } from '@/type/Article';
 
 export default defineComponent({
 	components: {
-		Sections,
-		Comment
+		Comment,
+		Loading,
+		Sections
 	},
 	data(): {
 		article: Article;
@@ -62,6 +65,9 @@ export default defineComponent({
 		};
 	},
 	computed: {
+		loadFinish(): boolean {
+			return this.article.id !== undefined;
+		},
 		hasExtendData(): boolean {
 			return this.article.extendData !== null && this.article.extendData !== undefined;
 		},
@@ -76,15 +82,18 @@ export default defineComponent({
 	methods: {
 		resURL(url: string): string {
 			return resURL(url);
+		},
+		async getArticle() {
+			this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
+			if (this.article.updatedAt) {
+				this.isCreatedAt = false;
+			}
+			this.$store.commit('webTitle', this.article.title);
+			this.$store.commit('refreshArticleHot');
 		}
 	},
-	async mounted() {
-		this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
-		if (this.article.updatedAt) {
-			this.isCreatedAt = false;
-		}
-		this.$store.commit('webTitle', this.article.title);
-		this.$store.commit('refreshArticleHot');
+	mounted() {
+		this.getArticle();
 	}
 });
 </script>
@@ -109,12 +118,13 @@ export default defineComponent({
 		margin: 12px auto;
 		display: flex;
 		position: relative;
-		transition: .3s;
 		align-items: center;
 	}
 
-	.cd::before {
+	.cd .cover::after {
 		content: '';
+		top: 0;
+		left: 0;
 		width: 458px;
 		height: 430px;
 		z-index: 3;
@@ -123,11 +133,13 @@ export default defineComponent({
 	}
 
 	.cd .cover {
+		left: 3rem;
 		width: 456px;
 		height: 428px;
 		z-index: 2;
 		padding: 2px 0 0 2px;
 		position: absolute;
+		transition: .3s;
 	}
 
 	.cd img {
@@ -136,7 +148,7 @@ export default defineComponent({
 
 	.cd .disk {
 		top: 50%;
-		right: 6rem;
+		right: 3rem;
 		color: #F4F4F4;
 		border: 3px solid #888;
 		padding: 40px;
@@ -162,7 +174,12 @@ export default defineComponent({
 		border-radius: 50%;
 	}
 
-	.cd .disk:hover {
+	.cd:hover .cover {
+		left: 0;
+		transition: .6s cubic-bezier(.19, 1, .22, 1);
+	}
+
+	.cd:hover .disk {
 		right: 0;
 		transform: rotateZ(120deg);
 		transition: .6s cubic-bezier(.19, 1, .22, 1);
@@ -202,7 +219,9 @@ export default defineComponent({
 
 	.cd-data .list li {
 		padding: 4px 0;
+		display: flex;
 		line-height: 1.5;
+		flex-direction: column;
 	}
 
 	.cd-data .list li::before {
@@ -217,6 +236,11 @@ export default defineComponent({
 
 	.cd-data .list p {
 		text-indent: 2.5em;
+	}
+
+	.cd-data .list audio {
+		width: calc(100% - 5em);
+		margin: 4px auto;
 	}
 
 	.cd-data .list li:nth-child(2n) {
