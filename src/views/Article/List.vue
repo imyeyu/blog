@@ -79,7 +79,7 @@ export default defineComponent({
 			let result = await ArticleAPI.getArticles(offset);
 			this.article = this.article.concat(result);
 			this.updateTime = toDateTime(this.article[0].updatedAt || this.article[0].createdAt);
-			if (result.length === 0) {
+			if (result.length < 16) {
 				this.isLoadFinished = true;
 			}
 			this.$store.commit('webTitle');
