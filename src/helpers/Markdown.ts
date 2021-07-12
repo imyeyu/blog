@@ -17,7 +17,7 @@ const Renderer = new marked.Renderer();
  * 4.没有链接的会被渲染为 span 标签
  */
 Renderer.link = (url, title, text) => {
-	if (!title && !text.startsWith('<img')) {
+	if (!title && !text.startsWith('<div') && !text.startsWith('<img')) {
 		title = text;
 	}
 	let clazz: any = text.match(/\[(.+?)\]/);
@@ -44,6 +44,8 @@ Renderer.link = (url, title, text) => {
 /**
  * 组件渲染方式（原为图像渲染方式）
  * [] 内文本以 # 开始时，该组件带边框
+ * [] 内文本以 - 开始时，该组件不居中（只对图片有效，text 不为空时强制居中，因为需要显示图片标签）
+ * -# 可以混用，但 - 要在前面
  *
  * 渲染为网页：![]($/html/index.html)
  * 渲染为视频：![](#/media/video.mp4)
@@ -53,9 +55,15 @@ Renderer.link = (url, title, text) => {
  * 带边框图片：![#图片Alt](/image/photo.png)
  */
 Renderer.image = (url, title, text) => {
-	const hasBorder = text[0] === '#';
+	const isCenter = text[0] !== '-';
+	const hasBorder = text[isCenter ? 0 : 1] === '#';
 	const borderClass = hasBorder ? ' class="border"' : '';
-	text = title ? title : (hasBorder ? text.substring(1) : text);
+
+	let cutStart = 0;
+	cutStart = hasBorder ? 1 : 0;
+	cutStart = !isCenter ? cutStart + 1 : cutStart;
+	text = title ? title : text.substring(cutStart);
+
 	if (url) {
 		const urlOutStart = resURL(url.substring(1));
 		switch (url[0]) {
@@ -69,7 +77,15 @@ Renderer.image = (url, title, text) => {
 				return `<div class="git-history" data-isload="false" data-user="${urlOutStart}" data-repos="${text}"></div>`;
 		}
 		// 图片
-		return `<img${borderClass} src="${resURL(url)}" alt="${text}" />`;
+		if (text) {
+			return `<div class="img-box"><img${borderClass} src="${resURL(url)}" alt="${text}" /><p class="gray center no-indent">${text}</p></div>`;
+		} else {
+			if (isCenter) {
+				return `<div class="img-box"><img${borderClass} src="${resURL(url)}" /></div>`;
+			} else {
+				return `<img${borderClass} src="${resURL(url)}" />`;
+			}
+		}
 	}
 	throw `Renderer.image 无法解析（${url}, ${title}, ${text}）`;
 };
