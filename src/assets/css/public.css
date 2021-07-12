@@ -211,6 +211,12 @@ code ::selection {
 	position: sticky;
 }
 
+.break-all {
+	word-wrap: break-word;
+	word-break: break-all;
+	white-space: normal;
+}
+
 .none-style {
 	list-style: none;
 }
