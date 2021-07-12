@@ -11,6 +11,7 @@ module.exports = {
 				'ini',
 				'php',
 				'sql',
+				'xml',
 				'css',
 				'html',
 				'json',
