@@ -201,20 +201,22 @@ export default defineComponent({
 
 	.cd-data {
 		display: flex;
-		padding: 12px 32px;
+		padding: 12px 20px;
 		flex-wrap: wrap;
 		justify-content: space-between;
 	}
 
 	.cd-data ul {
+		flex: 10;
+		min-width: 440px;
 		list-style: none;
 	}
 
 	.cd-data .list {
-		width: 32rem;
 		border: 1px solid #CDDEF0;
 		position: relative;
 		background: #FFF;
+		margin-right: 1.5rem;
 	}
 
 	.cd-data .list li {
@@ -243,12 +245,19 @@ export default defineComponent({
 		margin: 4px auto;
 	}
 
+	.cd-data .list video {
+		width: calc(100% - 2rem);
+		margin: 12px auto;
+		box-shadow: 0 0 6px rgba(0, 0, 0, .3);
+	}
+
 	.cd-data .list li:nth-child(2n) {
 		background: #F4F4F4;
 	}
 
 	.cd-data .infos {
-		width: 250px;
+		flex: 2;
+		min-width: 220px;
 	}
 
 	.cd-data .infos li {
