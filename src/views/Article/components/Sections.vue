@@ -77,7 +77,19 @@ export default defineComponent({
 		line-height: 1.8;
 	}
 
-	.content :deep(img),
+	.content :deep(img) {
+		display: block;
+	}
+
+	.content :deep(.img-box) {
+		margin: 4px auto;
+	}
+
+	.content :deep(.img-box img) {
+		margin: 0 auto;
+		max-width: calc(100% - 4rem);
+	}
+
 	.content :deep(audio),
 	.content :deep(video),
 	.content :deep(iframe) {
@@ -93,6 +105,7 @@ export default defineComponent({
 
 	.content :deep(table) {
 		margin: 12px auto;
+		min-width: 320px;
 		max-width: calc(100% - 4rem);
 	}
 
@@ -114,7 +127,7 @@ export default defineComponent({
 	}
 
 	.content :deep(video) {
-		width: 100%;
+		width: calc(100% -2rem);
 	}
 
 	.content :deep(iframe) {
@@ -208,7 +221,7 @@ export default defineComponent({
 
 	/* 自定义类 */
 	.content :deep(.border) {
-		border: 1px solid #B8BBC9;
+		border: 1px solid #525870;
 	}
 
 	.content :deep(.dl) {
@@ -227,7 +240,7 @@ export default defineComponent({
 	/* 代码容器 */
 	.content :deep(pre) {
 		width: calc(100% - 4rem - 12px);
-		margin: 8px auto 20px auto;
+		margin: 12px auto 16px auto;
 		border: 1px solid #B8BBC9;
 		padding: 0;
 		overflow: auto;
