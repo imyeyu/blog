@@ -75,8 +75,7 @@ export default defineComponent({
 			}
 		},
 		async getArticles() {
-			const offset = this.article.length === 0 ? 0 : this.article.length + 1;
-			let result = await ArticleAPI.getArticles(offset);
+			let result = await ArticleAPI.getArticles(this.article.length);
 			this.article = this.article.concat(result);
 			this.updateTime = toDateTime(this.article[0].updatedAt || this.article[0].createdAt);
 			if (result.length < 16) {
