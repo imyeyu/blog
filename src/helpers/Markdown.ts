@@ -3,7 +3,6 @@ import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 import store from '@/store';
 import MainAPI from '@/api/MainAPI';
-import { GithubCommit } from '@/type/GithubCommit';
 import { toDateTime } from './UnixTime';
 import { resURL } from '@/helpers/Toolkit';
 
