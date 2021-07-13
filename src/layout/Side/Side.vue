@@ -15,7 +15,6 @@
 				<div class="name icon"></div>
 				<p class="href">
 					<router-link to="/">主页</router-link>
-					<a href="https://old.imyeyu.net" target="_blank">返回旧版</a>
 					<router-link to="/about">关于我</router-link>
 					<a href="https://github.com/imyeyu" target="_blank">GitHub</a>
 				</p>
