@@ -132,7 +132,7 @@ export default defineComponent({
 		width: 32%;
 		margin: 32px auto;
 		border: none;
-		padding: 2px 24px;
+		padding: 8px 24px;
 		font-size: 15px;
 		background: #53BD93;
 	}
