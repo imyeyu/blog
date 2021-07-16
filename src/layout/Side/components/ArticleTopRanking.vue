@@ -1,8 +1,8 @@
 <template>
 	<div class="item hot">
 		<div class="title icon"></div>
-		<ul class="links none-style" v-if="$store.state.articleHot">
-			<li class="link" v-for="(item, i) in $store.state.articleHot" :key="item">
+		<ul class="links none-style" v-if="$store.state.ArticleTopRanking">
+			<li class="link" v-for="(item, i) in $store.state.ArticleTopRanking" :key="item">
 				<router-link
 					class="link-href"
 					:data-i="`${i + 1}.`"

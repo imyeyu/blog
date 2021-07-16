@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Article, ArticleClass, ArticleHot } from '@/type/Article';
+import { Article, ArticleClass, ArticleTopRanking } from '@/type/Article';
 
 /**
  * 获取最近更新文章
@@ -50,14 +50,14 @@ async function getManyClasses(): Promise<Object> {
 }
 
 /** @returns 文章访问排行 */
-async function getArticleHot(): Promise<ArticleHot[]> {
-	return axios.get('/article/hot');
+async function getTopRanking(): Promise<ArticleTopRanking[]> {
+	return axios.get('/article/top-ranking');
 }
 
 export default {
 	get,
 	getMany,
-	getArticleHot,
+	getTopRanking,
 	getManyByClass,
 	getManyByLabel,
 	getManyClasses

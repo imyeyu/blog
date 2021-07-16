@@ -22,7 +22,6 @@
 				<div>
 					<span class="icon reads" v-text="`阅读（${item.reads}）`"></span>
 					<span class="icon likes" v-text="`喜欢（${item.likes}）`"></span>
-					<span class="icon comments" v-text="`评论（${item.comments}）`"></span>
 				</div>
 				<span class="icon update-at" v-text="toDate(item.createdAt, item.updatedAt)"></span>
 			</footer>
@@ -95,7 +94,7 @@ export default defineComponent({
 	async mounted() {
 		this.getArticles();
 		this.$store.state.scroller.add('ArticleList', this.onScroll);
-		this.$store.commit('refreshArticleHot');
+		this.$store.commit('refreshArticleTopRanking');
 	}
 });
 </script>

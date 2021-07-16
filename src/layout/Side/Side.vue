@@ -23,7 +23,7 @@
 		<account />
 		<clazz />
 		<div class="sticky">
-			<article-hot />
+			<article-top-ranking />
 			<friend />
 			<div class="ctrls">
 				<div class="ctrl to-top" @click="toTop"></div>
@@ -39,14 +39,14 @@ import { sleep } from '@/helpers/Toolkit';
 import Clazz from './components/Clazz.vue';
 import Friend from './components/Friend.vue';
 import Account from './components/Account.vue';
-import ArticleHot from './components/ArticleHot.vue';
+import ArticleTopRanking from './components/ArticleTopRanking.vue';
 
 export default defineComponent({
 	components: {
 		Clazz,
 		Friend,
 		Account,
-		ArticleHot
+		ArticleTopRanking
 	},
 	props: {
 		title: {
@@ -69,7 +69,7 @@ export default defineComponent({
 		}
 	},
 	mounted() {
-		this.$store.commit('refreshArticleHot');
+		this.$store.commit('refreshArticleTopRanking');
 	}
 });
 </script>

@@ -12,14 +12,14 @@ const store = createStore({
 		storage: new Storage(),
 		scroller: new Scroller(),
 		dialogBus: new DialogBus(),
-		articleHot: [],
+		ArticleTopRanking: [],
 		signedInUser: {},
 		isLoadingError: false
 	},
 	mutations: {
 		// 刷新热门文章
-		async refreshArticleHot(state) {
-			state.articleHot = await ArticleAPI.getArticleHot() as any;
+		async refreshArticleTopRanking(state) {
+			state.ArticleTopRanking = await ArticleAPI.getTopRanking() as any;
 		},
 		// 缓存登录用户
 		signedInUser(state, user: UserSignedIn) {

@@ -96,7 +96,7 @@ export default defineComponent({
 			if (this.article.updatedAt) {
 				this.isCreatedAt = false;
 			}
-			this.$store.commit('refreshArticleHot');
+			this.$store.commit('refreshArticleTopRanking');
 		}
 	},
 	mounted() {

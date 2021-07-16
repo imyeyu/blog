@@ -28,7 +28,7 @@ export type ArticleLabel = {
 } & Model
 
 // 每周排行
-export type ArticleHot = {
+export type ArticleTopRanking = {
 	title?: string;
 	count?: number;
 	recentAt?: number;

@@ -54,7 +54,7 @@ export default defineComponent({
 				this.isCreatedAt = false;
 			}
 			this.$store.commit('webTitle', this.article.title);
-			this.$store.commit('refreshArticleHot');
+			this.$store.commit('refreshArticleTopRanking');
 		}
 	},
 	mounted() {
