@@ -143,7 +143,7 @@ export default defineComponent({
 			}
 		},
 		async getArticle() {
-			this.article = await ArticleAPI.getArticle(1);
+			this.article = await ArticleAPI.get(1);
 			this.$store.commit('webTitle', this.article.title);
 		}
 	},

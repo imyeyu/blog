@@ -1,7 +1,7 @@
 <template>
 	<div class="item hot">
 		<div class="title icon"></div>
-		<ul class="links none-style">
+		<ul class="links none-style" v-if="$store.state.articleHot">
 			<li class="link" v-for="(item, i) in $store.state.articleHot" :key="item">
 				<router-link
 					class="link-href"
@@ -15,15 +15,6 @@
 		</ul>
 	</div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-	mounted() {
-		this.$store.commit('refreshArticleHot');
-	}
-});
-</script>
 <style scoped>
 	.hot {
 		font-family: var(--public-font-consolas);

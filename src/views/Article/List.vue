@@ -75,13 +75,16 @@ export default defineComponent({
 			}
 		},
 		async getArticles() {
-			let result = await ArticleAPI.getArticles(this.article.length);
-			this.article = this.article.concat(result);
-			this.updateTime = toDateTime(this.article[0].updatedAt || this.article[0].createdAt);
-			if (result.length < 16) {
+			let result = await ArticleAPI.getMany(this.article.length);
+			if (result) {
+				this.article = this.article.concat(result);
+				this.updateTime = toDateTime(this.article[0].updatedAt || this.article[0].createdAt);
+				this.$store.commit('webTitle');
+			}
+			if (!result || result.length < 16) {
 				this.isLoadFinished = true;
 			}
-			this.$store.commit('webTitle');
+
 		},
 		onScroll(top: number, wasBottom: boolean) {
 			if (wasBottom) {

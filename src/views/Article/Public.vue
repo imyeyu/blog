@@ -49,7 +49,7 @@ export default defineComponent({
 	},
 	methods: {
 		async getArticle() {
-			this.article = await ArticleAPI.getArticle(this.$route.params.id as unknown as number);
+			this.article = await ArticleAPI.get(this.$route.params.id as unknown as number);
 			if (this.article.updatedAt) {
 				this.isCreatedAt = false;
 			}

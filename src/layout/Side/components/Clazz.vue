@@ -1,28 +1,44 @@
 <template>
 	<div class="item clazz">
 		<div class="title icon"></div>
-		<ul class="first none-style" @click="$store.state.dialogBus.warning('暂时不可用')">
-			<li>HTML / CSS</li>
-			<li>Javascript</li>
-			<li>Java</li>
-			<li>Java Web</li>
-			<li>Flutter</li>
-			<li>Python</li>
-			<li>PHP</li>
-			<li>MySQL</li>
-			<li>服务器</li>
+		<ul class="first none-style">
+			<li v-for="item in main" :key="item" v-text="item.name" @click="test(item.id)"></li>
 			<li class="icon">
 				<span>其他</span>
 				<ul class="second none-style">
-					<li>软件</li>
-					<li>游戏</li>
-					<li>音乐</li>
-					<li>其他</li>
+					<li v-for="item in other" :key="item" v-text="item.name" @click="test(item.id)"></li>
 				</ul>
 			</li>
 		</ul>
 	</div>
 </template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import ArticleAPI from '@/api/ArticleAPI';
+import { ArticleClass } from '@/type/Article';
+
+export default defineComponent({
+	data(): {
+		main: ArticleClass[];
+		other: ArticleClass[];
+		} {
+		return {
+			main: [],
+			other: []
+		};
+	},
+	methods: {
+		test(cid: number) {
+			console.log(cid);
+		}
+	},
+	async mounted() {
+		const result = await ArticleAPI.getManyClasses() as any;
+		this.main = result.main || [];
+		this.other = result.other || [];
+	}
+});
+</script>
 <style scoped>
 	.clazz .title {
 		background-position: 6px -126px;
