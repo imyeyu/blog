@@ -1,4 +1,5 @@
 import { Model } from './Model';
+import { User } from './User';
 
 // 评论
 export type Comment = {
@@ -6,6 +7,8 @@ export type Comment = {
 	userId?: number;
 	nick?: string;
 	data?: string;
+
+	user?: User;
 
 	repliesI?: number;
 	repliesLength?: number;   // 回复总数
@@ -20,4 +23,7 @@ export type CommentReply = {
 	senderNick?: string;
 	receiverNick?: string;
 	data?: string;
+
+	sender?: User;
+	receiver?: User;
 } & Model
