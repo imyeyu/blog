@@ -5,13 +5,15 @@ export type User = {
 	email?: string;
 	name?: string;
 	password?: string;
+
+	data?: UserData;
 } & Model
 
 // 用户资料对象
 export type UserData = {
 	userId?: number;
-	wrapper?: string;
-	avatar?: string;
+	hasWrapper?: boolean;
+	hasAvatar?: boolean;
 	exp?: number;
 	sex?: number;
 	birth?: number;
