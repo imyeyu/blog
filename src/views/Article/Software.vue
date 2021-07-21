@@ -28,6 +28,7 @@
 			</div>
 		</div>
 		<sections :data="article.data"></sections>
+		<bottom v-if="loadFinish" v-model:likes="article.likes" :article="article" />
 	</article>
 	<comment v-if="loadFinish" :aid="article.id"></comment>
 	<loading v-if="!loadFinish" :isFinished="loadFinish" :refreshEvent="getArticle" />
@@ -36,6 +37,7 @@
 import { defineComponent } from 'vue';
 import { toDateTime } from '@/helpers/UnixTime';
 import Sections from './components/Sections.vue';
+import Bottom from './components/Bottom.vue';
 import Comment from './components/Comment.vue';
 import Loading from '@/components/Loading.vue';
 import { resURL } from '@/helpers/Toolkit';
@@ -46,6 +48,7 @@ import { Software } from '@/type/Software';
 
 export default defineComponent({
 	components: {
+		Bottom,
 		Comment,
 		Loading,
 		Sections
@@ -123,13 +126,12 @@ export default defineComponent({
 	}
 
 	.title {
-		margin-bottom: 6px;
+		margin-bottom: 12px;
 	}
 
 	.labels {
 		display: flex;
 		flex-wrap: wrap;
-		margin-bottom: 4px;
 	}
 
 	.label {
@@ -137,7 +139,7 @@ export default defineComponent({
 		height: 16px;
 		border: 1px solid #BC9D9C;
 		margin: 0 12px 6px 0;
-		padding: 1px 6px;
+		padding: 1px 6px 2px 6px;
 		display: block;
 	}
 
@@ -153,7 +155,7 @@ export default defineComponent({
 
 	.digests .digest:nth-last-child(n + 2)::after {
 		content: "";
-		top: 2px;
+		top: 3px;
 		right: -8px;
 		height: 12px;
 		position: absolute;

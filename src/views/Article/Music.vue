@@ -34,6 +34,7 @@
 				</li>
 			</ul>
 		</div>
+		<bottom v-if="loadFinish" v-model:likes="article.likes" :article="article" />
 	</article>
 	<comment v-if="loadFinish" :aid="article.id"></comment>
 	<loading v-if="!loadFinish" :isFinished="loadFinish" :refreshEvent="getArticle" />
@@ -42,6 +43,7 @@
 import { defineComponent } from 'vue';
 import { toDateTime } from '@/helpers/UnixTime';
 import Sections from './components/Sections.vue';
+import Bottom from './components/Bottom.vue';
 import Comment from './components/Comment.vue';
 import { resURL } from '@/helpers/Toolkit';
 import Loading from '@/components/Loading.vue';
@@ -51,6 +53,7 @@ import { Article } from '@/type/Article';
 
 export default defineComponent({
 	components: {
+		Bottom,
 		Comment,
 		Loading,
 		Sections
