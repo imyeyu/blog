@@ -1,5 +1,5 @@
 <template>
-	<div :class="`dialog${$store.state.dialogBus.isShow ? ' show' : ''}`">
+	<div :class="`dialog${$store.state.dialogBus.isShow ? ' show' : ''}`" @click="clickDialog">
 		<section :class="`pane${!$store.state.dialogBus.isClose ? ' show' : ''}`">
 			<div class="loading" v-if="$store.state.dialogBus.isLoading">
 				<div
@@ -49,6 +49,11 @@ export default defineComponent({
 		};
 	},
 	methods: {
+		clickDialog(e: any) {
+			if (e.target.className === 'dialog show') {
+				Events.emit('dialog-event', false);
+			}
+		},
 		ok() {
 			Events.emit('dialog-event', true);
 		},
@@ -56,7 +61,7 @@ export default defineComponent({
 			Events.emit('dialog-event', false);
 		},
 		cancel() {
-			Events.emit('dialog-event', true);
+			Events.emit('dialog-event', false);
 		}
 	},
 	mounted() {
