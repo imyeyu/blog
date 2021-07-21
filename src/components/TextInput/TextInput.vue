@@ -1,5 +1,5 @@
 <template>
-	<div :class="`input-box${!label ? ' not-label' : ''}`">
+	<div :class="`input-box${!label ? ' not-label' : ''}${!isEnableTips ? ' not-tips' : ''}`">
 		<slot></slot>
 		<span
 			:class="`label${text !== '' ? ' active' : ''}`"
@@ -65,6 +65,10 @@ export default defineComponent({
 
 	.input-box.not-label {
 		margin-top: 0;
+	}
+
+	.input-box.not-tips {
+		margin-bottom: 0;
 	}
 
 	.input {

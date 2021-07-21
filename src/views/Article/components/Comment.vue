@@ -22,13 +22,13 @@
 							<button class="comment-commit" @click="commit">提交</button>
 						</div>
 					</div>
-					<div class="captcha">
+					<div class="captcha-box">
 						<text-field
-							v-model:value="captcha"
+							v-model:value="captchaC"
 							placeholder="验证码"
 						></text-field>
 						<div>
-							<captcha ref="captcha" :width="74" :height="24" from="COMMENT" />
+							<captcha ref="captchaC" :width="74" :height="24" from="COMMENT" />
 						</div>
 					</div>
 				</div>
@@ -36,35 +36,37 @@
 			<div class="right"></div>
 		</div>
 		<div class="comments">
-			<div v-for="comment in comments" :key="comment">
+			<div v-for="c in comments" :key="c">
 				<!-- 主评论 -->
 				<div class="comment">
 					<div class="user">
 						<!-- 主评论头像 -->
 						<div class="face">
-							<img src="/img/user/avatar.png" alt="头像" />
+							<img v-if="c.user && c.user.data.hasAvatar" :src="resURL(`res@/user/avatar/${c.user.id}.png`)" alt="头像" />
+							<img v-else :src="resURL('res@/user/avatar/default.png')" alt="头像" />
 						</div>
-						<p class="name" v-text="comment.nick"></p>
+						<p class="name" v-text="c.nick"></p>
 					</div>
 					<div class="content">
 						<!-- 主评论内容 -->
-						<p class="text" v-text="comment.data"></p>
+						<p class="text" v-text="c.data"></p>
 						<div class="light-gray right">
 							<a
 								class="icon replies-btn"
 								href="javascript:;"
-								@click="replyTo(comment.id, comment.nick)"
+								@click="replyTo(c.id, c.nick)"
 							>回复</a>
-							<span class="replies" v-text="`（${comment.repliesLength}）`"></span>
-							<span class="time" v-text="toDateTime(comment.createdAt)"></span>
+							<span class="replies" v-text="`（${c.repliesLength}）`"></span>
+							<span class="time" v-text="toDateTime(c.createdAt)"></span>
 						</div>
 						<!-- 子评论 -->
 						<div class="comment-replies">
-							<div class="comment-sub" v-for="reply in comment.replies" :key="reply">
+							<div class="comment-sub" v-for="reply in c.replies" :key="reply">
 								<!-- 子评论头像 -->
 								<div>
 									<div class="face-sub">
-										<img src="/img/user/avatar.png" alt="头像" />
+										<img v-if="c.user && c.user.data.hasAvatar" :src="resURL(`res@/user/avatar/${c.user.id}.png`)" alt="头像" />
+										<img v-else :src="resURL('res@/user/avatar/default.png')" alt="头像" />
 									</div>
 								</div>
 								<!-- 子评论内容 -->
@@ -74,13 +76,13 @@
 										<a class="name-sub" href="#" v-text="reply.senderNick"></a>
 										<span
 											class="light-gray"
-											v-if="reply.receiverNick !== comment.nick"
+											v-if="reply.receiverNick !== c.nick"
 										> 回复 </span>
 										<!-- 被回复用户 -->
 										<a
 											class="receiver"
 											href="#"
-											v-if="reply.receiverNick !== comment.nick"
+											v-if="reply.receiverNick !== c.nick"
 											v-text="reply.receiverNick"
 										></a>
 										<span class="text-sub" v-text="`: ${reply.data}`"></span>
@@ -90,14 +92,14 @@
 										<a
 											class="replies-sub-btn"
 											href="javascript:;"
-											@click="replyTo(comment.id, reply.senderNick)"
+											@click="replyTo(c.id, reply.senderNick)"
 										>回复</a>
 										<span class="time" v-text="toDateTime(reply.createdAt)"></span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- 子评论页面控制，comment.repliesI 表激活页数下标，从 0 开始 -->
+						<!-- 子评论页面控制，c.repliesI 表激活页数下标，从 0 开始 -->
 						<!-- 如有省略页，至少两页才触发，中间页最多 5 页，如果 5 页可以遍历完，后面不省略 -->
 						<!-- 1 2 3 4 5 .. 8 -->
 						<!-- 1 .. 4 5 6 7 8 .. 11 -->
@@ -108,11 +110,11 @@
 							<a
 								class="prev"
 								href="javascript:;"
-								v-show="comment.repliesI !== 0"
-								@click="changeReplyPage(comment, comment.repliesI - 1)"
+								v-show="c.repliesI !== 0"
+								@click="changeReplyPage(comment, c.repliesI - 1)"
 							>上一页</a>
 							<!-- 前补 -->
-							<template v-if="2 < comment.repliesI">
+							<template v-if="2 < c.repliesI">
 								<!-- 第一页 -->
 								<a
 									href="javascript:;"
@@ -122,26 +124,26 @@
 								<!-- 如果激活页大于 3，省略中间页，效果：1 .. 4 5 6 -->
 								<span
 									class="light-gray"
-									v-show="3 < comment.repliesI"
+									v-show="3 < c.repliesI"
 								>..</span>
 							</template>
 							<!-- 中间页数，页数小于 2 时扩充遍历（已经看不懂了） -->
-							<template v-for="i in (comment.repliesI < 2 ? 7 - comment.repliesI : 5)">
+							<template v-for="i in (c.repliesI < 2 ? 7 - c.repliesI : 5)">
 								<a
 									href="javascript:;"
 									:key="i"
-									:class="`page${comment.repliesI === i + comment.repliesI - 3 ? ' active' : ''}`"
-									v-text="i + comment.repliesI - 2"
-									v-if="0 < i + comment.repliesI - 2 && i + comment.repliesI - 3 < l(comment)"
-									@click="changeReplyPage(comment, i + comment.repliesI - 3)"
+									:class="`page${c.repliesI === i + c.repliesI - 3 ? ' active' : ''}`"
+									v-text="i + c.repliesI - 2"
+									v-if="0 < i + c.repliesI - 2 && i + c.repliesI - 3 < l(comment)"
+									@click="changeReplyPage(comment, i + c.repliesI - 3)"
 								></a>
 							</template>
 							<!-- 后补 -->
-							<template v-if="5 < l(comment) && comment.repliesI < l(comment) - 3">
+							<template v-if="5 < l(comment) && c.repliesI < l(comment) - 3">
 								<!-- 如果激活页小于总页数 - 3，省略中间页，效果 1 2 3 4 .. 7 -->
 								<span
 									class="light-gray"
-									v-show="comment.repliesI < l(comment) - 4"
+									v-show="c.repliesI < l(comment) - 4"
 								>..</span>
 								<!-- 最后一页 -->
 								<a
@@ -155,12 +157,12 @@
 							<a
 								class="next"
 								href="javascript:;"
-								v-show="comment.repliesI < Math.floor(comment.repliesLength / 6)"
-								@click="changeReplyPage(comment, comment.repliesI + 1)"
+								v-show="c.repliesI < Math.floor(c.repliesLength / 6)"
+								@click="changeReplyPage(comment, c.repliesI + 1)"
 							>下一页</a>
 						</div>
 						<!-- 回复表单 -->
-						<div class="reply" v-if="activeReply === comment.id">
+						<div class="reply" v-if="activeReply === c.id">
 							<textarea
 								ref="reply"
 								class="reply-data"
@@ -172,7 +174,17 @@
 							</textarea>
 							<div class="reply-ctrl">
 								<button class="reply-commit" @click="commitReply">发表</button>
-								<a href="javascript:;" @click="activeReply = -1">取消</a>
+								<a class="reply-cancel" href="javascript:;" @click="activeReply = -1">取消</a>
+								<div class="captcha-box">
+									<text-field
+										v-model:value="captchaCR"
+										placeholder="验证码"
+										:isEnableTips="false"
+									></text-field>
+									<div>
+										<captcha ref="captchaCR" :width="74" :height="24" from="COMMENT_REPLY" />
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -186,6 +198,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { toDateTime } from '@/helpers/UnixTime';
+import { resURL } from '@/helpers/Toolkit';
 import CommentAPI from '@/api/CommentAPI';
 import { Comment, CommentReply } from '@/type/Comment';
 import TextField from '@/components/TextInput/TextField.vue';
@@ -209,21 +222,26 @@ export default defineComponent({
 	data(): {
 		activeReply: number; // 激活的回复，-1 为不显示在任何位置
 
-		captcha: string;
 		comment: Comment;
 		comments: Comment[];
+		captchaC: string;
+		captchaCR: string;
 		commentReply: CommentReply;
 		isLoadFinished: boolean;
 		} {
 		return {
 			activeReply: -1,
-			captcha: '',
+
+			// 评论
 			comment: {
 				articleId: this.aid,
 				nick: '',
 				data: ''
 			},
 			comments: [],
+			captchaC: '',
+			// 回复
+			captchaCR: '',
 			commentReply: {
 				commentId: -1,
 				senderId: undefined,
@@ -232,6 +250,7 @@ export default defineComponent({
 				receiverNick: '',
 				data: ''
 			},
+
 			isLoadFinished: false
 		};
 	},
@@ -245,6 +264,9 @@ export default defineComponent({
 		this.$store.state.scroller.add('Comment', this.onScroll);
 	},
 	methods: {
+		resURL(url: string): string {
+			return resURL(url);
+		},
 		toDateTime(unix: number) : string {
 			return toDateTime(unix);
 		},
@@ -268,10 +290,11 @@ export default defineComponent({
 		},
 		// 提交评论
 		async commit() {
-			const result = await CommentAPI.createComment(this.comment, this.captcha);
+			const result = await CommentAPI.createComment(this.comment, this.captchaC);
+			this.captchaC = '';
+			(this.$refs.captchaC as any).update();
 			if (result) {
 				this.comments.unshift(result);
-				this.comment.data = this.captcha = '';
 			}
 		},
 		// 触发回复表单
@@ -304,13 +327,15 @@ export default defineComponent({
 				return;
 			}
 			this.commentReply.senderNick = this.comment.nick;
-			const result = await CommentAPI.createCommentReply(this.commentReply);
+			const result = await CommentAPI.createCommentReply(this.commentReply, this.captchaCR);
+			this.captchaCR = '';
+			(this.$refs.captchaCR as any).update();
 			if (result) {
-				const comment = this.comments.find((comment) => {
+				const comment = this.comments.find(comment => {
 					return comment.id === result.commentId;
 				});
 				if (comment) {
-					if (comment.repliesLength) {
+					if (comment.repliesLength !== undefined) {
 						this.changeReplyPage(comment, Math.floor(comment.repliesLength++ / 6));
 					}
 				}
@@ -361,8 +386,8 @@ export default defineComponent({
 	}
 
 	.comment-commit {
-		border: 2px solid #EED7D7;
-		padding: 1px 22px;
+		border: 1px solid #FAC7D4;
+		padding: 1px 22px 2px 22px;
 		font-size: 15px;
 		margin-right: 6px;
 	}
@@ -375,10 +400,11 @@ export default defineComponent({
 		background: #FFE0DF;
 	}
 
-	.captcha {
-		width: 90px;
+	.captcha-box {
+		width: 80px;
 		display: flex;
 	}
+
 	/* 评论 */
 	.comments {
 		font-size: 13px;
@@ -433,7 +459,7 @@ export default defineComponent({
 	/* 回复 */
 	.comment-sub {
 		display: flex;
-		padding: 6px 0 2px 12px;
+		padding: 6px 0 6px 12px;
 	}
 
 	.comment-sub:nth-child(n + 2) {
@@ -442,7 +468,6 @@ export default defineComponent({
 
 	.comment-sub:first-child {
 		border-top: 2px solid #E4EFFA;
-		padding-top: 12px;
 	}
 
 	.face-sub {
@@ -500,26 +525,36 @@ export default defineComponent({
 
 	.reply-data {
 		width: 90%;
-		border: 2px solid #CDDEF0;
+		border: 1px solid #FAC7D4;
 		background: transparent;
 		margin-bottom: 4px;
 	}
 
 	.reply-ctrl {
 		width: 90%;
+		display: flex;
+    	align-items: center;
 		margin-left: -8px;
 	}
 
 	.reply-commit {
-		border: none;
+		border: 1px solid #FAC7D4;
 		padding: 4px 16px;
-		background: #CDDEF0;
-		margin-right: 10px;
+		background: #EFEFEF;
 		border-radius: 2px;
 	}
 
 	.reply-commit:hover {
-		background: #B9CFE5;
+		background: #EED7D7;
+	}
+
+	.reply-commit:active {
+		background: #FFE0DF;
+	}
+
+	.reply-cancel {
+		padding: 2px 4px;
+		margin: 0 6px;
 	}
 
 	@media screen and (max-width: 900px) {
