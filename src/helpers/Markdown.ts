@@ -163,12 +163,16 @@ export async function parseGithubCommits(el: any): Promise<void> {
 			  repos = el.dataset.repos;
 		let mdTable = '|时间|提交者||更新内容|\n|:---:|---:|---|---|';
 		const commits = await MainAPI.getGithubCommits(user, repos);
-		for (const commit of commits) {
-			const name = commit.name;
-			const date = toDateTime(commit.commitedAt);
-			mdTable += `\n|${date}|${name}||[${commit.msg}](~${commit.url})|`;
+		if (commits) {
+			for (const commit of commits) {
+				const name = commit.name;
+				const date = toDateTime(commit.commitedAt);
+				mdTable += `\n|${date}|${name}||[${commit.msg}](~${commit.url})|`;
+			}
+			el.innerHTML = toHTML(mdTable);
+		} else {
+			el.innerHTML = toHTML(`\`加载失败：${user}/${repos}\``);
 		}
-		el.innerHTML = toHTML(mdTable);
 	}
 }
 
