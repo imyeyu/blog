@@ -12,7 +12,6 @@ export type Article = {
 	reads?: number;
 	likes?: number;
 	comments?: number;
-	isHide?: boolean;
 } & Model
 
 // 文章分类
